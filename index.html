@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kookstore | Tu tienda de K-pop favorita</title>
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
+</head>
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="pages/catalogo.html">Catálogo</a></li>
+                <li><a href="pages/nuestra-empresa.html">Nuestra Empresa</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <!-- Los iconos reales se pondrán después, dejamos los enlaces -->
+            <a href="pages/login.html" class="btn-login">Mi Cuenta</a>
+            <a href="#" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main>
+        
+        <!-- HERO / BANNER PRINCIPAL -->
+        <section class="hero">
+            <div class="hero-contenido">
+                <h1>Tu tienda de K-pop favorita</h1>
+                <p>Encuentra los álbumes más recientes, lightsticks oficiales y merchandising de tus grupos favoritos.</p>
+                <a href="pages/catalogo.html" class="btn-primario">Ver Catálogo</a>
+            </div>
+        </section>
+
+        <!-- CATEGORÍAS RÁPIDAS -->
+        <section class="categorias">
+            <h2>Nuestros Productos</h2>
+            <div class="categorias-grid">
+                <!-- Estructura preparada para el CSS del próximo commit -->
+                <div class="categoria-item"><h3>Álbumes</h3></div>
+                <div class="categoria-item"><h3>Lightsticks</h3></div>
+                <div class="categoria-item"><h3>Peluches & Dolls</h3></div>
+            </div>
+        </section>
+
+        <!-- PRODUCTOS DESTACADOS (Cascarón) -->
+        <section class="productos-destacados">
+            <h2>Destacados de la Semana</h2>
+            <div class="productos-grid">
+                <!-- Producto 1 -->
+                <article class="producto-card">
+                    <img src="assets/img/productos/albumbts.jpg" alt="Love Yourself Answer">
+                    <h4>Love Yourself: Answer</h4>
+                    <p class="grupo">BTS</p>
+                    <p class="precio">$950 MXN</p>
+                    <button class="btn-secundario">Ver producto</button>
+                </article>
+                <!-- Producto 2 -->
+                <article class="producto-card">
+                    <img src="assets/img/productos/lighstickbp.jpg" alt="Hammer Bong">
+                    <h4>Hammer Bong</h4>
+                    <p class="grupo">BLACKPINK</p>
+                    <p class="precio">$1,550 MXN</p>
+                    <button class="btn-secundario">Ver producto</button>
+                </article>
+                <!-- Producto 3 -->
+                <article class="producto-card">
+                    <img src="assets/img/productos/albumskz.jpg" alt="In Life">
+                    <h4>IN LIFE</h4>
+                    <p class="grupo">Stray Kids</p>
+                    <p class="precio">$820 MXN</p>
+                    <button class="btn-secundario">Ver producto</button>
+                </article>
+            </div>
+        </section>
+
+        <!-- POR QUÉ COMPRAR EN KOOKSTORE -->
+        <section class="ventajas">
+            <h2>¿Por qué elegirnos?</h2>
+            <div class="ventajas-grid">
+                <div class="ventaja-item">
+                    <h4>Productos Oficiales</h4>
+                    <p>Importados directamente desde Corea del Sur.</p>
+                </div>
+                <div class="ventaja-item">
+                    <h4>Envíos Seguros</h4>
+                    <p>Empaque reforzado para que tus álbumes lleguen intactos.</p>
+                </div>
+                <div class="ventaja-item">
+                    <h4>Comunidad</h4>
+                    <p>¿Buscas algo específico? Te ayudamos a conseguirlo.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="pages/catalogo.html">Catálogo</a></li>
+                    <li><a href="pages/nuestra-empresa.html">Sobre Nosotros</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx - Proyecto Escolar</p>
+        </div>
+    </footer>
+
+</body>
+</html>

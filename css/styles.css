@@ -1,1 +1,69 @@
- 
+ /* =========================================
+   VARIABLES GLOBALES (Preparando para Commit 2)
+   ========================================= */
+   :root {
+    /* Paleta de colores propuesta (se puede ajustar luego) */
+    --color-primario: #FF6B9E; /* Rosa juvenil K-pop */
+    --color-secundario: #6C5CE7; /* Morado vibrante */
+    --color-fondo: #FDFDFD;
+    --color-texto: #333333;
+    --color-gris: #F4F4F4;
+    
+    /* Tipografías */
+    --fuente-titulos: 'Baloo 2', cursive;
+    --fuente-textos: 'Poppins', sans-serif;
+}
+
+/* =========================================
+   RESET BÁSICO
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fuente-textos);
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--fuente-titulos);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+/* =========================================
+   ESTILOS BASE (Cascarón)
+   ========================================= */
+.header-principal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background-color: white;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.logo-img {
+    max-width: 80px;
+    height: auto;
+}
+
+.nav-principal ul {
+    display: flex;
+    gap: 2rem;
+}
+
+/* El resto del diseño (Grid, Hero, Tarjetas) 
+   se implementará en el Commit 2 */
