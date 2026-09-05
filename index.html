@@ -74,7 +74,7 @@
             <div class="productos-grid">
                 <!-- Producto 1 -->
                 <article class="producto-card">
-                    <img src="assets/img/productos/albumbts.jpg" alt="Love Yourself Answer">
+                    <img src="assets/img/productos/albumlyabts.jpg" alt="Love Yourself Answer">
                     <h4>Love Yourself: Answer</h4>
                     <p class="grupo">BTS</p>
                     <p class="precio">$950 MXN</p>
@@ -82,7 +82,7 @@
                 </article>
                 <!-- Producto 2 -->
                 <article class="producto-card">
-                    <img src="assets/img/productos/lighstickbp.jpg" alt="Hammer Bong">
+                    <img src="assets/img/productos/lightstickbp.jpg" alt="Hammer Bong">
                     <h4>Hammer Bong</h4>
                     <p class="grupo">BLACKPINK</p>
                     <p class="precio">$1,550 MXN</p>
@@ -90,7 +90,7 @@
                 </article>
                 <!-- Producto 3 -->
                 <article class="producto-card">
-                    <img src="assets/img/productos/albumskz.jpg" alt="In Life">
+                    <img src="assets/img/productos/albuminlifeskz.jpg" alt="In Life">
                     <h4>IN LIFE</h4>
                     <p class="grupo">Stray Kids</p>
                     <p class="precio">$820 MXN</p>
@@ -118,6 +118,68 @@
             </div>
         </section>
 
+        <!-- APARTADO DE PREGUNTAS FRECUENTES (ANTES DEL FOOTER) -->
+        <section class="seccion-faq"
+            style="background-color: #F8F9FA; padding: 4rem 5%; border-top: 1px solid #EAEAEA;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="text-align: center; margin-bottom: 2.5rem;">
+                    <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: #333;">Preguntas Frecuentes</h2>
+                    <p style="color: #666;">Resuelve tus dudas sobre compras, envíos y productos oficiales.</p>
+                </div>
+
+                <!-- Lista de Preguntas Frecuentes con Respuesta -->
+                <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem;">
+
+                    <div style="background: #fff; padding: 1.5rem; border-radius: 10px; border: 1px solid #EAEAEA;">
+                        <h4 style="color: #333; margin-bottom: 0.5rem; font-size: 1.1rem;">¿Los álbumes cuentan para las
+                            listas de Hanteo y Circle Chart?</h4>
+                        <p style="color: #666; font-size: 0.95rem; margin: 0;">Sí, absolutamente todos nuestros álbumes
+                            son 100% originales y su compra se registra de manera oficial en las listas de conteo en
+                            Corea del Sur.</p>
+                    </div>
+
+                    <div style="background: #fff; padding: 1.5rem; border-radius: 10px; border: 1px solid #EAEAEA;">
+                        <h4 style="color: #333; margin-bottom: 0.5rem; font-size: 1.1rem;">¿Cuánto tiempo tarda en
+                            llegar mi pedido a domicilio?</h4>
+                        <p style="color: #666; font-size: 0.95rem; margin: 0;">Los envíos nacionales estándar tardan de
+                            3 a 6 días hábiles en llegar a cualquier parte de México una vez procesado el paquete.</p>
+                    </div>
+
+                    <div style="background: #fff; padding: 1.5rem; border-radius: 10px; border: 1px solid #EAEAEA;">
+                        <h4 style="color: #333; margin-bottom: 0.5rem; font-size: 1.1rem;">¿Cómo funcionan las preventas
+                            de los nuevos comebacks?</h4>
+                        <p style="color: #666; font-size: 0.95rem; margin: 0;">Te permitimos asegurar tu copia antes del
+                            lanzamiento oficial. Los envíos de preventa se realizan conforme Corea nos libera los lotes
+                            de mercancía.</p>
+                    </div>
+
+                </div>
+
+                <!-- Formulario interactivo para teclear tu propia pregunta -->
+                <div
+                    style="background: #fff; padding: 2.5rem; border-radius: 12px; border: 1px solid #EAEAEA; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-align: center;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: #333; text-align: left;">¿Tienes alguna
+                        otra duda? Escríbela aquí:</h3>
+
+                    <form id="form-pregunta" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <input type="text" id="input-pregunta" placeholder="Ej. ¿Hacen entregas personales en CDMX?"
+                            required
+                            style="padding: 0.9rem 1rem; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; outline: none;">
+                        <button type="submit"
+                            style="padding: 0.9rem; background-color: #333; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.3s;">
+                            Enviar pregunta
+                        </button>
+                    </form>
+
+                    <!-- Mensaje de éxito dinámico -->
+                    <div id="mensaje-exito"
+                        style="display: none; margin-top: 1rem; padding: 0.9rem; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 8px; font-weight: 500;">
+                        Mensaje enviado a kookstore
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- PIE DE PÁGINA (FOOTER) -->
@@ -132,7 +194,7 @@
                 <ul>
                     <li><a href="pages/catalogo.html">Catálogo</a></li>
                     <li><a href="pages/nuestra-empresa.html">Sobre Nosotros</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li><a href="pages/contacto.html">Contacto</a></li>
                 </ul>
             </div>
             <div class="footer-legal">
@@ -144,9 +206,33 @@
             </div>
         </div>
         <div class="footer-copyright">
-            <p>© 2026 Kookstore.mx - Proyecto Escolar</p>
+            <p>© 2026 Kookstore.mx</p>
         </div>
     </footer>
+
+    <!-- SCRIPT PARA MANEJAR EL ENVÍO DE LA PREGUNTA -->
+    <script>
+        const formPregunta = document.getElementById('form-pregunta');
+        const inputPregunta = document.getElementById('input-pregunta');
+        const mensajeExito = document.getElementById('mensaje-exito');
+
+        formPregunta.addEventListener('submit', function (e) {
+            e.preventDefault(); // Evita que se recargue la página
+
+            if (inputPregunta.value.trim() !== "") {
+                // Muestra el mensaje con el texto requerido
+                mensajeExito.style.display = 'block';
+
+                // Limpia el campo de texto
+                inputPregunta.value = '';
+
+                // Oculta el mensaje automáticamente después de 4 segundos
+                setTimeout(() => {
+                    mensajeExito.style.display = 'none';
+                }, 4000);
+            }
+        });
+    </script>
 
 </body>
 
