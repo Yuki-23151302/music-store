@@ -1,14 +1,14 @@
-/* =========================================
-   VARIABLES GLOBALES Y CONFIGURACIÓN BASE
-   ========================================= */
+/* VARIABLES GLOBALES Y CONFIGURACIÓN BASE */
 :root {
-    --color-primario: #FF6B9E; /* Rosa juvenil K-pop */
-    --color-secundario: #6C5CE7; /* Morado vibrante */
+    --color-primario: #FF6B9E;
+    /* Rosa juvenil K-pop */
+    --color-secundario: #6C5CE7;
+    /* Morado vibrante */
     --color-fondo: #FDFDFD;
     --color-texto: #333333;
     --color-gris-claro: #F8F9FA;
     --color-borde: #EAEAEA;
-    
+
     --fuente-titulos: 'Baloo 2', cursive;
     --fuente-textos: 'Poppins', sans-serif;
 }
@@ -26,7 +26,10 @@ body {
     line-height: 1.6;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: var(--fuente-titulos);
     color: #2D3436;
 }
@@ -40,9 +43,7 @@ ul {
     list-style: none;
 }
 
-/* =========================================
-   HEADER / NAVEGACIÓN PRINCIPAL
-   ========================================= */
+/* HEADER / NAVEGACIÓN PRINCIPAL */
 .header-principal {
     display: flex;
     justify-content: space-between;
@@ -56,7 +57,8 @@ ul {
 }
 
 .logo-img {
-    width: 60px; /* Corregido para que no se vea gigante */
+    width: 60px;
+    /* Corregido para que no se vea gigante */
     height: auto;
     display: block;
 }
@@ -104,9 +106,7 @@ ul {
     font-weight: 600;
 }
 
-/* =========================================
-   HERO / BANNER PRINCIPAL
-   ========================================= */
+/* HERO / BANNER PRINCIPAL */
 .hero {
     background: linear-gradient(135deg, rgba(255, 107, 158, 0.1), rgba(108, 92, 231, 0.1));
     padding: 5rem 5%;
@@ -146,15 +146,15 @@ ul {
     transform: translateY(-2px);
 }
 
-/* =========================================
-   CATEGORÍAS RÁPIDAS
-   ========================================= */
+/* CATEGORÍAS RÁPIDAS */
 .categorias {
     padding: 4rem 5%;
     text-align: center;
 }
 
-.categorias h2, .productos-destacados h2, .ventajas h2 {
+.categorias h2,
+.productos-destacados h2,
+.ventajas h2 {
     font-size: 2rem;
     margin-bottom: 2rem;
 }
@@ -175,12 +175,10 @@ ul {
 
 .categoria-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* =========================================
-   PRODUCTOS DESTACADOS
-   ========================================= */
+/* PRODUCTOS DESTACADOS */
 .productos-destacados {
     padding: 4rem 5%;
     background-color: var(--color-gris-claro);
@@ -254,9 +252,7 @@ ul {
     color: white;
 }
 
-/* =========================================
-   VENTAJAS
-   ========================================= */
+/* VENTAJAS */
 .ventajas {
     padding: 4rem 5%;
     text-align: center;
@@ -282,9 +278,7 @@ ul {
     font-size: 0.95rem;
 }
 
-/* =========================================
-   FOOTER
-   ========================================= */
+/* FOOTER */
 .footer-principal {
     background-color: #2D3436;
     color: white;
@@ -298,12 +292,14 @@ ul {
     margin-bottom: 2rem;
 }
 
-.footer-principal h3, .footer-principal h4 {
+.footer-principal h3,
+.footer-principal h4 {
     color: white;
     margin-bottom: 1rem;
 }
 
-.footer-principal p, .footer-principal a {
+.footer-principal p,
+.footer-principal a {
     color: #b2bec3;
     font-size: 0.9rem;
 }
@@ -324,4 +320,860 @@ ul {
     border-top: 1px solid #485460;
     font-size: 0.85rem;
     color: #636e72;
+}
+
+/* PREGUNTAS FRECUENTES - FAQ */
+
+.seccion-faq {
+    background: #f8f9fa;
+    padding: 80px 5%;
+    border-top: 1px solid #eaeaea;
+}
+
+.faq-contenedor {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* --ENCABEZADO -- */
+
+.faq-encabezado {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.faq-subtitulo {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #8b5cf6;
+    margin-bottom: 10px;
+}
+
+.faq-encabezado h2 {
+    margin: 0 0 12px;
+    font-size: 2.2rem;
+    color: #333;
+    font-family: 'Baloo 2', sans-serif;
+}
+
+.faq-encabezado p {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #777;
+    font-size: 0.98rem;
+    line-height: 1.7;
+}
+
+
+/* -- LISTA FAQ -- */
+
+.faq-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 55px;
+}
+
+.faq-item {
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: #d8c8f7;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+}
+
+
+/* -- BOTÓN DE PREGUNTA -- */
+
+.faq-pregunta {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    font-size: 0.98rem;
+    font-weight: 600;
+}
+
+.faq-pregunta:hover {
+    background: #fcfaff;
+}
+
+
+/* -- ICONO + -- */
+
+.faq-icono {
+    min-width: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0eafa;
+    color: #8b5cf6;
+    font-size: 1.3rem;
+    font-weight: 400;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+
+/* -- RESPUESTA -- */
+
+.faq-respuesta {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 24px;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.faq-respuesta p {
+    margin: 0;
+    padding-bottom: 22px;
+    color: #707070;
+    font-size: 0.93rem;
+    line-height: 1.7;
+}
+
+
+/* -- FAQ ABIERTA -- */
+
+.faq-item.activa {
+    border-color: #d8c8f7;
+}
+
+.faq-item.activa .faq-respuesta {
+    max-height: 250px;
+    padding-top: 0;
+}
+
+.faq-item.activa .faq-icono {
+    transform: rotate(45deg);
+    background: #8b5cf6;
+    color: white;
+}
+
+
+/* FORMULARIO DE PREGUNTA */
+
+.faq-contacto {
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 18px;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+}
+
+.faq-contacto-texto {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.faq-contacto-texto .faq-subtitulo {
+    margin-bottom: 5px;
+}
+
+.faq-contacto-texto h3 {
+    margin: 0 0 8px;
+    font-size: 1.5rem;
+    color: #333;
+    font-family: 'Baloo 2', sans-serif;
+}
+
+.faq-contacto-texto p {
+    margin: 0;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+
+/* -- INPUT -- */
+
+.form-pregunta {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.input-contenedor {
+    width: 100%;
+}
+
+.input-contenedor input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 17px;
+    border: 1px solid #d8d8d8;
+    border-radius: 10px;
+    background: #fafafa;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.93rem;
+    color: #333;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-contenedor input:focus {
+    border-color: #8b5cf6;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.10);
+}
+
+.input-contenedor input::placeholder {
+    color: #aaa;
+}
+
+
+/* -- BOTÓN ENVIAR PREGUNTA -- */
+
+.btn-enviar-pregunta {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #333;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-enviar-pregunta:hover {
+    background: #8b5cf6;
+    transform: translateY(-1px);
+}
+
+
+/* MENSAJE DE ÉXITO */
+
+.mensaje-exito {
+    display: none;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+    padding: 16px 18px;
+    background: #f0fff4;
+    border: 1px solid #b7e4c7;
+    border-radius: 10px;
+    color: #246b3c;
+    animation: aparecerMensaje 0.35s ease;
+}
+
+.mensaje-icono {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: #2e9d55;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.mensaje-exito strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.mensaje-exito p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+@keyframes aparecerMensaje {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+
+    .seccion-faq {
+        padding: 55px 5%;
+    }
+
+    .faq-encabezado h2 {
+        font-size: 1.8rem;
+    }
+
+    .faq-pregunta {
+        padding: 18px;
+        font-size: 0.9rem;
+    }
+
+    .faq-respuesta {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .faq-contacto {
+        padding: 25px 20px;
+    }
+
+}
+
+/* =========================================================
+   NUESTRA EMPRESA
+   ========================================================= */
+
+/* HERO DE EMPRESA */
+.empresa-hero {
+    background:
+        linear-gradient(135deg,
+            rgba(255, 107, 158, 0.12),
+            rgba(108, 92, 231, 0.12));
+
+    padding: 6rem 5%;
+    text-align: center;
+
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.empresa-hero-contenido {
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.empresa-etiqueta {
+    display: inline-block;
+
+    color: var(--color-secundario);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 0.8rem;
+}
+
+.empresa-hero h1 {
+    font-size: 3.2rem;
+    margin-bottom: 1rem;
+}
+
+.empresa-hero p {
+    max-width: 650px;
+    margin: 0 auto;
+
+    color: #666;
+
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* HISTORIA */
+.empresa-historia {
+    padding: 6rem 5%;
+    background-color: #ffffff;
+}
+
+.empresa-historia-contenedor {
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.2fr) minmax(300px, 0.8fr);
+
+    gap: 5rem;
+
+    align-items: center;
+}
+
+.empresa-subtitulo {
+    display: inline-block;
+
+    color: var(--color-secundario);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 0.8rem;
+}
+
+.empresa-historia-texto h2 {
+    font-size: 2.4rem;
+
+    margin-bottom: 1.5rem;
+}
+
+.empresa-historia-texto p {
+    color: #666;
+
+    font-size: 0.95rem;
+
+    line-height: 1.8;
+
+    margin-bottom: 1rem;
+}
+
+/* TARJETA DEL LOGO */
+.empresa-historia-visual {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.empresa-logo-card {
+    width: 100%;
+    max-width: 360px;
+
+    padding: 3rem 2rem;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f8f9fa);
+
+    border: 1px solid var(--color-borde);
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.07);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.empresa-logo-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 45px rgba(108, 92, 231, 0.12);
+}
+
+.empresa-logo-card img {
+    width: 130px;
+
+    height: 130px;
+
+    object-fit: contain;
+
+    margin-bottom: 1.2rem;
+}
+
+.empresa-logo-card h3 {
+    font-size: 1.6rem;
+
+    margin-bottom: 0.3rem;
+}
+
+.empresa-logo-card p {
+    color: #777;
+
+    font-size: 0.9rem;
+}
+
+/* ENCABEZADOS DE SECCIÓN */
+.empresa-seccion-encabezado {
+    max-width: 700px;
+
+    margin: 0 auto 3rem;
+
+    text-align: center;
+}
+
+.empresa-seccion-encabezado h2 {
+    font-size: 2.3rem;
+
+    margin-bottom: 0.8rem;
+}
+
+.empresa-seccion-encabezado p {
+    color: #777;
+
+    font-size: 0.95rem;
+
+    line-height: 1.7;
+}
+
+/* MISIÓN Y VISIÓN */
+.empresa-mision-vision {
+    padding: 6rem 5%;
+
+    background-color: var(--color-gris-claro);
+}
+
+.empresa-mv-grid {
+    max-width: 950px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 2rem;
+}
+
+.empresa-mv-card {
+    background-color: #ffffff;
+
+    padding: 2.8rem;
+
+    border-radius: 18px;
+
+    border: 1px solid var(--color-borde);
+
+    text-align: center;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.empresa-mv-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.empresa-mv-icono {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 1.2rem;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 107, 158, 0.12),
+            rgba(108, 92, 231, 0.12));
+
+    font-size: 1.8rem;
+}
+
+.empresa-mv-card h3 {
+    font-size: 1.5rem;
+
+    color: var(--color-secundario);
+
+    margin-bottom: 0.8rem;
+}
+
+.empresa-mv-card p {
+    color: #666;
+
+    font-size: 0.92rem;
+
+    line-height: 1.8;
+}
+
+
+/* VALORES */
+.empresa-valores {
+    padding: 6rem 5%;
+
+    background-color: #ffffff;
+}
+
+.empresa-valores-grid {
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 1.5rem;
+}
+
+.empresa-valor {
+    padding: 2rem 1.5rem;
+
+    text-align: center;
+
+    border-radius: 16px;
+
+    border: 1px solid var(--color-borde);
+
+    background-color: #ffffff;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.empresa-valor:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.empresa-valor-icono {
+    font-size: 2rem;
+
+    margin-bottom: 1rem;
+}
+
+.empresa-valor h3 {
+    font-size: 1.3rem;
+
+    color: var(--color-secundario);
+
+    margin-bottom: 0.7rem;
+}
+
+.empresa-valor p {
+    color: #777;
+
+    font-size: 0.87rem;
+
+    line-height: 1.7;
+}
+
+
+/* BENEFICIOS */
+.empresa-beneficios {
+    padding: 6rem 5%;
+
+    background-color: var(--color-gris-claro);
+}
+
+.empresa-beneficios-contenedor {
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(250px, 0.8fr) minmax(400px, 1.2fr);
+
+    gap: 5rem;
+
+    align-items: center;
+}
+
+.empresa-beneficios-texto h2 {
+    font-size: 2.3rem;
+
+    margin-bottom: 1rem;
+}
+
+.empresa-beneficios-texto p {
+    color: #666;
+
+    font-size: 0.95rem;
+
+    line-height: 1.8;
+}
+
+.empresa-beneficios-grid {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1.2rem;
+}
+
+.empresa-beneficio {
+    display: flex;
+
+    gap: 1.2rem;
+
+    align-items: flex-start;
+
+    padding: 1.4rem;
+
+    background-color: #ffffff;
+
+    border: 1px solid var(--color-borde);
+
+    border-radius: 14px;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.empresa-beneficio:hover {
+    transform: translateX(5px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.beneficio-numero {
+    min-width: 42px;
+
+    color: var(--color-primario);
+
+    font-family: var(--fuente-titulos);
+
+    font-size: 1.1rem;
+
+    font-weight: 700;
+}
+
+.empresa-beneficio h3 {
+    font-size: 1.1rem;
+
+    margin-bottom: 0.3rem;
+}
+
+.empresa-beneficio p {
+    color: #777;
+
+    font-size: 0.85rem;
+
+    line-height: 1.6;
+}
+
+/* LLAMADA A LA ACCIÓN */
+.empresa-cta {
+    padding: 6rem 5%;
+
+    text-align: center;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 107, 158, 0.08),
+            rgba(108, 92, 231, 0.08));
+}
+
+.empresa-cta-contenido {
+    max-width: 700px;
+
+    margin: 0 auto;
+}
+
+.empresa-cta h2 {
+    font-size: 2.4rem;
+
+    margin-bottom: 0.8rem;
+}
+
+.empresa-cta p {
+    color: #666;
+
+    font-size: 0.95rem;
+
+    margin-bottom: 1.8rem;
+}
+
+
+/* RESPONSIVE - NUESTRA EMPRESA */
+@media (max-width: 900px) {
+
+    .empresa-historia-contenedor {
+        grid-template-columns: 1fr;
+
+        gap: 3rem;
+    }
+
+    .empresa-historia-texto {
+        text-align: center;
+    }
+
+    .empresa-valores-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .empresa-beneficios-contenedor {
+        grid-template-columns: 1fr;
+
+        gap: 3rem;
+    }
+
+    .empresa-beneficios-texto {
+        text-align: center;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .empresa-hero {
+        padding: 4rem 5%;
+    }
+
+    .empresa-hero h1 {
+        font-size: 2.3rem;
+    }
+
+    .empresa-hero p {
+        font-size: 0.95rem;
+    }
+
+    .empresa-historia,
+    .empresa-mision-vision,
+    .empresa-valores,
+    .empresa-beneficios,
+    .empresa-cta {
+        padding: 4rem 5%;
+    }
+
+    .empresa-historia-texto h2,
+    .empresa-seccion-encabezado h2,
+    .empresa-beneficios-texto h2,
+    .empresa-cta h2 {
+        font-size: 1.9rem;
+    }
+
+    .empresa-mv-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .empresa-valores-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .empresa-mv-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .empresa-beneficio {
+        padding: 1.2rem;
+    }
 }

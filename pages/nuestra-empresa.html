@@ -4,19 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Nuestra Empresa | Kookstore.mx</title>
+
     <!-- Fuentes de Google -->
     <link
         href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
-    <!-- CSS Principal (ajustando la ruta relativa desde la carpeta pages) -->
+
+    <!-- CSS Principal -->
     <link rel="stylesheet" href="../css/estilos.css">
+
+    <!-- Favicon -->
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 </head>
 
 <body>
 
-    <!-- CABECERA (HEADER) -->
+    <!-- HEADER / NAVEGACIÓN -->
     <header class="header-principal">
         <div class="logo-container">
             <a href="../index.html">
@@ -25,92 +30,385 @@
         </div>
         <nav class="nav-principal">
             <ul>
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
+                <li>
+                    <a href="../index.html">Inicio</a>
+                </li>
+                <li>
+                    <a href="catalogo.html">Catálogo</a>
+                </li>
+                <li>
+                    <a href="nuestra-empresa.html">Nuestra Empresa</a>
+                </li>
+                <li>
+                    <a href="contacto.html">Contacto</a>
+                </li>
             </ul>
         </nav>
         <div class="iconos-usuario">
-            <a href="login.html" class="btn-login">Mi Cuenta</a>
-            <a href="#" class="btn-carrito">Carrito (0)</a>
+            <a href="login.html" class="btn-login">
+                Mi Cuenta
+            </a>
+            <a href="#" class="btn-carrito">
+                Carrito (0)
+            </a>
         </div>
     </header>
 
-    <!-- CONTENEDOR PRINCIPAL -->
+    <!-- CONTENIDO PRINCIPAL -->
     <main>
 
-        <!-- SECCIÓN HERO DE LA EMPRESA -->
-        <section class="hero">
-            <div class="hero-contenido">
-                <h1>Sobre Kookstore.mx</h1>
-                <p>Acercando Corea del Sur y tu música favorita hasta la puerta de tu casa en México.</p>
+        <!-- HERO -->
+        <section class="empresa-hero">
+            <div class="empresa-hero-contenido">
+                <span class="empresa-etiqueta">
+                    CONÓCENOS
+                </span>
+                <h1>
+                    Sobre Kookstore.mx
+                </h1>
+                <p>
+                    Somos una tienda dedicada a conectar a los fans
+                    del K-pop en México con sus artistas y productos
+                    favoritos.
+                </p>
             </div>
         </section>
 
-        <!-- HISTORIA Y PROPÓSITO -->
-        <section class="seccion-empresa" style="padding: 4rem 5%;">
-            <div class="empresa-grid"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
-                <div>
-                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Nuestra Historia</h2>
-                    <p style="color: #666; margin-bottom: 1rem;">
-                        Kookstore.mx nació de la auténtica pasión por el K-pop y la cultura coreana. Lo que comenzó como
-                        un pequeño emprendimiento, ha evolucionado en un espacio dedicado a conectar a la comunidad con productos
-                        oficiales de la más alta calidad.
+        <!-- QUIÉNES SOMOS -->
+        <section class="empresa-historia">
+            <div class="empresa-historia-contenedor">
+                <div class="empresa-historia-texto">
+                    <span class="empresa-subtitulo">
+                        NUESTRA HISTORIA
+                    </span>
+                    <h2>
+                        Más que una tienda, una comunidad
+                    </h2>
+                    <p>
+                        Kookstore.mx nació de la pasión por el K-pop
+                        y la cultura coreana. Nuestro objetivo es
+                        crear un espacio donde los fans puedan
+                        encontrar productos relacionados con sus
+                        artistas favoritos de una manera sencilla,
+                        segura y confiable.
                     </p>
-                    <p style="color: #666;">
-                        Entendemos la emoción de recibir un álbum, cuidar una photocard o iluminar un concierto con el
-                        lightstick oficial de tu grupo favorito, por lo que cuidamos cada detalle en el manejo de
-                        nuestros artículos.
+                    <p>
+                        Sabemos la emoción que existe detrás de cada
+                        álbum, photocard, lightstick o producto de
+                        colección. Por eso buscamos cuidar cada
+                        detalle, desde la selección de nuestros
+                        productos hasta la experiencia de compra.
+                    </p>
+                    <p>
+                        Queremos que Kookstore.mx sea un punto de
+                        encuentro para todos aquellos que comparten
+                        el amor por la música y la cultura del K-pop.
                     </p>
                 </div>
-                <div
-                    style="background-color: #F8F9FA; padding: 2.5rem; border-radius: 12px; border: 1px solid #EAEAEA;">
-                    <h3 style="color: var(--color-secundario); margin-bottom: 1rem; font-size: 1.5rem;">Misión</h3>
-                    <p style="color: #666; margin-bottom: 2rem;">
-                        Proveer productos de K-pop 100% confiables y seguros en México, garantizando una experiencia de
-                        compra cercana y transparente para cada fan.
-                    </p>
-                    <h3 style="color: var(--color-primario); margin-bottom: 1rem; font-size: 1.5rem;">Visión</h3>
-                    <p style="color: #666;">
-                        Ser la tienda de referencia juvenil en línea preferida por la comunidad del K-pop nacional,
-                        destacando por nuestro compromiso y atención personalizada.
-                    </p>
+
+                <div class="empresa-historia-visual">
+                    <div class="empresa-logo-card">
+                        <img src="../assets/img/logo.png" alt="Logo de Kookstore.mx">
+                        <h3>
+                            Kookstore.mx
+                        </h3>
+                        <p>
+                            Tu espacio para vivir el K-pop.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- MISIÓN Y VISIÓN -->
+        <section class="empresa-mision-vision">
+            <div class="empresa-seccion-encabezado">
+                <span class="empresa-subtitulo">
+                    NUESTRO PROPÓSITO
+                </span>
+                <h2>
+                    Misión y Visión
+                </h2>
+                <p>
+                    Trabajamos para ofrecer una experiencia de compra
+                    pensada especialmente para la comunidad del K-pop.
+                </p>
+            </div>
+
+            <div class="empresa-mv-grid">
+
+                <!-- MISIÓN -->
+                <article class="empresa-mv-card">
+                    <div class="empresa-mv-icono">
+                        💜
+                    </div>
+                    <h3>
+                        Nuestra Misión
+                    </h3>
+                    <p>
+                        Proveer productos de K-pop originales y
+                        confiables en México, ofreciendo una experiencia
+                        de compra segura, cercana y transparente para
+                        cada fan.
+                    </p>
+                </article>
+
+                <!-- VISIÓN -->
+                <article class="empresa-mv-card">
+                    <div class="empresa-mv-icono">
+                        ✨
+                    </div>
+                    <h3>
+                        Nuestra Visión
+                    </h3>
+                    <p>
+                        Convertirnos en una de las tiendas de referencia
+                        para la comunidad del K-pop en México,
+                        destacando por nuestra calidad, atención y
+                        compromiso con nuestros clientes.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- VALORES -->
+        <section class="empresa-valores">
+            <div class="empresa-seccion-encabezado">
+                <span class="empresa-subtitulo">
+                    LO QUE NOS REPRESENTA
+                </span>
+                <h2>
+                    Nuestros Valores
+                </h2>
+                <p>
+                    Estos son los principios que buscamos mantener
+                    en cada interacción con nuestra comunidad.
+                </p>
+            </div>
+
+            <div class="empresa-valores-grid">
+
+                <!-- VALOR 1 -->
+                <article class="empresa-valor">
+                    <div class="empresa-valor-icono">
+                        💎
+                    </div>
+                    <h3>
+                        Calidad
+                    </h3>
+                    <p>
+                        Buscamos ofrecer productos seleccionados
+                        con atención a cada detalle.
+                    </p>
+                </article>
+
+                <!-- VALOR 2 -->
+                <article class="empresa-valor">
+                    <div class="empresa-valor-icono">
+                        🔒
+                    </div>
+                    <h3>
+                        Confianza
+                    </h3>
+                    <p>
+                        Queremos que cada compra sea una experiencia
+                        segura y transparente.
+                    </p>
+                </article>
+
+                <!-- VALOR 3 -->
+                <article class="empresa-valor">
+                    <div class="empresa-valor-icono">
+                        💗
+                    </div>
+                    <h3>
+                        Pasión
+                    </h3>
+                    <p>
+                        Compartimos el entusiasmo por el K-pop y
+                        buscamos transmitirlo en nuestro trabajo.
+                    </p>
+                </article>
+
+                <!-- VALOR 4 -->
+                <article class="empresa-valor">
+                    <div class="empresa-valor-icono">
+                        🤝
+                    </div>
+                    <h3>
+                        Comunidad
+                    </h3>
+                    <p>
+                        Creemos en crear un espacio para conectar
+                        y compartir nuestra pasión.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- POR QUÉ ELEGIR KOOKSTORE -->
+        <section class="empresa-beneficios">
+            <div class="empresa-beneficios-contenedor">
+                <div class="empresa-beneficios-texto">
+                    <span class="empresa-subtitulo">
+                        ¿POR QUÉ KOOKSTORE?
+                    </span>
+                    <h2>
+                        Pensamos en los fans
+                    </h2>
+                    <p>
+                        Cada parte de nuestra tienda está pensada para
+                        que encontrar tus productos favoritos sea una
+                        experiencia sencilla y agradable.
+                    </p>
+                </div>
+
+                <div class="empresa-beneficios-grid">
+                    <div class="empresa-beneficio">
+                        <span class="beneficio-numero">
+                            01
+                        </span>
+                        <div>
+                            <h3>
+                                Productos seleccionados
+                            </h3>
+                            <p>
+                                Elegimos productos pensando en los
+                                gustos y necesidades de nuestra comunidad.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="empresa-beneficio">
+                        <span class="beneficio-numero">
+                            02
+                        </span>
+                        <div>
+                            <h3>
+                                Compra sencilla
+                            </h3>
+                            <p>
+                                Diseñamos nuestra tienda para que
+                                navegar y encontrar productos sea fácil.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="empresa-beneficio">
+                        <span class="beneficio-numero">
+                            03
+                        </span>
+                        <div>
+                            <h3>
+                                Atención cercana
+                            </h3>
+                            <p>
+                                Queremos mantener una comunicación
+                                clara y cercana con nuestros clientes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="empresa-beneficio">
+                        <span class="beneficio-numero">
+                            04
+                        </span>
+                        <div>
+                            <h3>
+                                Comunidad K-pop
+                            </h3>
+                            <p>
+                                Buscamos construir un espacio donde
+                                los fans puedan sentirse identificados.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LLAMADA A LA ACCIÓN -->
+        <section class="empresa-cta">
+            <div class="empresa-cta-contenido">
+                <span class="empresa-subtitulo">
+                    FORMA PARTE DE KOOKSTORE
+                </span>
+                <h2>
+                    Tu próximo álbum favorito te espera
+                </h2>
+                <p>
+                    Explora nuestro catálogo y descubre productos
+                    para seguir disfrutando del K-pop.
+                </p>
+                <a href="catalogo.html" class="btn-primario">
+                    Ver catálogo
+                </a>
+            </div>
+        </section>
     </main>
 
-    <!-- PIE DE PÁGINA (FOOTER) -->
+    <!-- FOOTER -->
     <footer class="footer-principal">
         <div class="footer-grid">
             <div class="footer-info">
-                <h3>Kookstore.mx</h3>
-                <p>Tu tienda confiable de K-pop en México.</p>
+                <h3>
+                    Kookstore.mx
+                </h3>
+                <p>
+                    Tu tienda confiable de K-pop en México.
+                </p>
             </div>
+
             <div class="footer-enlaces">
-                <h4>Enlaces Rápidos</h4>
+                <h4>
+                    Enlaces Rápidos
+                </h4>
+
                 <ul>
-                    <li><a href="catalogo.html">Catálogo</a></li>
-                    <li><a href="nuestra-empresa.html">Sobre Nosotros</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
+                    <li>
+                        <a href="catalogo.html">
+                            Catálogo
+                        </a>
+                    </li>
+                    <li>
+                        <a href="nuestra-empresa.html">
+                            Sobre Nosotros
+                        </a>
+                    </li>
+                    <li>
+                        <a href="contacto.html">
+                            Contacto
+                        </a>
+                    </li>
                 </ul>
             </div>
+
             <div class="footer-legal">
-                <h4>Ayuda</h4>
+                <h4>
+                    Ayuda
+                </h4>
+
                 <ul>
-                    <li><a href="#">Preguntas Frecuentes</a></li>
-                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li>
+                        <a href="../index.html#faq">
+                            Preguntas Frecuentes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Términos y Condiciones
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
+
         <div class="footer-copyright">
-            <p>© 2026 Kookstore.mx</p>
+            <p>
+                © 2026 Kookstore.mx
+            </p>
         </div>
     </footer>
-
 </body>
 
 </html>
