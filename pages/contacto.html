@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto y Redes | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="contacto.html" style="color: var(--color-primario);">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="#" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main>
+
+        <!-- HERO DE CONTACTO -->
+        <section class="hero" style="padding: 3rem 5%;">
+            <div class="hero-contenido">
+                <h1>Ponte en Contacto</h1>
+                <p>¿Tienes dudas sobre tu pedido, un álbum en específico o pedidos especiales? Escríbenos.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE FORMULARIO Y REDES -->
+        <section style="padding: 4rem 5%; background-color: var(--color-gris-claro);">
+            <div
+                style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+
+                <!-- Formulario de Contacto -->
+                <div
+                    style="background: white; padding: 2.5rem; border-radius: 12px; border: 1px solid var(--color-borde); box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #2D3436;">Envíanos un mensaje</h3>
+
+                    <form
+                        onsubmit="event.preventDefault(); alert('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.');">
+                        <div style="margin-bottom: 1.2rem;">
+                            <label
+                                style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Nombre</label>
+                            <input type="text" placeholder="Tu nombre" required
+                                style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos);">
+                        </div>
+
+                        <div style="margin-bottom: 1.2rem;">
+                            <label
+                                style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Correo
+                                Electrónico</label>
+                            <input type="email" placeholder="tucorreo@example.com" required
+                                style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos);">
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label
+                                style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Mensaje</label>
+                            <textarea rows="4" placeholder="Escribe tu consulta aquí..." required
+                                style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos); resize: vertical;"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primario"
+                            style="width: 100%; border: none; cursor: pointer; text-align: center; font-size: 1rem;">Enviar
+                            Mensaje</button>
+                    </form>
+                </div>
+
+                <!-- Redes Sociales e Información -->
+                <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 2rem;">
+
+                    <div
+                        style="background: white; padding: 2.5rem; border-radius: 12px; border: 1px solid var(--color-borde); box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--color-secundario);">Nuestras
+                            Redes Sociales</h3>
+                        <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">
+                            Síguenos para enterarte de preventas exclusivas, unboxing de nuevos álbumes y avisos de
+                            llegada de mercancía oficial.
+                        </p>
+
+                        <ul style="display: flex; flex-direction: column; gap: 1rem;">
+                            <li>
+                                <a href="https://instagram.com" target="_blank"
+                                    style="display: flex; align-items: center; gap: 0.8rem; font-weight: 600; color: #333; transition: color 0.2s;">
+                                    <span
+                                        style="background: rgba(255, 107, 158, 0.1); color: var(--color-primario); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">IG</span>
+                                    Instagram: @kookstore.mx
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://tiktok.com" target="_blank"
+                                    style="display: flex; align-items: center; gap: 0.8rem; font-weight: 600; color: #333; transition: color 0.2s;">
+                                    <span
+                                        style="background: rgba(108, 92, 231, 0.1); color: var(--color-secundario); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">TK</span>
+                                    TikTok: @kookstore_mx
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com" target="_blank"
+                                    style="display: flex; align-items: center; gap: 0.8rem; font-weight: 600; color: #333; transition: color 0.2s;">
+                                    <span
+                                        style="background: rgba(0, 184, 148, 0.1); color: #00b894; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">X</span>
+                                    X (Twitter): @KookstoreMx
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div
+                        style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--color-borde);">
+                        <h4 style="margin-bottom: 0.5rem; color: #2D3436;">Atención al Cliente</h4>
+                        <p style="color: #666; font-size: 0.9rem;">Lunes a Viernes de 10:00 AM a 7:00
+                            PM.<br>contacto@kookstore.mx</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="nuestra-empresa.html">Sobre Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx - Proyecto Escolar</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
