@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="#" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL (FORMULARIO DE REGISTRO) -->
+    <main
+        style="padding: 4rem 5%; display: flex; justify-content: center; align-items: center; background-color: var(--color-gris-claro);">
+        <div
+            style="background: white; padding: 2.5rem; border-radius: 12px; border: 1px solid var(--color-borde); width: 100%; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.03);">
+
+            <h2 style="text-align: center; margin-bottom: 0.5rem; font-size: 2rem;">Crear Cuenta</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 2rem; font-size: 0.95rem;">Regístrate para
+                realizar tus pedidos en Kookstore.mx</p>
+
+            <!-- Formulario visual (Simulado para el Bloque 1) -->
+            <form onsubmit="event.preventDefault(); window.location.href='perfil.html';">
+                <div style="margin-bottom: 1.2rem;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Nombre
+                        Completo</label>
+                    <input type="text" placeholder="Ej. Sofia Park" required
+                        style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos);">
+                </div>
+
+                <div style="margin-bottom: 1.2rem;">
+                    <label style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Correo
+                        Electrónico</label>
+                    <input type="email" placeholder="tucorreo@example.com" required
+                        style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos);">
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label
+                        style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Contraseña</label>
+                    <input type="password" placeholder="••••••••" required
+                        style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos);">
+                </div>
+
+                <button type="submit" class="btn-primario"
+                    style="width: 100%; border: none; cursor: pointer; text-align: center; font-size: 1rem;">Registrarse</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
+                ¿Ya tienes una cuenta? <a href="login.html"
+                    style="color: var(--color-secundario); font-weight: 600;">Inicia sesión</a>
+            </p>
+
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="nuestra-empresa.html">Sobre Nosotros</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx - Proyecto Escolar</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

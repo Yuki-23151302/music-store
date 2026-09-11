@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="perfil.html" class="btn-login" style="background-color: var(--color-primario); color: white;">Mi Cuenta</a>
+            <a href="#" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL (PANEL DE PERFIL) -->
+    <main style="padding: 4rem 5%; background-color: var(--color-gris-claro);">
+        <div style="max-width: 900px; margin: 0 auto;">
+            
+            <!-- Encabezado del Perfil -->
+            <div style="background: white; padding: 2.5rem; border-radius: 12px; border: 1px solid var(--color-borde); margin-bottom: 2rem; display: flex; align-items: center; gap: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                <div style="width: 80px; height: 80px; background-color: rgba(255, 107, 158, 0.1); color: var(--color-primario); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700;">
+                    SP
+                </div>
+                <div>
+                    <h2 style="font-size: 1.8rem; margin-bottom: 0.2rem;">Sofia Park</h2>
+                    <p style="color: #666; font-size: 0.95rem;">sofiapark@example.com • Miembro desde Agosto 2026</p>
+                </div>
+            </div>
+
+            <!-- Grid de Información y Pedidos -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                
+                <!-- Datos de Envío -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--color-borde);">
+                    <h3 style="color: var(--color-secundario); margin-bottom: 1rem; font-size: 1.3rem;">Dirección de Envío</h3>
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem;">
+                        Av. Universidad #123, Col. Centro<br>
+                        C.P. 20000, Aguascalientes, Ags.<br>
+                        México
+                    </p>
+                    <a href="#" style="color: var(--color-primario); font-weight: 600; font-size: 0.9rem;">Editar dirección</a>
+                </div>
+
+                <!-- Historial de Pedidos -->
+                <div style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--color-borde);">
+                    <h3 style="color: var(--color-primario); margin-bottom: 1rem; font-size: 1.3rem;">Mis Pedidos Recientes</h3>
+                    <ul style="display: flex; flex-direction: column; gap: 1rem;">
+                        <li style="padding-bottom: 0.8rem; border-bottom: 1px solid var(--color-borde); display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong style="font-size: 0.95rem; display: block;">Pedido #KS-2026-01</strong>
+                                <span style="font-size: 0.85rem; color: #666;">Army Bomb - Map of the Soul</span>
+                            </div>
+                            <span style="background-color: #e1f5fe; color: #0288d1; padding: 0.3rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">En camino</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Botón de Cerrar Sesión -->
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="../index.html" style="display: inline-block; padding: 0.7rem 2rem; background-color: #ff4757; color: white; border-radius: 20px; font-weight: 600; font-size: 0.9rem; transition: opacity 0.2s;">Cerrar Sesión</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="nuestra-empresa.html">Sobre Nosotros</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx - Proyecto Escolar</p>
+        </div>
+    </footer>
+
+</body>
+</html>
