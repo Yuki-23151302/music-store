@@ -1,0 +1,538 @@
+/* =========================================================
+   NUESTRA EMPRESA
+   ========================================================= */
+
+/* HERO DE EMPRESA */
+.empresa-hero {
+    background:
+        linear-gradient(135deg,
+            rgba(255, 107, 158, 0.12),
+            rgba(108, 92, 231, 0.12));
+
+    padding: 6rem 5%;
+    text-align: center;
+
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.empresa-hero-contenido {
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.empresa-etiqueta {
+    display: inline-block;
+
+    color: var(--color-secundario);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 0.8rem;
+}
+
+.empresa-hero h1 {
+    font-size: 3.2rem;
+    margin-bottom: 1rem;
+}
+
+.empresa-hero p {
+    max-width: 650px;
+    margin: 0 auto;
+
+    color: #666;
+
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+/* HISTORIA */
+.empresa-historia {
+    padding: 6rem 5%;
+    background-color: #ffffff;
+}
+
+.empresa-historia-contenedor {
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.2fr) minmax(300px, 0.8fr);
+
+    gap: 5rem;
+
+    align-items: center;
+}
+
+.empresa-subtitulo {
+    display: inline-block;
+
+    color: var(--color-secundario);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 0.8rem;
+}
+
+.empresa-historia-texto h2 {
+    font-size: 2.4rem;
+
+    margin-bottom: 1.5rem;
+}
+
+.empresa-historia-texto p {
+    color: #666;
+
+    font-size: 0.95rem;
+
+    line-height: 1.8;
+
+    margin-bottom: 1rem;
+}
+
+/* TARJETA DEL LOGO */
+.empresa-historia-visual {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.empresa-logo-card {
+    width: 100%;
+    max-width: 360px;
+
+    padding: 3rem 2rem;
+
+    background:
+        linear-gradient(145deg,
+            #ffffff,
+            #f8f9fa);
+
+    border: 1px solid var(--color-borde);
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.07);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.empresa-logo-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 45px rgba(108, 92, 231, 0.12);
+}
+
+.empresa-logo-card img {
+    width: 130px;
+
+    height: 130px;
+
+    object-fit: contain;
+
+    margin-bottom: 1.2rem;
+}
+
+.empresa-logo-card h3 {
+    font-size: 1.6rem;
+
+    margin-bottom: 0.3rem;
+}
+
+.empresa-logo-card p {
+    color: #777;
+
+    font-size: 0.9rem;
+}
+
+/* ENCABEZADOS DE SECCIÓN */
+.empresa-seccion-encabezado {
+    max-width: 700px;
+
+    margin: 0 auto 3rem;
+
+    text-align: center;
+}
+
+.empresa-seccion-encabezado h2 {
+    font-size: 2.3rem;
+
+    margin-bottom: 0.8rem;
+}
+
+.empresa-seccion-encabezado p {
+    color: #777;
+
+    font-size: 0.95rem;
+
+    line-height: 1.7;
+}
+
+/* MISIÓN Y VISIÓN */
+.empresa-mision-vision {
+    padding: 6rem 5%;
+
+    background-color: var(--color-gris-claro);
+}
+
+.empresa-mv-grid {
+    max-width: 950px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 2rem;
+}
+
+.empresa-mv-card {
+    background-color: #ffffff;
+
+    padding: 2.8rem;
+
+    border-radius: 18px;
+
+    border: 1px solid var(--color-borde);
+
+    text-align: center;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.empresa-mv-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.07);
+}
+
+.empresa-mv-icono {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 1.2rem;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 107, 158, 0.12),
+            rgba(108, 92, 231, 0.12));
+
+    font-size: 1.8rem;
+}
+
+.empresa-mv-card h3 {
+    font-size: 1.5rem;
+
+    color: var(--color-secundario);
+
+    margin-bottom: 0.8rem;
+}
+
+.empresa-mv-card p {
+    color: #666;
+
+    font-size: 0.92rem;
+
+    line-height: 1.8;
+}
+
+
+/* VALORES */
+.empresa-valores {
+    padding: 6rem 5%;
+
+    background-color: #ffffff;
+}
+
+.empresa-valores-grid {
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 1.5rem;
+}
+
+.empresa-valor {
+    padding: 2rem 1.5rem;
+
+    text-align: center;
+
+    border-radius: 16px;
+
+    border: 1px solid var(--color-borde);
+
+    background-color: #ffffff;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.empresa-valor:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.empresa-valor-icono {
+    font-size: 2rem;
+
+    margin-bottom: 1rem;
+}
+
+.empresa-valor h3 {
+    font-size: 1.3rem;
+
+    color: var(--color-secundario);
+
+    margin-bottom: 0.7rem;
+}
+
+.empresa-valor p {
+    color: #777;
+
+    font-size: 0.87rem;
+
+    line-height: 1.7;
+}
+
+
+/* BENEFICIOS */
+.empresa-beneficios {
+    padding: 6rem 5%;
+
+    background-color: var(--color-gris-claro);
+}
+
+.empresa-beneficios-contenedor {
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(250px, 0.8fr) minmax(400px, 1.2fr);
+
+    gap: 5rem;
+
+    align-items: center;
+}
+
+.empresa-beneficios-texto h2 {
+    font-size: 2.3rem;
+
+    margin-bottom: 1rem;
+}
+
+.empresa-beneficios-texto p {
+    color: #666;
+
+    font-size: 0.95rem;
+
+    line-height: 1.8;
+}
+
+.empresa-beneficios-grid {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1.2rem;
+}
+
+.empresa-beneficio {
+    display: flex;
+
+    gap: 1.2rem;
+
+    align-items: flex-start;
+
+    padding: 1.4rem;
+
+    background-color: #ffffff;
+
+    border: 1px solid var(--color-borde);
+
+    border-radius: 14px;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.empresa-beneficio:hover {
+    transform: translateX(5px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.beneficio-numero {
+    min-width: 42px;
+
+    color: var(--color-primario);
+
+    font-family: var(--fuente-titulos);
+
+    font-size: 1.1rem;
+
+    font-weight: 700;
+}
+
+.empresa-beneficio h3 {
+    font-size: 1.1rem;
+
+    margin-bottom: 0.3rem;
+}
+
+.empresa-beneficio p {
+    color: #777;
+
+    font-size: 0.85rem;
+
+    line-height: 1.6;
+}
+
+/* LLAMADA A LA ACCIÓN */
+.empresa-cta {
+    padding: 6rem 5%;
+
+    text-align: center;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 107, 158, 0.08),
+            rgba(108, 92, 231, 0.08));
+}
+
+.empresa-cta-contenido {
+    max-width: 700px;
+
+    margin: 0 auto;
+}
+
+.empresa-cta h2 {
+    font-size: 2.4rem;
+
+    margin-bottom: 0.8rem;
+}
+
+.empresa-cta p {
+    color: #666;
+
+    font-size: 0.95rem;
+
+    margin-bottom: 1.8rem;
+}
+
+
+/* RESPONSIVE - NUESTRA EMPRESA */
+@media (max-width: 900px) {
+
+    .empresa-historia-contenedor {
+        grid-template-columns: 1fr;
+
+        gap: 3rem;
+    }
+
+    .empresa-historia-texto {
+        text-align: center;
+    }
+
+    .empresa-valores-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .empresa-beneficios-contenedor {
+        grid-template-columns: 1fr;
+
+        gap: 3rem;
+    }
+
+    .empresa-beneficios-texto {
+        text-align: center;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .empresa-hero {
+        padding: 4rem 5%;
+    }
+
+    .empresa-hero h1 {
+        font-size: 2.3rem;
+    }
+
+    .empresa-hero p {
+        font-size: 0.95rem;
+    }
+
+    .empresa-historia,
+    .empresa-mision-vision,
+    .empresa-valores,
+    .empresa-beneficios,
+    .empresa-cta {
+        padding: 4rem 5%;
+    }
+
+    .empresa-historia-texto h2,
+    .empresa-seccion-encabezado h2,
+    .empresa-beneficios-texto h2,
+    .empresa-cta h2 {
+        font-size: 1.9rem;
+    }
+
+    .empresa-mv-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .empresa-valores-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .empresa-mv-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .empresa-beneficio {
+        padding: 1.2rem;
+    }
+}

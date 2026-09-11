@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/estilos.css">
 
     <!-- Favicon -->
-     <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -108,7 +108,9 @@
 
                 <!-- Producto 1 -->
                 <article class="producto-card">
-                    <img src="assets/img/productos/albumlyabts.jpg" alt="Love Yourself Answer">
+                    <div class="producto-imagen">
+                        <img src="assets/img/productos/albumlyabts.jpg" alt="Love Yourself Answer" loading="lazy">
+                    </div>
                     <h4>
                         Love Yourself: Answer
                     </h4>
@@ -125,7 +127,9 @@
 
                 <!-- Producto 2 -->
                 <article class="producto-card">
-                    <img src="assets/img/productos/lightstickbp.jpg" alt="Hammer Bong">
+                    <div class="producto-imagen">
+                        <img src="assets/img/productos/lightstickbp.jpg" alt="Hammer Bong" loading="lazy">
+                    </div>
                     <h4>
                         Hammer Bong
                     </h4>
@@ -142,7 +146,9 @@
 
                 <!-- Producto 3 -->
                 <article class="producto-card">
-                    <img src="assets/img/productos/albuminlifeskz.jpg" alt="In Life">
+                    <div class="producto-imagen">
+                        <img src="assets/img/productos/albuminlifeskz.jpg" alt="In Life" loading="lazy">
+                    </div>
                     <h4>
                         IN LIFE
                     </h4>
@@ -422,6 +428,9 @@
             </p>
         </div>
     </footer>
+
+    <!-- CARRITO DE COMPRAS (compartido entre páginas, usa localStorage) -->
+    <script src="js/carrito.js"></script>
 
     <!-- JAVASCRIPT -->
 

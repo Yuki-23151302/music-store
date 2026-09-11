@@ -11,6 +11,8 @@
         rel="stylesheet">
     <!-- CSS Principal -->
     <link rel="stylesheet" href="../css/estilos.css">
+    <!-- CSS exclusivo del catálogo -->
+    <link rel="stylesheet" href="../css/estilocatalogo.css">
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 </head>
 
@@ -28,6 +30,7 @@
                 <li><a href="../index.html">Inicio</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="pages/contacto.html">Contacto</a></li>
             </ul>
         </nav>
         <div class="iconos-usuario">
@@ -40,113 +43,168 @@
     <main>
 
         <!-- HERO DEL CATÁLOGO -->
-        <section class="hero" style="padding: 3rem 5%;">
+        <section class="hero catalogo-hero">
             <div class="hero-contenido">
                 <h1>Catálogo de Productos</h1>
                 <p>Explora todos nuestros álbumes, lightsticks y coleccionables oficiales.</p>
             </div>
         </section>
 
+        <!-- NAVEGACIÓN RÁPIDA POR CATEGORÍA -->
+        <nav class="catalogo-categorias-nav">
+            <a href="#albumes">Álbumes</a>
+            <a href="#lightsticks">Lightsticks</a>
+            <a href="#peluches">Peluches y Dolls</a>
+        </nav>
+
         <!-- SECCIÓN DE ÁLBUMES -->
-        <section class="productos-destacados" style="background-color: white;">
+        <section class="productos-destacados seccion-catalogo seccion-clara" id="albumes">
+            <span class="catalogo-etiqueta">CATÁLOGO</span>
             <h2>Álbumes Disponibles</h2>
             <div class="productos-grid">
 
                 <!-- Álbum 1 -->
                 <article class="producto-card">
-                    <img src="../assets/img/productos/albumbts.jpg" alt="Album BTS">
+                    <div class="producto-imagen">
+                        <img src="../assets/img/productos/albumbts.jpg" alt="Album BTS" loading="lazy">
+                    </div>
                     <h4>Love Yourself: Answer</h4>
                     <p class="grupo">BTS</p>
                     <p class="precio">$950 MXN</p>
-                    <button class="btn-secundario">Ver detalles</button>
+                    <button class="btn-secundario" data-nombre="Love Yourself: Answer" data-grupo="BTS"
+                        data-precio="$950 MXN" data-imagen="../assets/img/productos/albumbts.jpg">
+                        Ver detalles
+                    </button>
                 </article>
 
                 <!-- Álbum 2 -->
                 <article class="producto-card">
-                    <img src="../assets/img/productos/albumbp.jpg" alt="Album BLACKPINK">
+                    <div class="producto-imagen">
+                        <img src="../assets/img/productos/albumbp.jpg" alt="Album BLACKPINK" loading="lazy">
+                    </div>
                     <h4>The Album</h4>
                     <p class="grupo">BLACKPINK</p>
                     <p class="precio">$720 MXN</p>
-                    <button class="btn-secundario">Ver detalles</button>
+                    <button class="btn-secundario" data-nombre="The Album" data-grupo="BLACKPINK" data-precio="$720 MXN"
+                        data-imagen="../assets/img/productos/albumbp.jpg">
+                        Ver detalles
+                    </button>
                 </article>
 
                 <!-- Álbum 3 -->
                 <article class="producto-card">
-                    <img src="../assets/img/productos/albumskz.jpg" alt="Album Stray Kids">
+                    <div class="producto-imagen">
+                        <img src="../assets/img/productos/albumskz.jpg" alt="Album Stray Kids" loading="lazy">
+                    </div>
                     <h4>IN LIFE</h4>
                     <p class="grupo">Stray Kids</p>
                     <p class="precio">$820 MXN</p>
-                    <button class="btn-secundario">Ver detalles</button>
+                    <button class="btn-secundario" data-nombre="IN LIFE" data-grupo="Stray Kids" data-precio="$820 MXN"
+                        data-imagen="../assets/img/productos/albumskz.jpg">
+                        Ver detalles
+                    </button>
                 </article>
 
                 <!-- Álbum 4 -->
                 <article class="producto-card">
-                    <img src="../assets/img/productos/albummomoland.jpg" alt="Album MOMOLAND">
+                    <div class="producto-imagen">
+                        <img src="../assets/img/productos/albummomoland.jpg" alt="Album MOMOLAND" loading="lazy">
+                    </div>
                     <h4>Show Me</h4>
                     <p class="grupo">MOMOLAND</p>
                     <p class="precio">$710 MXN</p>
-                    <button class="btn-secundario">Ver detalles</button>
+                    <button class="btn-secundario" data-nombre="Show Me" data-grupo="MOMOLAND" data-precio="$710 MXN"
+                        data-imagen="../assets/img/productos/albummomoland.jpg">
+                        Ver detalles
+                    </button>
                 </article>
 
             </div>
         </section>
 
         <!-- SECCIÓN DE LIGHTSTICKS -->
-        <section class="productos-destacados">
+        <section class="productos-destacados seccion-catalogo" id="lightsticks">
+            <span class="catalogo-etiqueta">CATÁLOGO</span>
             <h2>Lightsticks Oficiales</h2>
             <div class="productos-grid">
 
                 <!-- Lightstick 1 -->
                 <article class="producto-card">
-                    <img src="../assets/img/productos/lighstickbts.jpg" alt="Lightstick BTS">
+                    <div class="producto-imagen">
+                        <img src="../assets/img/productos/lighstickbts.jpg" alt="Lightstick BTS" loading="lazy">
+                    </div>
                     <h4>Army Bomb - Map of the Soul</h4>
                     <p class="grupo">BTS</p>
                     <p class="precio">$950 MXN</p>
-                    <button class="btn-secundario">Ver detalles</button>
+                    <button class="btn-secundario" data-nombre="Army Bomb - Map of the Soul" data-grupo="BTS"
+                        data-precio="$950 MXN" data-imagen="../assets/img/productos/lighstickbts.jpg">
+                        Ver detalles
+                    </button>
                 </article>
 
                 <!-- Lightstick 2 -->
                 <article class="producto-card">
-                    <img src="../assets/img/productos/lighstickbp.jpg" alt="Lightstick BLACKPINK">
+                    <div class="producto-imagen">
+                        <img src="../assets/img/productos/lighstickbp.jpg" alt="Lightstick BLACKPINK" loading="lazy">
+                    </div>
                     <h4>Hammer Bong</h4>
                     <p class="grupo">BLACKPINK</p>
                     <p class="precio">$1,550 MXN</p>
-                    <button class="btn-secundario">Ver detalles</button>
+                    <button class="btn-secundario" data-nombre="Hammer Bong" data-grupo="BLACKPINK"
+                        data-precio="$1,550 MXN" data-imagen="../assets/img/productos/lighstickbp.jpg">
+                        Ver detalles
+                    </button>
                 </article>
 
                 <!-- Lightstick 3 -->
                 <article class="producto-card">
-                    <img src="../assets/img/productos/lighstickskz.jpg" alt="Lightstick STRAY KIDS">
+                    <div class="producto-imagen">
+                        <img src="../assets/img/productos/lighstickskz.jpg" alt="Lightstick STRAY KIDS" loading="lazy">
+                    </div>
                     <h4>Nachim Bong</h4>
                     <p class="grupo">Stray Kids</p>
                     <p class="precio">$1,700 MXN</p>
-                    <button class="btn-secundario">Ver detalles</button>
+                    <button class="btn-secundario" data-nombre="Nachim Bong" data-grupo="Stray Kids"
+                        data-precio="$1,700 MXN" data-imagen="../assets/img/productos/lighstickskz.jpg">
+                        Ver detalles
+                    </button>
                 </article>
 
                 <!-- Lightstick 4 -->
                 <article class="producto-card">
-                    <img src="../assets/img/productos/lighsticktwice.png" alt="Lightstick TWICE">
+                    <div class="producto-imagen">
+                        <img src="../assets/img/productos/lighsticktwice.png" alt="Lightstick TWICE" loading="lazy">
+                    </div>
                     <h4>Candy Bong</h4>
                     <p class="grupo">TWICE</p>
                     <p class="precio">$1,500 MXN</p>
-                    <button class="btn-secundario">Ver detalles</button>
+                    <button class="btn-secundario" data-nombre="Candy Bong" data-grupo="TWICE" data-precio="$1,500 MXN"
+                        data-imagen="../assets/img/productos/lighsticktwice.png">
+                        Ver detalles
+                    </button>
                 </article>
 
             </div>
         </section>
 
         <!-- SECCIÓN DE PELUCHES / DOLLS -->
-        <section class="productos-destacados" style="background-color: white;">
+        <section class="productos-destacados seccion-catalogo seccion-clara" id="peluches">
+            <span class="catalogo-etiqueta">CATÁLOGO</span>
             <h2>Peluches y Dolls</h2>
             <div class="productos-grid">
 
                 <!-- Peluche 1 -->
                 <article class="producto-card">
-                    <img src="../assets/img/productos/milky.jpg" alt="Peluche BT21">
+                    <div class="producto-imagen">
+                        <img src="../assets/img/productos/milky.jpg" alt="Peluche BT21" loading="lazy">
+                    </div>
                     <h4>BT21 Official Doll</h4>
                     <p class="grupo">BTS / Line Friends</p>
                     <p class="precio">$650 MXN</p>
-                    <button class="btn-secundario">Ver detalles</button>
+                    <button class="btn-secundario" data-nombre="BT21 Official Doll" data-grupo="BTS / Line Friends"
+                        data-precio="$650 MXN" data-imagen="../assets/img/productos/milky.jpg">
+                        Ver detalles
+                    </button>
                 </article>
 
             </div>
@@ -182,6 +240,156 @@
         </div>
     </footer>
 
+    <!-- MODAL DE DETALLE DE PRODUCTO -->
+    <div class="modal-overlay" id="modal-producto">
+        <div class="modal-producto">
+            <button class="modal-cerrar" id="modal-cerrar" aria-label="Cerrar">&times;</button>
+
+            <div class="modal-contenido">
+                <!-- Imagen del producto -->
+                <div class="modal-imagen">
+                    <img id="modal-img" src="" alt="">
+                </div>
+
+                <!-- Información del producto -->
+                <div class="modal-info">
+                    <p class="modal-grupo" id="modal-grupo"></p>
+                    <h3 id="modal-nombre"></h3>
+                    <p class="modal-precio" id="modal-precio"></p>
+                    <p class="modal-descripcion">
+                        Producto 100% original, importado directamente desde Corea del Sur.
+                    </p>
+
+                    <!-- Selector de cantidad -->
+                    <div class="modal-cantidad">
+                        <span>Cantidad:</span>
+                        <div class="cantidad-selector">
+                            <button type="button" id="cantidad-menos">−</button>
+                            <input type="text" id="cantidad-valor" value="1" readonly>
+                            <button type="button" id="cantidad-mas">+</button>
+                        </div>
+                    </div>
+
+                    <button class="btn-primario modal-btn-carrito" id="modal-agregar">
+                        Añadir al carrito
+                    </button>
+                    <button class="btn-volver-catalogo" id="modal-volver">
+                        ← Volver al catálogo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENSAJE DE CONFIRMACIÓN (TOAST) -->
+    <div class="toast-carrito" id="toast-carrito">
+        <span class="toast-icono">✓</span>
+        <span>Se añadió a tu carrito</span>
+    </div>
+
+    <!-- CARRITO DE COMPRAS (compartido entre páginas, usa localStorage) -->
+    <script src="../js/carrito.js"></script>
+
+    <!-- JAVASCRIPT DEL CATÁLOGO -->
+    <script>
+
+        // Elementos del modal
+        const modal = document.getElementById('modal-producto');
+        const modalImg = document.getElementById('modal-img');
+        const modalNombre = document.getElementById('modal-nombre');
+        const modalGrupo = document.getElementById('modal-grupo');
+        const modalPrecio = document.getElementById('modal-precio');
+
+        // Elementos del selector de cantidad
+        const cantidadValor = document.getElementById('cantidad-valor');
+        const btnCantidadMas = document.getElementById('cantidad-mas');
+        const btnCantidadMenos = document.getElementById('cantidad-menos');
+
+        // Botones de acción del modal
+        const btnCerrar = document.getElementById('modal-cerrar');
+        const btnVolver = document.getElementById('modal-volver');
+        const btnAgregar = document.getElementById('modal-agregar');
+
+        // Toast de confirmación
+        const toast = document.getElementById('toast-carrito');
+
+        /* ABRIR MODAL AL HACER CLIC EN "VER DETALLES" */
+        document.querySelectorAll('.btn-secundario[data-nombre]').forEach(boton => {
+            boton.addEventListener('click', () => {
+
+                modalImg.src = boton.dataset.imagen;
+                modalImg.alt = boton.dataset.nombre;
+                modalNombre.textContent = boton.dataset.nombre;
+                modalGrupo.textContent = boton.dataset.grupo;
+                modalPrecio.textContent = boton.dataset.precio;
+
+                // Reinicia la cantidad a 1 cada vez que se abre un producto
+                cantidadValor.value = 1;
+
+                modal.classList.add('activo');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        /* CERRAR MODAL */
+        function cerrarModal() {
+            modal.classList.remove('activo');
+            document.body.style.overflow = '';
+        }
+
+        btnCerrar.addEventListener('click', cerrarModal);
+        btnVolver.addEventListener('click', cerrarModal);
+
+        // Cerrar al hacer clic fuera de la tarjeta del modal
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        });
+
+        // Cerrar con la tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('activo')) {
+                cerrarModal();
+            }
+        });
+
+        /* SELECTOR DE CANTIDAD */
+        btnCantidadMas.addEventListener('click', () => {
+            cantidadValor.value = parseInt(cantidadValor.value) + 1;
+        });
+
+        btnCantidadMenos.addEventListener('click', () => {
+            const actual = parseInt(cantidadValor.value);
+            if (actual > 1) {
+                cantidadValor.value = actual - 1;
+            }
+        });
+
+        /* AÑADIR AL CARRITO */
+        btnAgregar.addEventListener('click', () => {
+
+            const cantidad = parseInt(cantidadValor.value);
+
+            // Guarda el producto en localStorage (persiste al recargar la página)
+            agregarAlCarrito({
+                nombre: modalNombre.textContent,
+                grupo: modalGrupo.textContent,
+                precio: modalPrecio.textContent,
+                imagen: modalImg.src,
+                cantidad: cantidad
+            });
+
+            // Muestra el mensaje de confirmación
+            toast.classList.add('visible');
+            setTimeout(() => {
+                toast.classList.remove('visible');
+            }, 3000);
+
+            cerrarModal();
+        });
+
+    </script>
 </body>
 
 </html>
