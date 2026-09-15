@@ -68,7 +68,7 @@ const PRODUCTOS = [
     /* ================= LIGHTSTICKS ================= */
     {
         id: "lightstick-army-bomb",
-        nombre: "Army Bomb - Map of the Soul",
+        nombre: "Army Bomb - Versión 4 Arirang World Tour",
         grupo: "BTS",
         precio: 950,
         imagen: "assets/img/productos/lightsticks/armybombver4.jpg",
