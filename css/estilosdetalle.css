@@ -1,0 +1,192 @@
+/* =========================================================
+   KOOKSTORE.MX - FICHA DE UN SOLO PRODUCTO
+   Estilos exclusivos de pages/productos.html
+   ========================================================= */
+
+.detalle-main {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 2.5rem 20px 4rem;
+}
+
+/* --- Regreso al catálogo --- */
+.detalle-migas {
+    margin-bottom: 1.8rem;
+}
+
+.detalle-migas a {
+    display: inline-block;
+    background: var(--color-gris-claro);
+    border: 1px solid var(--color-borde);
+    color: #555;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    transition: all 0.3s;
+}
+
+.detalle-migas a:hover {
+    background: var(--color-primario);
+    border-color: var(--color-primario);
+    color: white;
+}
+
+/* --- Tarjeta del producto --- */
+.detalle-producto {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+    background: white;
+    border: 1px solid var(--color-borde);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.detalle-imagen {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--color-gris-claro);
+}
+
+.detalle-imagen img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* --- Información del producto --- */
+.detalle-info h1 {
+    font-family: var(--fuente-titulos);
+    font-size: 2.2rem;
+    margin: 0.6rem 0 0.3rem;
+}
+
+.detalle-grupo {
+    font-size: 1.05rem;
+    color: #666;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.detalle-precio {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    margin-bottom: 1.5rem;
+}
+
+.detalle-bloque {
+    margin-bottom: 1.8rem;
+}
+
+.detalle-bloque h2 {
+    font-family: var(--fuente-titulos);
+    font-size: 1.2rem;
+    color: #444;
+    margin-bottom: 0.4rem;
+}
+
+.detalle-bloque p {
+    color: #666;
+    line-height: 1.7;
+}
+
+/* --- Campos (versión / personaje / cantidad) --- */
+.detalle-campo {
+    margin-bottom: 1.3rem;
+}
+
+.detalle-campo label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.detalle-select,
+.detalle-campo input[type="number"] {
+    padding: 0.7rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    font-family: var(--fuente-textos);
+    font-size: 0.95rem;
+    background: white;
+    color: var(--color-texto);
+}
+
+.detalle-select {
+    width: 100%;
+}
+
+.detalle-campo input[type="number"] {
+    width: 90px;
+    text-align: center;
+}
+
+.detalle-campo-cantidad {
+    margin-bottom: 1.8rem;
+}
+
+/* --- Botones --- */
+.detalle-btn-carrito {
+    width: 100%;
+    border: none;
+    font-family: var(--fuente-textos);
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.detalle-enlace-carrito {
+    display: block;
+    text-align: center;
+    margin-top: 0.9rem;
+    color: #777;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: color 0.3s;
+}
+
+.detalle-enlace-carrito:hover {
+    color: var(--color-secundario);
+}
+
+/* --- Producto inexistente --- */
+.detalle-vacio {
+    text-align: center;
+    background: var(--color-gris-claro);
+    border-radius: 16px;
+    padding: 4rem 2rem;
+}
+
+.detalle-vacio h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+}
+
+.detalle-vacio p {
+    color: #666;
+    margin-bottom: 1.8rem;
+}
+
+/* --- Responsivo --- */
+@media (max-width: 768px) {
+    .detalle-producto {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .detalle-info h1 {
+        font-size: 1.7rem;
+    }
+
+    .detalle-precio {
+        font-size: 1.6rem;
+    }
+}

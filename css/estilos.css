@@ -252,13 +252,17 @@ ul {
 }
 
 .btn-secundario {
+    display: block;
     width: 100%;
     background-color: transparent;
     border: 2px solid var(--color-secundario);
     color: var(--color-secundario);
     padding: 0.6rem;
     border-radius: 8px;
+    font-family: var(--fuente-textos);
+    font-size: 1rem;
     font-weight: 600;
+    text-align: center;
     cursor: pointer;
     transition: all 0.3s;
 }
@@ -653,4 +657,74 @@ ul {
         padding: 25px 20px;
     }
 
+}
+
+
+/* =========================================================
+   SESIÓN DEL USUARIO EN EL ENCABEZADO
+   ========================================================= */
+
+.btn-salir {
+    color: #999;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.btn-salir:hover {
+    color: #ff4757;
+}
+
+
+/* =========================================================
+   AVISO FLOTANTE AL AÑADIR AL CARRITO (TOAST)
+   Se usa en todas las páginas, por eso vive en el CSS global.
+   ========================================================= */
+
+.toast-carrito {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #333;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(100px);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s, opacity 0.3s, visibility 0.3s;
+    z-index: 1100;
+}
+
+.toast-carrito.visible {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.toast-icono {
+    background: #4ade80;
+    color: #065f46;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .toast-carrito {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        font-size: 0.9rem;
+    }
 }

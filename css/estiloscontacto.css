@@ -1,0 +1,136 @@
+/* ESTILOS ESPECÍFICOS PARA CONTACTO */
+
+.seccion-contacto {
+    padding: 4rem 5%;
+    background-color: var(--color-gris-claro);
+}
+
+.contacto-contenedor {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.contacto-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-borde);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.contacto-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #2D3436;
+}
+
+.form-grupo {
+    margin-bottom: 1.2rem;
+}
+
+.form-grupo label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+
+.form-grupo input,
+.form-grupo textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    font-family: var(--fuente-textos);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-grupo input:focus,
+.form-grupo textarea:focus {
+    border-color: var(--color-secundario);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.form-grupo textarea {
+    resize: vertical;
+}
+
+/* MENSAJE DE ÉXITO (Estilo similar al FAQ) */
+.mensaje-exito {
+    display: none;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+    padding: 16px 18px;
+    background: #f0fff4;
+    border: 1px solid #b7e4c7;
+    border-radius: 10px;
+    color: #246b3c;
+    animation: aparecerMensaje 0.35s ease;
+}
+
+.mensaje-icono {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: #2e9d55;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.mensaje-exito strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.mensaje-exito p {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+@keyframes aparecerMensaje {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* REDES SOCIALES E INFO */
+.redes-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.redes-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.redes-lista a {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 600;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.redes-lista a:hover {
+    color: var(--color-primario);
+}

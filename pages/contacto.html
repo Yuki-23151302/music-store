@@ -9,8 +9,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
-    <!-- CSS Principal -->
+    <!-- CSS Principal y Específico -->
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estiloscontacto.css">
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 </head>
 
@@ -33,7 +34,7 @@
         </nav>
         <div class="iconos-usuario">
             <a href="login.html" class="btn-login">Mi Cuenta</a>
-            <a href="#" class="btn-carrito">Carrito (0)</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
         </div>
     </header>
 
@@ -49,77 +50,71 @@
         </section>
 
         <!-- SECCIÓN DE FORMULARIO Y REDES -->
-        <section style="padding: 4rem 5%; background-color: var(--color-gris-claro);">
-            <div
-                style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+        <section class="seccion-contacto">
+            <div class="contacto-contenedor">
 
                 <!-- Formulario de Contacto -->
-                <div
-                    style="background: white; padding: 2.5rem; border-radius: 12px; border: 1px solid var(--color-borde); box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #2D3436;">Envíanos un mensaje</h3>
+                <div class="contacto-card">
+                    <h3>Envíanos un mensaje</h3>
 
-                    <form
-                        onsubmit="event.preventDefault(); alert('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.');">
-                        <div style="margin-bottom: 1.2rem;">
-                            <label
-                                style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Nombre</label>
-                            <input type="text" placeholder="Tu nombre" required
-                                style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos);">
+                    <form id="formContacto">
+                        <div class="form-grupo">
+                            <label>Nombre</label>
+                            <input type="text" id="nombre" placeholder="Tu nombre">
                         </div>
 
-                        <div style="margin-bottom: 1.2rem;">
-                            <label
-                                style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Correo
-                                Electrónico</label>
-                            <input type="email" placeholder="tucorreo@example.com" required
-                                style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos);">
+                        <div class="form-grupo">
+                            <label>Correo Electrónico</label>
+                            <input type="text" id="correo" placeholder="tucorreo@example.com">
                         </div>
 
-                        <div style="margin-bottom: 1.5rem;">
-                            <label
-                                style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Mensaje</label>
-                            <textarea rows="4" placeholder="Escribe tu consulta aquí..." required
-                                style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos); resize: vertical;"></textarea>
+                        <div class="form-grupo">
+                            <label>Mensaje</label>
+                            <textarea id="mensaje" rows="4" placeholder="Escribe tu consulta aquí..."></textarea>
                         </div>
 
                         <button type="submit" class="btn-primario"
                             style="width: 100%; border: none; cursor: pointer; text-align: center; font-size: 1rem;">Enviar
                             Mensaje</button>
                     </form>
+
+                    <!-- Mensaje de Éxito Estilo FAQ -->
+                    <div id="mensajeExito" class="mensaje-exito">
+                        <div class="mensaje-icono">✓</div>
+                        <div>
+                            <strong>¡Mensaje enviado con éxito!</strong>
+                            <p>Nos pondremos en contacto contigo pronto.</p>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Redes Sociales e Información -->
-                <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 2rem;">
+                <div class="redes-info-wrapper">
 
-                    <div
-                        style="background: white; padding: 2.5rem; border-radius: 12px; border: 1px solid var(--color-borde); box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--color-secundario);">Nuestras
-                            Redes Sociales</h3>
+                    <div class="contacto-card">
+                        <h3 style="color: var(--color-secundario);">Nuestras Redes Sociales</h3>
                         <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">
                             Síguenos para enterarte de preventas exclusivas, unboxing de nuevos álbumes y avisos de
                             llegada de mercancía oficial.
                         </p>
 
-                        <ul style="display: flex; flex-direction: column; gap: 1rem;">
+                        <ul class="redes-lista">
                             <li>
-                                <a href="https://instagram.com" target="_blank"
-                                    style="display: flex; align-items: center; gap: 0.8rem; font-weight: 600; color: #333; transition: color 0.2s;">
+                                <a href="https://instagram.com" target="_blank">
                                     <span
                                         style="background: rgba(255, 107, 158, 0.1); color: var(--color-primario); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">IG</span>
                                     Instagram: @kookstore.mx
                                 </a>
                             </li>
                             <li>
-                                <a href="https://tiktok.com" target="_blank"
-                                    style="display: flex; align-items: center; gap: 0.8rem; font-weight: 600; color: #333; transition: color 0.2s;">
+                                <a href="https://tiktok.com" target="_blank">
                                     <span
                                         style="background: rgba(108, 92, 231, 0.1); color: var(--color-secundario); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">TK</span>
                                     TikTok: @kookstore_mx
                                 </a>
                             </li>
                             <li>
-                                <a href="https://twitter.com" target="_blank"
-                                    style="display: flex; align-items: center; gap: 0.8rem; font-weight: 600; color: #333; transition: color 0.2s;">
+                                <a href="https://twitter.com" target="_blank">
                                     <span
                                         style="background: rgba(0, 184, 148, 0.1); color: #00b894; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">X</span>
                                     X (Twitter): @KookstoreMx
@@ -128,8 +123,7 @@
                         </ul>
                     </div>
 
-                    <div
-                        style="background: white; padding: 2rem; border-radius: 12px; border: 1px solid var(--color-borde);">
+                    <div class="contacto-card" style="padding: 2rem;">
                         <h4 style="margin-bottom: 0.5rem; color: #2D3436;">Atención al Cliente</h4>
                         <p style="color: #666; font-size: 0.9rem;">Lunes a Viernes de 10:00 AM a 7:00
                             PM.<br>contacto@kookstore.mx</p>
@@ -166,9 +160,34 @@
             </div>
         </div>
         <div class="footer-copyright">
-            <p>© 2026 Kookstore.mx - Proyecto Escolar</p>
+            <p>© 2026 Kookstore.mx</p>
         </div>
     </footer>
+
+    <!-- SCRIPT PARA CONTROLAR EL FORMULARIO Y RESETEAR CAMPOS -->
+    <script>
+        const formulario = document.getElementById('formContacto');
+        const mensajeExito = document.getElementById('mensajeExito');
+
+        formulario.addEventListener('submit', function (e) {
+            e.preventDefault(); // Evita que recargue la página
+
+            // Muestra el mensaje de éxito con animación
+            mensajeExito.style.display = 'flex';
+
+            // Limpia los campos del formulario (los vuelve a poner en blanco)
+            formulario.reset();
+
+            // Oculta el mensaje de éxito automáticamente después de 4 segundos (opcional)
+            setTimeout(() => {
+                mensajeExito.style.display = 'none';
+            }, 4000);
+        });
+    </script>
+
+    <!-- JAVASCRIPT (encabezado de usuario y contador del carrito) -->
+    <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
 
 </body>
 

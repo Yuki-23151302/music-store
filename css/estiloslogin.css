@@ -1,0 +1,77 @@
+/* ESTILOS ESPECÍFICOS PARA LOGIN */
+
+.seccion-login {
+    padding: 4rem 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-gris-claro);
+    flex-grow: 1;
+}
+
+.login-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-borde);
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+}
+
+.login-titulo {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    color: #2D3436;
+}
+
+.login-subtitulo {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.login-grupo {
+    margin-bottom: 1.2rem;
+}
+
+.login-grupo label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--color-texto);
+}
+
+.login-grupo input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    font-family: var(--fuente-textos);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-grupo input:focus {
+    border-color: var(--color-primario);
+    box-shadow: 0 0 0 3px rgba(255, 107, 158, 0.1);
+}
+
+.login-footer-texto {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.login-footer-texto a {
+    color: var(--color-primario);
+    font-weight: 600;
+}
+
+.login-footer-texto a:hover {
+    text-decoration: underline;
+}

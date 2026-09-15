@@ -4,18 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Perfil | Kookstore.mx</title>
+    <title>Detalle del Producto | Kookstore.mx</title>
 
     <!-- Fuentes de Google -->
     <link
         href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
 
-    <!-- CSS Principal y Específico -->
+    <!-- CSS Principal -->
     <link rel="stylesheet" href="../css/estilos.css">
-    <link rel="stylesheet" href="../css/estilosperfil.css">
+    <!-- CSS del catálogo (etiquetas, tarjetas) -->
+    <link rel="stylesheet" href="../css/estiloscatalogo.css">
+    <!-- CSS exclusivo de la ficha de producto -->
+    <link rel="stylesheet" href="../css/estilosdetalle.css">
 
-    <!-- Favicon -->
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 </head>
 
@@ -37,54 +39,28 @@
             </ul>
         </nav>
         <div class="iconos-usuario">
-            <a href="perfil.html" class="btn-login">Mi Cuenta</a>
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
             <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
         </div>
     </header>
 
-    <!-- CONTENEDOR PRINCIPAL (PANEL DE PERFIL) -->
-    <main class="perfil-main">
-        <div class="perfil-contenedor" id="perfil-contenedor">
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="detalle-main">
 
-            <!-- Encabezado del Perfil (se llena con JavaScript) -->
-            <div class="perfil-header-card">
-                <div class="perfil-avatar" id="perfil-avatar">KS</div>
-                <div class="perfil-info">
-                    <h2 id="perfil-nombre">Cargando...</h2>
-                    <p id="perfil-datos"></p>
-                </div>
-            </div>
-
-            <!-- Grid de Información y Pedidos -->
-            <div class="perfil-grid">
-
-                <!-- Datos de Envío -->
-                <div class="perfil-card envio">
-                    <h3>Dirección de Envío</h3>
-                    <p id="perfil-direccion"></p>
-                    <a href="#" class="perfil-enlace-accion">Editar dirección</a>
-                </div>
-
-                <!-- Historial de Pedidos de ESTE usuario -->
-                <div class="perfil-card pedidos">
-                    <h3>Mis Pedidos Recientes</h3>
-                    <ul class="perfil-lista-pedidos" id="lista-pedidos-usuario">
-                        <li class="perfil-pedido-item" style="border: none;">
-                            <span>Cargando historial...</span>
-                        </li>
-                    </ul>
-                    <a href="carrito.html#historial" class="perfil-enlace-accion" id="perfil-ver-historial"
-                        style="display: none;">Ver historial completo</a>
-                </div>
-
-            </div>
-
-            <!-- Botón de Cerrar Sesión -->
-            <div class="perfil-logout-contenedor">
-                <a href="#" class="btn-cerrar-sesion" id="btn-cerrar-sesion">Cerrar Sesión</a>
-            </div>
-
+        <!-- REGRESO AL CATÁLOGO -->
+        <div class="detalle-migas">
+            <a href="catalogo.html">&larr; Volver al Catálogo</a>
         </div>
+
+        <!--
+            AQUÍ SE DIBUJA ÚNICAMENTE EL PRODUCTO SELECCIONADO.
+            El archivo js/detalle-producto.js lee el id que viene
+            en la dirección (productos.html?id=...) y construye
+            solo esa ficha: ningún otro producto existe en esta
+            página.
+        -->
+        <div id="detalle-producto"></div>
+
     </main>
 
     <!-- PIE DE PÁGINA (FOOTER) -->
@@ -111,14 +87,15 @@
             </div>
         </div>
         <div class="footer-copyright">
-            <p>&copy; 2026 Kookstore.mx - Proyecto Escolar</p>
+            <p>&copy; 2026 Kookstore.mx</p>
         </div>
     </footer>
 
     <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/datos-productos.js"></script>
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
-    <script src="../js/pagina-perfil.js"></script>
+    <script src="../js/detalle-producto.js"></script>
 
 </body>
 

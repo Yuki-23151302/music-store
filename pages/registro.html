@@ -5,12 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro | Kookstore.mx</title>
+
     <!-- Fuentes de Google -->
     <link
         href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
         rel="stylesheet">
-    <!-- CSS Principal -->
+
+    <!-- CSS Principal y Específico -->
     <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estilosregistro.css">
+
+    <!-- Favicon -->
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 </head>
 
@@ -28,55 +33,44 @@
                 <li><a href="../index.html">Inicio</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
                 <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
-                <li><a href="pages/contacto.html">Contacto</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
             </ul>
         </nav>
         <div class="iconos-usuario">
             <a href="login.html" class="btn-login">Mi Cuenta</a>
-            <a href="#" class="btn-carrito">Carrito (0)</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
         </div>
     </header>
 
     <!-- CONTENEDOR PRINCIPAL (FORMULARIO DE REGISTRO) -->
-    <main
-        style="padding: 4rem 5%; display: flex; justify-content: center; align-items: center; background-color: var(--color-gris-claro);">
-        <div
-            style="background: white; padding: 2.5rem; border-radius: 12px; border: 1px solid var(--color-borde); width: 100%; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.03);">
+    <main class="registro-main">
+        <div class="registro-container">
 
-            <h2 style="text-align: center; margin-bottom: 0.5rem; font-size: 2rem;">Crear Cuenta</h2>
-            <p style="text-align: center; color: #666; margin-bottom: 2rem; font-size: 0.95rem;">Regístrate para
-                realizar tus pedidos en Kookstore.mx</p>
+            <h2 class="registro-titulo">Crear Cuenta</h2>
+            <p class="registro-subtitulo">Regístrate para realizar tus pedidos en Kookstore.mx</p>
 
-            <!-- Formulario visual (Simulado para el Bloque 1) -->
-            <form onsubmit="event.preventDefault(); window.location.href='perfil.html';">
-                <div style="margin-bottom: 1.2rem;">
-                    <label style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Nombre
-                        Completo</label>
-                    <input type="text" placeholder="Ej. Sofia Park" required
-                        style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos);">
+            <!-- Formulario sin validaciones -->
+            <form id="form-registro">
+                <div class="registro-form-grupo">
+                    <label for="registro-nombre">Nombre Completo</label>
+                    <input type="text" id="registro-nombre" placeholder="Ej. Sofia Park">
                 </div>
 
-                <div style="margin-bottom: 1.2rem;">
-                    <label style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Correo
-                        Electrónico</label>
-                    <input type="email" placeholder="tucorreo@example.com" required
-                        style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos);">
+                <div class="registro-form-grupo">
+                    <label for="registro-email">Correo Electrónico</label>
+                    <input type="text" id="registro-email" placeholder="tucorreo@example.com">
                 </div>
 
-                <div style="margin-bottom: 1.5rem;">
-                    <label
-                        style="display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.9rem;">Contraseña</label>
-                    <input type="password" placeholder="••••••••" required
-                        style="width: 100%; padding: 0.8rem; border: 1px solid var(--color-borde); border-radius: 8px; font-family: var(--fuente-textos);">
+                <div class="registro-form-grupo" style="margin-bottom: 1.5rem;">
+                    <label for="registro-password">Contraseña</label>
+                    <input type="password" id="registro-password" placeholder="••••••••">
                 </div>
 
-                <button type="submit" class="btn-primario"
-                    style="width: 100%; border: none; cursor: pointer; text-align: center; font-size: 1rem;">Registrarse</button>
+                <button type="submit" class="btn-primario btn-registro">Registrarse</button>
             </form>
 
-            <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
-                ¿Ya tienes una cuenta? <a href="login.html"
-                    style="color: var(--color-secundario); font-weight: 600;">Inicia sesión</a>
+            <p class="registro-footer-texto">
+                ¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a>
             </p>
 
         </div>
@@ -94,21 +88,45 @@
                 <ul>
                     <li><a href="catalogo.html">Catálogo</a></li>
                     <li><a href="nuestra-empresa.html">Sobre Nosotros</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </div>
             <div class="footer-legal">
                 <h4>Ayuda</h4>
                 <ul>
-                    <li><a href="#">Preguntas Frecuentes</a></li>
+                    <li><a href="../index.html#faq">Preguntas Frecuentes</a></li>
                     <li><a href="#">Términos y Condiciones</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-copyright">
-            <p>© 2026 Kookstore.mx - Proyecto Escolar</p>
+            <p>© 2026 Kookstore.mx</p>
         </div>
     </footer>
+
+    <!-- JAVASCRIPT -->
+    <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script>
+        /* ALTA DE USUARIO
+           Se guarda la cuenta nueva en el navegador y la sesión
+           queda iniciada de inmediato. Sin validaciones. */
+        document.getElementById('form-registro').addEventListener('submit', function (evento) {
+            evento.preventDefault();
+
+            const nombre = document.getElementById('registro-nombre').value;
+            const correo = document.getElementById('registro-email').value;
+            const contrasena = document.getElementById('registro-password').value;
+
+            registrarUsuario(nombre, correo, contrasena);
+
+            // Lo que había puesto en el carrito como invitado
+            // se pasa a su cuenta nueva
+            fusionarCarritoInvitado();
+
+            window.location.href = 'perfil.html';
+        });
+    </script>
 
 </body>
 

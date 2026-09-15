@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras | Kookstore.mx</title>
+
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+
+    <style>
+        /* ================= CONTENEDOR ================= */
+        .carrito-container {
+            max-width: 1000px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+        }
+
+        .carrito-container>h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .carrito-intro {
+            color: #666;
+            margin-bottom: 1.8rem;
+        }
+
+        /* ================= PESTAÑAS ================= */
+        .carrito-tabs {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--color-borde);
+            margin-bottom: 2rem;
+        }
+
+        .carrito-tab {
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            padding: 0.8rem 1.4rem;
+            font-family: var(--fuente-textos);
+            font-size: 1rem;
+            font-weight: 600;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .carrito-tab:hover {
+            color: var(--color-primario);
+        }
+
+        .carrito-tab.activa {
+            color: var(--color-primario);
+            border-bottom-color: var(--color-primario);
+        }
+
+        .carrito-panel {
+            display: none;
+        }
+
+        .carrito-panel.activo {
+            display: block;
+        }
+
+        /* ================= TABLA DEL CARRITO ================= */
+        .carrito-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .carrito-tabla th,
+        .carrito-tabla td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-borde);
+            vertical-align: middle;
+        }
+
+        .carrito-tabla th {
+            font-family: var(--fuente-titulos);
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .carrito-tabla img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .carrito-opcion {
+            display: block;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .carrito-cantidad {
+            width: 65px;
+            padding: 8px;
+            border: 1px solid var(--color-borde);
+            border-radius: 6px;
+            font-family: var(--fuente-textos);
+            text-align: center;
+        }
+
+        .carrito-resumen {
+            background: var(--color-gris-claro);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: right;
+        }
+
+        .carrito-resumen h2 {
+            margin-bottom: 1rem;
+        }
+
+        .carrito-acciones {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .btn-eliminar {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-family: var(--fuente-textos);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-eliminar:hover {
+            background: #cc0000;
+        }
+
+        .btn-vaciar {
+            background: white;
+            color: #777;
+            border: 2px solid var(--color-borde);
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-family: var(--fuente-textos);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-vaciar:hover {
+            border-color: #ff4d4d;
+            color: #ff4d4d;
+        }
+
+        .btn-pagar {
+            border: none;
+            cursor: pointer;
+            font-family: var(--fuente-textos);
+            font-size: 1rem;
+        }
+
+        /* ================= ESTADOS VACÍOS ================= */
+        .carrito-vacio {
+            text-align: center;
+            padding: 50px 20px;
+            font-size: 1.1rem;
+            color: #666;
+            background: var(--color-gris-claro);
+            border-radius: 12px;
+        }
+
+        .carrito-vacio p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* ================= HISTORIAL DE COMPRAS ================= */
+        .historial-dueno {
+            background: linear-gradient(135deg, rgba(255, 107, 158, 0.12), rgba(108, 92, 231, 0.12));
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .historial-dueno strong {
+            font-family: var(--fuente-titulos);
+            font-size: 1.15rem;
+        }
+
+        .historial-dueno span {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .pedido-card {
+            border: 1px solid var(--color-borde);
+            border-radius: 12px;
+            padding: 1.3rem 1.5rem;
+            margin-bottom: 1.2rem;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .pedido-encabezado {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            border-bottom: 1px dashed var(--color-borde);
+            padding-bottom: 0.9rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .pedido-folio {
+            font-family: var(--fuente-titulos);
+            font-size: 1.15rem;
+            color: var(--color-texto);
+        }
+
+        .pedido-fecha {
+            display: block;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .pedido-derecha {
+            text-align: right;
+        }
+
+        .pedido-total {
+            font-weight: 700;
+            color: var(--color-primario);
+            font-size: 1.1rem;
+        }
+
+        .badge-estado {
+            display: inline-block;
+            background: #e2f0d9;
+            color: #385723;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .pedido-articulos {
+            list-style: none;
+        }
+
+        .pedido-articulos li {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            font-size: 0.93rem;
+            color: #555;
+            padding: 0.35rem 0;
+        }
+
+        .pedido-articulos li span:last-child {
+            color: #333;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* ================= RESPONSIVO ================= */
+        @media (max-width: 720px) {
+
+            .carrito-tabla thead {
+                display: none;
+            }
+
+            .carrito-tabla,
+            .carrito-tabla tbody,
+            .carrito-tabla tr,
+            .carrito-tabla td {
+                display: block;
+                width: 100%;
+            }
+
+            .carrito-tabla tr {
+                border: 1px solid var(--color-borde);
+                border-radius: 10px;
+                margin-bottom: 1rem;
+                padding: 0.5rem;
+            }
+
+            .carrito-tabla td {
+                border: none;
+                padding: 8px 10px;
+            }
+
+            .carrito-resumen {
+                text-align: center;
+            }
+
+            .carrito-acciones {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="carrito-container">
+
+        <h1>Tu Carrito de Compras</h1>
+        <p class="carrito-intro">Revisa tus productos y consulta las compras que ya realizaste.</p>
+
+        <!-- PESTAÑAS: CARRITO / HISTORIAL -->
+        <div class="carrito-tabs">
+            <button type="button" class="carrito-tab activa" id="tab-carrito">Carrito</button>
+            <button type="button" class="carrito-tab" id="tab-historial">Historial de compras</button>
+        </div>
+
+        <!-- PANEL 1: CARRITO ACTUAL -->
+        <section class="carrito-panel activo" id="panel-carrito">
+            <div id="contenido-carrito">
+                <!-- Se llena con js/pagina-carrito.js -->
+            </div>
+        </section>
+
+        <!-- PANEL 2: HISTORIAL DEL USUARIO CON SESIÓN INICIADA -->
+        <section class="carrito-panel" id="panel-historial">
+            <div id="contenido-historial">
+                <!-- Se llena con js/pagina-carrito.js -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="nuestra-empresa.html">Sobre Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="../index.html#faq">Preguntas Frecuentes</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>&copy; 2026 Kookstore.mx</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/pagina-carrito.js"></script>
+
+</body>
+
+</html>

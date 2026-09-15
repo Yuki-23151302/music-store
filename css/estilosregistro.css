@@ -1,0 +1,89 @@
+/* ==========================================
+   ESTILOS ESPECÍFICOS: REGISTRO
+   ========================================== */
+
+.registro-main {
+    padding: 4rem 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-gris-claro);
+    min-height: calc(100vh - 250px);
+}
+
+.registro-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--color-borde);
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+}
+
+.registro-titulo {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    font-family: var(--fuente-titulos);
+    color: var(--color-texto);
+}
+
+.registro-subtitulo {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.registro-form-grupo {
+    margin-bottom: 1.2rem;
+}
+
+.registro-form-grupo label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--color-texto);
+}
+
+.registro-form-grupo input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    font-family: var(--fuente-textos);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.registro-form-grupo input:focus {
+    border-color: var(--color-primario);
+}
+
+.btn-registro {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.registro-footer-texto {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.registro-footer-texto a {
+    color: var(--color-secundario);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.registro-footer-texto a:hover {
+    text-decoration: underline;
+}

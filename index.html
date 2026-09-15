@@ -31,27 +31,17 @@
 
         <nav class="nav-principal">
             <ul>
-                <li>
-                    <a href="index.html">Inicio</a>
-                </li>
-                <li>
-                    <a href="pages/catalogo.html">Catálogo</a>
-                </li>
-                <li>
-                    <a href="pages/nuestra-empresa.html">Nuestra Empresa</a>
-                </li>
-                <li>
-                    <a href="pages/contacto.html">Contacto</a>
-                </li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="pages/catalogo.html">Catálogo</a></li>
+                <li><a href="pages/nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="pages/contacto.html">Contacto</a></li>
             </ul>
         </nav>
         <div class="iconos-usuario">
             <a href="pages/login.html" class="btn-login">
                 Mi Cuenta
             </a>
-            <a href="#" class="btn-carrito">
-                Carrito (0)
-            </a>
+            <a href="pages/carrito.html" class="btn-carrito">Carrito (0)</a>
         </div>
     </header>
 
@@ -109,7 +99,8 @@
                 <!-- Producto 1 -->
                 <article class="producto-card">
                     <div class="producto-imagen">
-                        <img src="assets/img/productos/albumlyabts.jpg" alt="Love Yourself Answer" loading="lazy">
+                        <img src="assets/img/productos/albums/albumlyabts.jpg" alt="Love Yourself Answer"
+                            loading="lazy">
                     </div>
                     <h4>
                         Love Yourself: Answer
@@ -120,15 +111,15 @@
                     <p class="precio">
                         $950 MXN
                     </p>
-                    <button class="btn-secundario">
+                    <a href="pages/productos.html?id=album-love-yourself" class="btn-secundario">
                         Ver producto
-                    </button>
+                    </a>
                 </article>
 
                 <!-- Producto 2 -->
                 <article class="producto-card">
                     <div class="producto-imagen">
-                        <img src="assets/img/productos/lightstickbp.jpg" alt="Hammer Bong" loading="lazy">
+                        <img src="assets/img/productos/lightsticks/lightstickbp.jpg" alt="Hammer Bong" loading="lazy">
                     </div>
                     <h4>
                         Hammer Bong
@@ -139,15 +130,15 @@
                     <p class="precio">
                         $1,550 MXN
                     </p>
-                    <button class="btn-secundario">
+                    <a href="pages/productos.html?id=lightstick-hammer-bong" class="btn-secundario">
                         Ver producto
-                    </button>
+                    </a>
                 </article>
 
                 <!-- Producto 3 -->
                 <article class="producto-card">
                     <div class="producto-imagen">
-                        <img src="assets/img/productos/albuminlifeskz.jpg" alt="In Life" loading="lazy">
+                        <img src="assets/img/productos/albums/albuminlifeskz.jpg" alt="In Life" loading="lazy">
                     </div>
                     <h4>
                         IN LIFE
@@ -158,9 +149,9 @@
                     <p class="precio">
                         $820 MXN
                     </p>
-                    <button class="btn-secundario">
+                    <a href="pages/productos.html?id=in-life" class="btn-secundario">
                         Ver producto
-                    </button>
+                    </a>
                 </article>
             </div>
         </section>
@@ -200,7 +191,7 @@
         </section>
 
         <!-- PREGUNTAS FRECUENTES -->
-        <section class="seccion-faq">
+        <section class="seccion-faq" id="faq">
             <div class="faq-contenedor">
 
                 <!-- ENCABEZADO -->
@@ -409,7 +400,7 @@
                 </h4>
                 <ul>
                     <li>
-                        <a href="#">
+                        <a href="#faq">
                             Preguntas Frecuentes
                         </a>
                     </li>
@@ -430,6 +421,7 @@
     </footer>
 
     <!-- CARRITO DE COMPRAS (compartido entre páginas, usa localStorage) -->
+    <script src="js/sesion.js"></script>
     <script src="js/carrito.js"></script>
 
     <!-- JAVASCRIPT -->

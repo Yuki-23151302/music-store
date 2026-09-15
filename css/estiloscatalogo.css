@@ -1,141 +1,213 @@
-/* =========================================================
-   ESTILOS EXCLUSIVOS DE LA PÁGINA CATÁLOGO
-   Se cargan después de estilos.css y reutilizan sus variables
-   (--color-primario, --color-secundario, --fuente-titulos, etc.)
-   ========================================================= */
+/* ==========================================
+   ESTILOS ESPECÍFICOS: CATÁLOGO Y MODAL
+   ========================================== */
 
-/* HERO DEL CATÁLOGO (antes con style="padding:3rem 5%" en línea) */
+/* Hero del Catálogo */
 .catalogo-hero {
-    padding: 3rem 5%;
-}
-
-/* NAVEGACIÓN RÁPIDA POR CATEGORÍA */
-.catalogo-categorias-nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding: 0 5% 2rem;
-    background-color: var(--color-fondo);
-}
-
-.catalogo-categorias-nav a {
-    padding: 0.5rem 1.4rem;
-    border: 2px solid var(--color-secundario);
-    color: var(--color-secundario);
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s;
-}
-
-.catalogo-categorias-nav a:hover {
-    background-color: var(--color-secundario);
+    background: linear-gradient(135deg, var(--color-primario), #ff8fa3);
     color: white;
-    transform: translateY(-2px);
+    text-align: center;
+    padding: 3.5rem 1rem;
 }
 
-/* SECCIONES DE CATÁLOGO */
-.seccion-catalogo {
-    scroll-margin-top: 90px;
-    /* para que el anchor no quede tapado por el header sticky */
-    position: relative;
-}
-
-/* Fondo alterno para separar visualmente las secciones */
-.seccion-catalogo.seccion-clara {
-    background-color: white;
-}
-
-.seccion-catalogo:not(.seccion-clara) {
-    background-color: var(--color-gris-claro);
-}
-
-/* Etiqueta pequeña tipo "badge" arriba de cada título de sección */
-.catalogo-etiqueta {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--color-secundario);
+.catalogo-hero h1 {
+    font-size: 2.5rem;
+    font-family: var(--fuente-titulos);
     margin-bottom: 0.5rem;
 }
 
-/* Ajuste fino: en catálogo el h2 va justo debajo de la etiqueta,
-   así que reducimos un poco el margen superior por defecto */
-.seccion-catalogo h2 {
-    margin-top: 0;
+.catalogo-hero p {
+    font-size: 1.1rem;
+    font-weight: 300;
 }
 
-/* Placa de "grupo" con estilo pill sobre el nombre del producto */
-.seccion-catalogo .producto-card .grupo {
-    display: inline-block;
-    background-color: rgba(108, 92, 231, 0.1);
-    padding: 0.15rem 0.6rem;
+/* Barra de Navegación Rápida por Categorías */
+.catalogo-categorias-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.catalogo-categorias-nav a {
+    text-decoration: none;
+    color: var(--color-texto);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
     border-radius: 20px;
+    transition: background-color 0.2s, color 0.2s;
 }
 
-/* =========================================================
-   MODAL DE DETALLE DE PRODUCTO
-   ========================================================= */
+.catalogo-categorias-nav a:hover {
+    background-color: var(--color-primario);
+    color: white;
+}
 
-.modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    z-index: 1000;
+/* Secciones del Catálogo */
+.seccion-catalogo {
+    padding: 4rem 5%;
+}
+
+.catalogo-etiqueta {
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    margin-bottom: 0.5rem;
+    letter-spacing: 1px;
+}
+
+.seccion-catalogo h2 {
+    font-family: var(--fuente-titulos);
+    font-size: 2rem;
+    color: var(--color-texto);
+    margin-bottom: 2rem;
+}
+
+/* Tarjetas de Producto */
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.producto-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--color-borde);
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.producto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 220px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--color-gris-claro);
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.producto-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.producto-card:hover .producto-imagen img {
+    transform: scale(1.05);
+}
+
+.producto-card h4 {
+    font-size: 1.1rem;
+    color: var(--color-texto);
+    margin-bottom: 0.2rem;
+}
+
+.producto-card .grupo {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.8rem;
+}
+
+.producto-card .precio {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    margin-bottom: 1rem;
+}
+
+.producto-card .btn-secundario {
+    margin-top: auto;
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    background: transparent;
+    border: 2px solid var(--color-primario);
+    color: var(--color-primario);
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+}
+
+.producto-card .btn-secundario:hover {
+    background: var(--color-primario);
+    color: white;
+}
+
+/* ==========================================
+   MODAL DE DETALLE DE PRODUCTO
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1000;
 }
 
 .modal-overlay.activo {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
 }
 
 .modal-producto {
     background: white;
+    width: 90%;
+    max-width: 800px;
     border-radius: 16px;
-    max-width: 780px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
+    overflow: hidden;
     position: relative;
-    animation: apareceModal 0.25s ease;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s;
 }
 
-@keyframes apareceModal {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.modal-overlay.activo .modal-producto {
+    transform: translateY(0);
 }
 
 .modal-cerrar {
     position: absolute;
-    top: 14px;
-    right: 16px;
-    background: var(--color-gris-claro);
+    top: 15px;
+    right: 20px;
+    background: none;
     border: none;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    font-size: 1.3rem;
-    line-height: 1;
+    font-size: 2rem;
     cursor: pointer;
-    color: #555;
-    transition: background 0.3s, color 0.3s;
+    color: #888;
+    z-index: 10;
+    transition: color 0.2s;
 }
 
 .modal-cerrar:hover {
-    background: var(--color-primario);
-    color: white;
+    color: var(--color-texto);
 }
 
 .modal-contenido {
@@ -143,181 +215,182 @@
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
     padding: 2.5rem;
+    align-items: center;
 }
 
 .modal-imagen {
-    background-color: var(--color-gris-claro);
+    width: 100%;
+    height: 350px;
     border-radius: 12px;
-    aspect-ratio: 1 / 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
+    overflow: hidden;
+    background: var(--color-gris-claro);
 }
 
 .modal-imagen img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.modal-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.modal-grupo {
-    color: var(--color-secundario);
+.modal-info .modal-grupo {
+    font-size: 0.95rem;
+    color: #666;
     font-weight: 600;
-    font-size: 0.9rem;
     margin-bottom: 0.3rem;
 }
 
 .modal-info h3 {
-    font-size: 1.6rem;
+    font-family: var(--fuente-titulos);
+    font-size: 1.8rem;
+    color: var(--color-texto);
     margin-bottom: 0.5rem;
 }
 
-.modal-precio {
+.modal-info .modal-precio {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #2D3436;
+    color: var(--color-primario);
     margin-bottom: 1rem;
 }
 
 .modal-descripcion {
-    color: #666;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
     margin-bottom: 1.5rem;
-    line-height: 1.6;
 }
 
+/* Selector de Cantidad */
 .modal-cantidad {
     display: flex;
     align-items: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
+}
+
+.modal-cantidad span {
     font-weight: 600;
+    font-size: 0.95rem;
 }
 
 .cantidad-selector {
     display: flex;
-    align-items: center;
-    border: 2px solid var(--color-borde);
-    border-radius: 10px;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
     overflow: hidden;
 }
 
 .cantidad-selector button {
-    width: 38px;
-    height: 38px;
-    border: none;
     background: var(--color-gris-claro);
+    border: none;
+    padding: 0.5rem 1rem;
     font-size: 1.1rem;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.2s;
 }
 
 .cantidad-selector button:hover {
-    background: var(--color-secundario);
-    color: white;
+    background: #e2e8f0;
 }
 
 .cantidad-selector input {
-    width: 44px;
+    width: 45px;
     text-align: center;
     border: none;
-    font-family: var(--fuente-textos);
     font-size: 1rem;
+    font-weight: 600;
+    outline: none;
     background: white;
 }
 
+/* Botones dentro del Modal */
 .modal-btn-carrito {
     width: 100%;
-    border: none;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 1rem;
     cursor: pointer;
     margin-bottom: 0.8rem;
-    text-align: center;
+    border: none;
 }
 
 .btn-volver-catalogo {
-    display: block;
     width: 100%;
-    background: none;
+    background: transparent;
     border: none;
-    color: var(--color-secundario);
+    color: #666;
     font-weight: 600;
-    font-family: var(--fuente-textos);
-    font-size: 0.9rem;
     cursor: pointer;
-    text-align: center;
     padding: 0.5rem;
+    font-size: 0.95rem;
+    transition: color 0.2s;
 }
 
 .btn-volver-catalogo:hover {
-    text-decoration: underline;
+    color: var(--color-texto);
 }
-
-/* =========================================================
-   MENSAJE TOAST: "SE AÑADIÓ A TU CARRITO"
-   ========================================================= */
-
-.toast-carrito {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translate(-50%, 20px);
-    background: #246b3c;
-    color: white;
-    padding: 14px 24px;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 600;
-    font-size: 0.92rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    z-index: 1100;
-}
-
-.toast-carrito.visible {
-    opacity: 1;
-    transform: translate(-50%, 0);
-}
-
-.toast-icono {
-    background: white;
-    color: #246b3c;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-/* RESPONSIVE */
-@media (max-width: 600px) {
-
-    .catalogo-categorias-nav {
-        gap: 0.6rem;
-        padding: 0 5% 1.5rem;
-    }
-
-    .catalogo-categorias-nav a {
-        padding: 0.4rem 1rem;
-        font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 700px) {
+/* Diseño Responsivo para el Modal en Móviles */
+@media (max-width: 768px) {
     .modal-contenido {
         grid-template-columns: 1fr;
-        padding: 1.8rem;
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+
+    .modal-imagen {
+        height: 220px;
+    }
+}
+
+/* ==========================================
+   NAVEGACIÓN RÁPIDA POR CATEGORÍA
+   ========================================== */
+.catalogo-categorias-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: #ffffff;
+    padding: 1rem 2rem;
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--color-borde, #eee);
+}
+
+.catalogo-categorias-nav a {
+    text-decoration: none;
+    color: var(--color-texto, #333);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    background-color: var(--color-gris-claro, #f8f9fa);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.catalogo-categorias-nav a:hover {
+    background-color: var(--color-primario);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsivo para móviles: permite scroll horizontal si no caben */
+@media (max-width: 768px) {
+    .catalogo-categorias-nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 0.8rem 1rem;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .catalogo-categorias-nav::-webkit-scrollbar {
+        display: none;
+        /* Oculta la barra de scroll en navegadores WebKit */
     }
 }
