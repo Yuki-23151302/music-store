@@ -7,15 +7,11 @@
     <title>Catálogo | Kookstore.mx</title>
 
     <!-- Fuentes de Google -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- CSS Principal -->
     <link rel="stylesheet" href="../css/estilos.css">
-    <!-- CSS exclusivo del catálogo -->
     <link rel="stylesheet" href="../css/estiloscatalogo.css">
-
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 </head>
 
@@ -39,6 +35,7 @@
         <div class="iconos-usuario">
             <a href="login.html" class="btn-login">Mi Cuenta</a>
             <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
+            <a href="admin.html" class="btn-secundario" style="padding: 6px 12px; font-size: 0.85rem; margin-left: 5px;">Admin</a>
         </div>
     </header>
 
@@ -53,218 +50,23 @@
             </div>
         </section>
 
-        <!-- NAVEGACIÓN RÁPIDA POR CATEGORÍA -->
-        <nav class="catalogo-categorias-nav">
-            <a href="#albumes">Álbumes</a>
-            <a href="#lightsticks">Lightsticks</a>
-            <a href="#peluches">Peluches y Dolls</a>
-        </nav>
-
-        <!-- SECCIÓN DE ÁLBUMES -->
-        <section class="productos-destacados seccion-catalogo seccion-clara" id="albumes">
-            <span class="catalogo-etiqueta">CATÁLOGO</span>
-            <h2>Álbumes Disponibles</h2>
-            <div class="productos-grid">
-
-                <!-- Álbum 1 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/albums/albumlyabts.jpg" alt="Album BTS" loading="lazy">
-                    </div>
-                    <h4>Love Yourself: Answer</h4>
-                    <p class="grupo">BTS</p>
-                    <p class="precio">$950 MXN</p>
-                    <a href="productos.html?id=album-love-yourself" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Álbum 2 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/albums/albumbp.jpg" alt="Album BLACKPINK" loading="lazy">
-                    </div>
-                    <h4>The Album</h4>
-                    <p class="grupo">BLACKPINK</p>
-                    <p class="precio">$720 MXN</p>
-                    <a href="productos.html?id=the-album" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Álbum 3 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/albums/albuminlifeskz.jpg" alt="Album Stray Kids"
-                            loading="lazy">
-                    </div>
-                    <h4>IN LIFE</h4>
-                    <p class="grupo">Stray Kids</p>
-                    <p class="precio">$820 MXN</p>
-                    <a href="productos.html?id=in-life" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Álbum 4 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/albums/albummomoland.jpg" alt="Album MOMOLAND" loading="lazy">
-                    </div>
-                    <h4>Show Me</h4>
-                    <p class="grupo">MOMOLAND</p>
-                    <p class="precio">$710 MXN</p>
-                    <a href="productos.html?id=momoland" class="btn-secundario">Ver detalles</a>
-                </article>
-
+        <!-- CONTROLES DE FILTRADO (Filtros visuales solicitados en Bloque 2) -->
+        <section class="catalogo-controles" style="max-width: 1100px; margin: 30px auto 10px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div class="filtros-categorias" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button type="button" class="btn-filtro activo" data-filtro="todos" style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--color-borde); background: var(--color-primario); color: white; cursor: pointer; font-weight: 600;">Todos</button>
+                <button type="button" class="btn-filtro" data-filtro="albumes" style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--color-borde); background: white; color: #555; cursor: pointer; font-weight: 600;">Álbumes</button>
+                <button type="button" class="btn-filtro" data-filtro="lightsticks" style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--color-borde); background: white; color: #555; cursor: pointer; font-weight: 600;">Lightsticks</button>
+                <button type="button" class="btn-filtro" data-filtro="peluches" style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--color-borde); background: white; color: #555; cursor: pointer; font-weight: 600;">Peluches</button>
+            </div>
+            <div class="buscador-catalogo">
+                <input type="text" id="input-buscar" placeholder="Buscar por nombre o grupo..." style="padding: 10px 15px; border-radius: 20px; border: 1px solid var(--color-borde); width: 250px; font-family: var(--fuente-textos);">
             </div>
         </section>
 
-        <!-- SECCIÓN DE LIGHTSTICKS -->
-        <section class="productos-destacados seccion-catalogo" id="lightsticks">
-            <span class="catalogo-etiqueta">CATÁLOGO</span>
-            <h2>Lightsticks Oficiales</h2>
-            <div class="productos-grid">
-
-                <!-- Lightstick 1 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/lightsticks/armybombver4.jpg" alt="Lightstick BTS"
-                            loading="lazy">
-                    </div>
-                    <h4>Army Bomb - Versión 4 Arirang World Tour</h4>
-                    <p class="grupo">BTS</p>
-                    <p class="precio">$950 MXN</p>
-                    <a href="productos.html?id=lightstick-army-bomb" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Lightstick 2 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/lightsticks/lightstickbp.jpg" alt="Lightstick BLACKPINK"
-                            loading="lazy">
-                    </div>
-                    <h4>Hammer Bong</h4>
-                    <p class="grupo">BLACKPINK</p>
-                    <p class="precio">$1,550 MXN</p>
-                    <a href="productos.html?id=lightstick-hammer-bong" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Lightstick 3 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/lightsticks/nachimbongskz.jpg" alt="Lightstick STRAY KIDS"
-                            loading="lazy">
-                    </div>
-                    <h4>Nachim Bong</h4>
-                    <p class="grupo">Stray Kids</p>
-                    <p class="precio">$1,700 MXN</p>
-                    <a href="productos.html?id=lightstick-nachim-bong" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Lightstick 4 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/lightsticks/candybong.jpg" alt="Lightstick TWICE"
-                            loading="lazy">
-                    </div>
-                    <h4>Candy Bong</h4>
-                    <p class="grupo">TWICE</p>
-                    <p class="precio">$1,500 MXN</p>
-                    <a href="productos.html?id=lightstick-candy-bong" class="btn-secundario">Ver detalles</a>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- SECCIÓN DE PELUCHES / DOLLS -->
-        <section class="productos-destacados seccion-catalogo seccion-clara" id="peluches">
-            <span class="catalogo-etiqueta">CATÁLOGO</span>
-            <h2>Peluches y Dolls</h2>
-            <div class="productos-grid">
-
-                <!-- Peluche 1 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/peluches/bt21frutita.jpg" alt="Peluche BT21" loading="lazy">
-                    </div>
-                    <h4>BT21 Frutitas</h4>
-                    <p class="grupo">BTS</p>
-                    <p class="precio">$180 MXN</p>
-                    <a href="productos.html?id=bt21frutita" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Peluche 2 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/peluches/bt21florecita.jpg" alt="Peluche BT21" loading="lazy">
-                    </div>
-                    <h4>BT21 Floresitas</h4>
-                    <p class="grupo">BTS</p>
-                    <p class="precio">$320 MXN</p>
-                    <a href="productos.html?id=bt21-floresitas" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Peluche 3 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/peluches/bt21rainbow.jpg" alt="Peluche BT21" loading="lazy">
-                    </div>
-                    <h4>BT21 Rainbow</h4>
-                    <p class="grupo">BTS</p>
-                    <p class="precio">$420 MXN</p>
-                    <a href="productos.html?id=bt21-rainbow" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Peluche 4 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/peluches/bt21mini.jpg" alt="Peluche BT21" loading="lazy">
-                    </div>
-                    <h4>BT21 Mini</h4>
-                    <p class="grupo">BTS</p>
-                    <p class="precio">$320 MXN</p>
-                    <a href="productos.html?id=bt21-mini" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Peluche 5 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/peluches/skzoopink.jpg" alt="Peluche BT21" loading="lazy">
-                    </div>
-                    <h4>Mini skzoo Pink Edition</h4>
-                    <p class="grupo">Stray Kids</p>
-                    <p class="precio">$160 MXN</p>
-                    <a href="productos.html?id=skzoo-pink" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Peluche 6 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/peluches/skzoomini.jpg" alt="Peluche BT21" loading="lazy">
-                    </div>
-                    <h4>Mini skzoo 12 cm</h4>
-                    <p class="grupo">Stray Kids</p>
-                    <p class="precio">$220 MXN</p>
-                    <a href="productos.html?id=skzoo-mini" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Peluche 7 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/peluches/bpdolls.jpg" alt="Peluche BT21" loading="lazy">
-                    </div>
-                    <h4>Peluches BlackPink</h4>
-                    <p class="grupo">Black Pink</p>
-                    <p class="precio">$250 MXN</p>
-                    <a href="productos.html?id=peluches-blackpink" class="btn-secundario">Ver detalles</a>
-                </article>
-
-                <!-- Peluche 8 -->
-                <article class="producto-card">
-                    <div class="producto-imagen">
-                        <img src="../assets/img/productos/peluches/njbunnies.jpg" alt="Peluche BT21" loading="lazy">
-                    </div>
-                    <h4>New Jeans Bunnies</h4>
-                    <p class="grupo">New Jeans</p>
-                    <p class="precio">$200 MXN</p>
-                    <a href="productos.html?id=newjeans-bunnies" class="btn-secundario">Ver detalles</a>
-                </article>
-
+        <!-- SECCIÓN DE PRODUCTOS DINÁMICOS -->
+        <section class="productos-destacados seccion-catalogo" style="padding-top: 20px;">
+            <div class="productos-grid" id="grid-catalogo">
+                <!-- Los productos se inyectan automáticamente desde JavaScript -->
             </div>
         </section>
 
@@ -294,15 +96,94 @@
             </div>
         </div>
         <div class="footer-copyright">
-            <p>© 2026 Kookstore.mx</p>
+            <p>&copy; 2026 Kookstore.mx</p>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT (encabezado de usuario y contador del carrito) -->
+    <!-- JAVASCRIPT -->
+    <script src="../js/datos-productos.js"></script>
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
+    <script>
+        /* Lógica para renderizar y filtrar el catálogo dinámicamente */
+        document.addEventListener('DOMContentLoaded', function() {
+            // Permitir que el admin agregue productos temporalmente en localStorage si existen
+            function obtenerListaProductos() {
+                const guardados = localStorage.getItem('kookstore_productos_admin');
+                if (guardados) {
+                    return JSON.parse(guardados);
+                }
+                return PRODUCTOS; // Viene de datos-productos.js
+            }
 
+            const grid = document.getElementById('grid-catalogo');
+            const botonesFiltro = document.querySelectorAll('.btn-filtro');
+            const inputBuscar = document.getElementById('input-buscar');
+            let categoriaActual = 'todos';
+
+            function mostrarProductos(lista) {
+                if (lista.length === 0) {
+                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">No se encontraron productos.</p>';
+                    return;
+                }
+
+                let html = '';
+                for (let i = 0; i < lista.length; i++) {
+                    const p = lista[i];
+                    // Soporte para rutas relativas desde pages/
+                    let imgRuta = p.imagen.startsWith('assets/') ? '../' + p.imagen : p.imagen;
+
+                    html += `
+                        <article class="producto-card">
+                            <div class="producto-imagen">
+                                <img src="${imgRuta}" alt="${p.nombre}" loading="lazy">
+                            </div>
+                            <h4>${p.nombre}</h4>
+                            <p class="grupo">${p.grupo}</p>
+                            <p class="precio">${formatearPrecio(p.precio)}</p>
+                            <a href="productos.html?id=${p.id}" class="btn-secundario">Ver detalles</a>
+                        </article>
+                    `;
+                }
+                grid.innerHTML = html;
+            }
+
+            function filtrarYMostrar() {
+                const productos = obtenerListaProductos();
+                const texto = inputBuscar.value.toLowerCase().trim();
+
+                const filtrados = productos.filter(function(p) {
+                    const cumpleCategoria = (categoriaActual === 'todos' || p.categoria === categoriaActual);
+                    const cumpleTexto = p.nombre.toLowerCase().includes(texto) || p.grupo.toLowerCase().includes(texto);
+                    return cumpleCategoria && cumpleTexto;
+                });
+
+                mostrarProductos(filtrados);
+            }
+
+            // Eventos de botones de categoría
+            botonesFiltro.forEach(function(boton) {
+                boton.addEventListener('click', function() {
+                    botonesFiltro.forEach(b => {
+                        b.style.background = 'white';
+                        b.style.color = '#555';
+                    });
+                    this.style.background = 'var(--color-primario)';
+                    this.style.color = 'white';
+                    
+                    categoriaActual = this.getAttribute('data-filtro');
+                    filtrarYMostrar();
+                });
+            });
+
+            // Evento de búsqueda por texto
+            inputBuscar.addEventListener('input', filtrarYMostrar);
+
+            // Carga inicial
+            filtrarYMostrar();
+        });
+    </script>
 </body>
 
 </html>
