@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finalizar Compra | Kookstore.mx</title>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/estiloscheckout.css">
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
@@ -85,7 +87,7 @@
                         </div>
                     </div>
                 </section>
-                
+
                 <!-- Botón oculto para activar el submit con la tecla Enter -->
                 <button type="submit" style="display:none;"></button>
             </form>
@@ -93,24 +95,22 @@
             <!-- Resumen del Pedido (Derecha) -->
             <aside class="checkout-resumen">
                 <h3>Resumen de Compra</h3>
-                <div class="resumen-items">
-                    <div class="resumen-item">
-                        <span>Army Bomb Ver. 4 (x1)</span>
-                        <span>$1,200.00</span>
-                    </div>
-                    <div class="resumen-item">
-                        <span>Envío Estándar</span>
-                        <span>$150.00</span>
-                    </div>
+
+                <!-- Aquí se inyectarán los productos con JS -->
+                <div class="resumen-items" id="checkout-items">
+                    <!-- Contenido dinámico -->
                 </div>
-                <div class="resumen-total">
-                    <span>Total a Pagar</span>
-                    <strong>$1,350.00</strong>
+
+                <!-- Aquí se inyectará el total con JS -->
+                <div class="resumen-total" id="checkout-total">
+                    <!-- Contenido dinámico -->
                 </div>
-                <!-- Este botón dispara el envío del formulario de la izquierda -->
-                <button type="button" class="btn-pagar-final" onclick="document.getElementById('form-pago').requestSubmit()">
+
+                <button type="button" class="btn-pagar-final"
+                    onclick="document.getElementById('form-pago').requestSubmit()">
                     Confirmar y Pagar
                 </button>
+            </aside>
             </aside>
         </div>
     </main>
@@ -133,40 +133,89 @@
         <div class="kook-modal-box">
             <h3 style="font-size: 3.5rem; margin: 0; color: #4caf50;">✨🛒</h3>
             <h3 style="font-family: 'Baloo 2', sans-serif; color: var(--color-texto);">¡Pago Exitoso!</h3>
-            <p style="color: #666; margin-bottom: 20px;">Tu pedido <strong>#KS-9824</strong> ha sido confirmado. Hemos enviado los detalles a tu correo electrónico.</p>
+            <p style="color: #666; margin-bottom: 20px;">Tu pedido <strong>#KS-9824</strong> ha sido confirmado. Hemos
+                enviado los detalles a tu correo electrónico.</p>
             <div class="kook-modal-botones">
-                <button class="btn-primario" onclick="finalizarCompra()" style="width: 100%; border: none; cursor: pointer; padding: 12px; border-radius: 25px; font-weight: 600;">
+                <button class="btn-primario" onclick="finalizarCompra()"
+                    style="width: 100%; border: none; cursor: pointer; padding: 12px; border-radius: 25px; font-weight: 600;">
                     Volver a la tienda
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- JAVASCRIPT EN CHECKOUT.HTML -->
-<script src="../js/carrito.js"></script>
-<script src="../js/sesion.js"></script>
-<script src="../js/datos-demo.js"></script>
-<script>
-    function procesarPago(event) {
-        event.preventDefault(); 
-        
-        const btn = document.querySelector('.btn-pagar-final');
-        btn.textContent = 'Procesando pago...';
-        btn.style.opacity = '0.7';
-        btn.style.pointerEvents = 'none'; 
-        
-        setTimeout(() => {
-            // REGISTRAMOS EL PEDIDO EN EL STORAGE ANTES DE MOSTRAR LA MODAL
-            registrarPedido(); 
-            document.getElementById('modal-exito').style.display = 'flex';
-            btn.textContent = '¡Pago Aprobado!';
-        }, 2000);
-    }
+    <!-- JAVASCRIPT -->
+    <script src="../js/carrito.js"></script>
+    <script src="../js/sesion.js"></script>
+    <script src="../js/datos-demo.js"></script>
+    <script>
+        // 1. DIBUJAR LOS PRODUCTOS DEL CARRITO AL CARGAR LA PÁGINA
+        document.addEventListener('DOMContentLoaded', () => {
+            const carrito = leerCarrito(); // Función de tu carrito.js
 
-    function finalizarCompra() {
-        // Redirigimos al carrito pero directamente a la pestaña de historial
-        window.location.href = 'carrito.html#historial';
-    }
-</script>
+            // Si por alguna razón entran al checkout sin productos, los regresamos al carrito
+            if (carrito.length === 0) {
+                window.location.href = 'carrito.html';
+                return;
+            }
+
+            const contenedorItems = document.getElementById('checkout-items');
+            const contenedorTotal = document.getElementById('checkout-total');
+
+            let htmlItems = '';
+
+            // Recorrer los productos reales del carrito
+            carrito.forEach(item => {
+                const subtotalItem = item.precio * item.cantidad;
+                htmlItems += `
+                    <div class="resumen-item">
+                        <span>${item.nombre} (x${item.cantidad})</span>
+                        <span>${formatearPrecio(subtotalItem)}</span>
+                    </div>
+                `;
+            });
+
+            // Agregar costo de envío simulado
+            const costoEnvio = 150;
+            htmlItems += `
+                <div class="resumen-item" style="margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 10px;">
+                    <span>Envío Estándar</span>
+                    <span>${formatearPrecio(costoEnvio)}</span>
+                </div>
+            `;
+
+            contenedorItems.innerHTML = htmlItems;
+
+            // Calcular el total final real
+            const totalProductos = totalCarrito(); // Función de tu carrito.js
+            const totalFinal = totalProductos + costoEnvio;
+
+            contenedorTotal.innerHTML = `
+                <span>Total a Pagar</span>
+                <strong>${formatearPrecio(totalFinal)}</strong>
+            `;
+        });
+
+        // 2. LÓGICA DE PAGO
+        function procesarPago(event) {
+            event.preventDefault();
+
+            const btn = document.querySelector('.btn-pagar-final');
+            btn.textContent = 'Procesando pago...';
+            btn.style.opacity = '0.7';
+            btn.style.pointerEvents = 'none';
+
+            setTimeout(() => {
+                registrarPedido(); // Función de tu carrito.js
+                document.getElementById('modal-exito').style.display = 'flex';
+                btn.textContent = '¡Pago Aprobado!';
+            }, 2000);
+        }
+
+        function finalizarCompra() {
+            window.location.href = 'carrito.html#historial';
+        }
+    </script>
 </body>
+
 </html>
