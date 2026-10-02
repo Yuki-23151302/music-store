@@ -1,0 +1,213 @@
+/* =========================================
+   ESTILOS DE FLUJO DE COMPRA (CHECKOUT)
+========================================= */
+
+.checkout-container {
+    max-width: 1100px;
+    margin: 40px auto 80px auto;
+    padding: 0 20px;
+    font-family: var(--fuente-textos);
+}
+
+.checkout-header-titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--color-borde);
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+.checkout-header-titulo h2 {
+    font-family: var(--fuente-titulos);
+    color: var(--color-texto);
+    font-size: 2rem;
+}
+
+.enlace-volver {
+    color: var(--color-primario);
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.3s;
+}
+
+.enlace-volver:hover {
+    opacity: 0.7;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* --- Formulario --- */
+.checkout-seccion {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--color-borde);
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.checkout-seccion h3 {
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    font-family: var(--fuente-titulos);
+    color: var(--color-texto);
+    border-bottom: 1px dashed var(--color-borde);
+    padding-bottom: 10px;
+}
+
+.input-grupo {
+    margin-bottom: 18px;
+    width: 100%;
+}
+
+.input-grupo label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: 600;
+}
+
+.input-row {
+    display: flex;
+    gap: 20px;
+}
+
+.checkout-formularios input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--fuente-textos);
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.checkout-formularios input:focus {
+    border-color: var(--color-primario);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 107, 158, 0.1);
+}
+
+.tarjeta-simulada {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px dashed #ccc;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Resumen Lateral --- */
+.checkout-resumen {
+    background: var(--color-gris-claro);
+    padding: 30px;
+    border-radius: 16px;
+    position: sticky;
+    top: 30px; /* Hace que flote al hacer scroll */
+}
+
+.checkout-resumen h3 {
+    font-family: var(--fuente-titulos);
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color: var(--color-texto);
+}
+
+.resumen-items {
+    border-bottom: 1px solid var(--color-borde);
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.resumen-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.resumen-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    margin-bottom: 25px;
+    font-family: var(--fuente-titulos);
+}
+
+.btn-pagar-final {
+    width: 100%;
+    background: var(--color-primario);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: var(--fuente-textos);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.1s;
+    box-shadow: 0 4px 15px rgba(255, 107, 158, 0.3);
+}
+
+.btn-pagar-final:hover {
+    background: #e65a8d;
+    transform: translateY(-2px);
+}
+
+/* --- Modal de Éxito --- */
+.kook-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.kook-modal-box {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    animation: aparecerModal 0.3s ease-out;
+}
+
+@keyframes aparecerModal {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* --- Responsivo --- */
+@media (max-width: 850px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .checkout-resumen {
+        position: static;
+        margin-top: 20px;
+    }
+    
+    .input-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}

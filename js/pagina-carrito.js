@@ -196,16 +196,18 @@ function conectarBotonesDelCarrito() {
 }
 
 /* ---------------------------------------------------------
-   PAGO SIMULADO
+   PAGO SIMULADO (ACTUALIZADO PARA CHECKOUT)
    --------------------------------------------------------- */
 function procesarPago() {
-    const pedido = registrarPedido();
-
-    pintarCarrito();
-    pintarHistorial();
-    cambiarPestana('historial');
-
-    mostrarToast('Compra registrada con el folio ' + pedido.folio);
+    // Ya no simulamos la compra aquí directamente.
+    // Ahora enviamos al usuario al flujo visual completo.
+    
+    // Solo permitimos ir a pagar si hay algo en el carrito
+    if (leerCarrito().length > 0) {
+        window.location.href = 'checkout.html';
+    } else {
+        mostrarToast('Tu carrito está vacío');
+    }
 }
 
 /* ---------------------------------------------------------
