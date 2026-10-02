@@ -5,11 +5,13 @@
 
      1) Carrito             -> productos por pagar
      2) Historial de compras -> pedidos YA realizados por el
-        usuario que tiene la sesión iniciada. Cada cuenta ve
-        solamente sus propios pedidos, porque se leen con la
-        clave kookstore_pedidos_<correo>.
+        usuario que tiene la sesión iniciada.
 
-   Necesita que se carguen antes: sesion.js y carrito.js
+   Incluye:
+     - Casilla de selección múltiple y general ("Seleccionar todos").
+     - Confirmación individual al eliminar un producto.
+     - Confirmación masiva al eliminar seleccionados o vaciar el carrito.
+     - Mensajes de aviso (toast) al concretar la eliminación.
    ========================================================= */
 
 /* ---------------------------------------------------------
@@ -41,6 +43,7 @@ function pintarCarrito() {
 
         filas = filas + '' +
             '<tr>' +
+            '<td><input type="checkbox" class="checkbox-item" data-indice="' + i + '"></td>' +
             '<td><img src="' + rutaRaiz() + item.imagen + '" alt="' + item.nombre + '"></td>' +
             '<td>' +
             '<strong>' + item.nombre + '</strong>' +
@@ -58,9 +61,14 @@ function pintarCarrito() {
     }
 
     contenedor.innerHTML = '' +
+        '<div style="margin-bottom: 15px; display: flex; gap: 10px; align-items: center;">' +
+        '<button type="button" class="btn-vaciar" id="btn-eliminar-seleccionados" style="display: none;">Eliminar seleccionados</button>' +
+        '</div>' +
+
         '<table class="carrito-tabla">' +
         '<thead>' +
         '<tr>' +
+        '<th><input type="checkbox" id="checkbox-todos"></th>' +
         '<th>Imagen</th>' +
         '<th>Producto</th>' +
         '<th>Precio</th>' +
@@ -83,16 +91,85 @@ function pintarCarrito() {
     conectarBotonesDelCarrito();
 }
 
-/* Vuelve a enlazar los botones cada vez que se redibuja */
+/* Vuelve a enlazar los botones y eventos cada vez que se redibuja */
 function conectarBotonesDelCarrito() {
 
-    document.querySelectorAll('.btn-eliminar').forEach(function (boton) {
-        boton.addEventListener('click', function () {
-            eliminarDelCarrito(Number(this.getAttribute('data-indice')));
-            pintarCarrito();
+    // Checkbox general (Seleccionar todos)
+    const checkTodos = document.getElementById('checkbox-todos');
+    const checksItem = document.querySelectorAll('.checkbox-item');
+    const btnEliminarSeleccionados = document.getElementById('btn-eliminar-seleccionados');
+
+    function actualizarBotonSeleccionados() {
+        const algunSeleccionado = Array.from(checksItem).some(chk => chk.checked);
+        if (btnEliminarSeleccionados) {
+            btnEliminarSeleccionados.style.display = algunSeleccionado ? 'inline-block' : 'none';
+        }
+    }
+
+    if (checkTodos) {
+        checkTodos.addEventListener('change', function () {
+            checksItem.forEach(chk => {
+                chk.checked = checkTodos.checked;
+            });
+            actualizarBotonSeleccionados();
+        });
+    }
+
+    checksItem.forEach(chk => {
+        chk.addEventListener('change', function () {
+            actualizarBotonSeleccionados();
+            if (checkTodos) {
+                checkTodos.checked = Array.from(checksItem).every(c => c.checked);
+            }
         });
     });
 
+    // Eliminar individual con confirmación
+    document.querySelectorAll('.btn-eliminar').forEach(function (boton) {
+        boton.addEventListener('click', function () {
+            const indice = Number(this.getAttribute('data-indice'));
+            const confirmar = window.confirm('¿Estás seguro de eliminar este producto?');
+            
+            if (confirmar) {
+                eliminarDelCarrito(indice);
+                pintarCarrito();
+                mostrarToast('Se eliminó el producto');
+            }
+        });
+    });
+
+    // Eliminar seleccionados / Vaciar carrito por selección
+    if (btnEliminarSeleccionados) {
+        btnEliminarSeleccionados.addEventListener('click', function () {
+            const carrito = leerCarrito();
+            const seleccionados = Array.from(checksItem).filter(chk => chk.checked);
+            const todosSeleccionados = seleccionados.length === carrito.length;
+
+            let mensaje = todosSeleccionados 
+                ? '¿Deseas vaciar tu carrito?' 
+                : '¿Deseas eliminar estos productos?';
+
+            if (window.confirm(mensaje)) {
+                // Obtenemos los índices de mayor a menor para eliminarlos sin alterar posiciones
+                const indicesAEliminar = seleccionados
+                    .map(chk => Number(chk.getAttribute('data-indice')))
+                    .sort((a, b) => b - a);
+
+                if (todosSeleccionados) {
+                    vaciarCarrito();
+                    mostrarToast('Se vació el carrito');
+                } else {
+                    for (let i = 0; i < indicesAEliminar.length; i++) {
+                        eliminarDelCarrito(indicesAEliminar[i]);
+                    }
+                    mostrarToast('Se eliminó el producto o productos');
+                }
+                pintarCarrito();
+            }
+        });
+    }
+
+    // Cambiar cantidad de producto
     document.querySelectorAll('.carrito-cantidad').forEach(function (campo) {
         campo.addEventListener('change', function () {
             cambiarCantidad(Number(this.getAttribute('data-indice')), this.value);
@@ -100,20 +177,26 @@ function conectarBotonesDelCarrito() {
         });
     });
 
-    document.getElementById('btn-vaciar-carrito')
-        .addEventListener('click', function () {
-            vaciarCarrito();
-            pintarCarrito();
+    // Vaciar carrito completo desde el botón inferior
+    const btnVaciar = document.getElementById('btn-vaciar-carrito');
+    if (btnVaciar) {
+        btnVaciar.addEventListener('click', function () {
+            if (window.confirm('¿Deseas vaciar tu carrito?')) {
+                vaciarCarrito();
+                pintarCarrito();
+                mostrarToast('Se vació el carrito');
+            }
         });
+    }
 
-    document.getElementById('btn-procesar-pago')
-        .addEventListener('click', procesarPago);
+    const btnPagar = document.getElementById('btn-procesar-pago');
+    if (btnPagar) {
+        btnPagar.addEventListener('click', procesarPago);
+    }
 }
 
 /* ---------------------------------------------------------
    PAGO SIMULADO
-   Convierte el carrito en un pedido del historial y manda
-   al cliente a la pestaña "Historial de compras".
    --------------------------------------------------------- */
 function procesarPago() {
     const pedido = registrarPedido();
@@ -133,7 +216,6 @@ function pintarHistorial() {
     const usuario = usuarioActivo();
     const pedidos = leerPedidos();
 
-    // Encabezado: de quién es el historial que se está viendo
     let encabezado = '';
 
     if (usuario) {
@@ -213,7 +295,6 @@ function cambiarPestana(cual) {
     panelHistorial.classList.toggle('activo', !verCarrito);
 }
 
-/* Pone el número de artículos en el nombre de la pestaña */
 function actualizarTituloPestanaCarrito() {
     document.getElementById('tab-carrito').textContent =
         'Carrito (' + contarArticulos() + ')';
@@ -237,7 +318,6 @@ document.addEventListener('DOMContentLoaded', function () {
             cambiarPestana('historial');
         });
 
-    // Si se llega con carrito.html#historial se abre esa pestaña
     if (window.location.hash === '#historial') {
         cambiarPestana('historial');
     }
