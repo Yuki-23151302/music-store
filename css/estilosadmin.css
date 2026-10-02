@@ -1,0 +1,117 @@
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.admin-sidebar {
+    width: 250px;
+    background: white;
+    border-right: 1px solid var(--color-borde, #eaeaea);
+    padding: 20px;
+}
+
+.admin-logo {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--color-texto, #333);
+}
+
+.admin-logo span {
+    color: var(--color-primario, #ff6b9e);
+}
+
+.admin-nav a {
+    display: block;
+    padding: 12px 15px;
+    color: #666;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: background 0.2s;
+}
+
+.admin-nav a.activo, .admin-nav a:hover {
+    background: rgba(255, 107, 158, 0.1);
+    color: var(--color-primario, #ff6b9e);
+    font-weight: bold;
+}
+
+.admin-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.btn-primario {
+    background: var(--color-primario, #ff6b9e);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.admin-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.admin-tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-tabla th, .admin-tabla td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-borde, #eaeaea);
+}
+
+.img-placeholder {
+    width: 50px;
+    height: 50px;
+    background: #eee;
+    border-radius: 6px;
+}
+
+.badge-stock {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.badge-stock.alto { background: #e2f0d9; color: #385723; }
+.badge-stock.bajo { background: #ffe5e5; color: #cc0000; }
+
+.btn-icono {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.admin-form input, .admin-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
