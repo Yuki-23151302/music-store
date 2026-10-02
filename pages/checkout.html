@@ -46,49 +46,72 @@
         <div class="checkout-grid">
             <!-- Formulario de Datos (Izquierda) -->
             <form id="form-pago" class="checkout-formularios" onsubmit="procesarPago(event)">
+
                 <section class="checkout-seccion">
                     <h3>1. Dirección de Envío</h3>
                     <div class="input-grupo">
                         <label>Nombre Completo</label>
-                        <input type="text" placeholder="Ej. Elvie Yuridia Flores" required>
+                        <input type="text" placeholder="Ej. Elvie Yuridia Flores">
                     </div>
                     <div class="input-grupo">
                         <label>Calle y Número</label>
-                        <input type="text" placeholder="Ej. Av. Tecnológico 123" required>
+                        <input type="text" placeholder="Ej. Av. Tecnológico 123">
                     </div>
                     <div class="input-row">
                         <div class="input-grupo">
                             <label>Código Postal</label>
-                            <input type="text" placeholder="20256" required>
+                            <input type="text" placeholder="20256">
                         </div>
                         <div class="input-grupo">
                             <label>Ciudad</label>
-                            <input type="text" placeholder="Aguascalientes" required>
+                            <input type="text" placeholder="Aguascalientes">
                         </div>
+                    </div>
+                </section>
+
+                <!-- NUEVA SECCIÓN DE ENVÍO -->
+                <section class="checkout-seccion">
+                    <h3>2. Método de Envío</h3>
+                    <div class="opciones-envio">
+                        <label class="opcion-radio">
+                            <!-- onChange actualiza el precio al instante -->
+                            <input type="radio" name="envio" value="150" data-nombre="Envío Estándar"
+                                onchange="actualizarResumen()" checked>
+                            <span>Envío Estándar (3-5 días) - $150.00</span>
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="envio" value="250" data-nombre="Envío Exprés"
+                                onchange="actualizarResumen()">
+                            <span>Envío Exprés (1-2 días) - $250.00</span>
+                        </label>
+                        <label class="opcion-radio">
+                            <input type="radio" name="envio" value="0" data-nombre="Recoger en tienda"
+                                onchange="actualizarResumen()">
+                            <span>Recoger en tienda - Gratis</span>
+                        </label>
                     </div>
                 </section>
 
                 <section class="checkout-seccion">
-                    <h3>2. Método de Pago (Simulado)</h3>
+                    <h3>3. Método de Pago (Simulado)</h3>
                     <div class="tarjeta-simulada">
                         <div class="input-grupo">
                             <label>Número de Tarjeta</label>
-                            <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                            <input type="text" placeholder="0000 0000 0000 0000" maxlength="19">
                         </div>
                         <div class="input-row">
                             <div class="input-grupo">
                                 <label>Vencimiento (MM/AA)</label>
-                                <input type="text" placeholder="12/28" maxlength="5" required>
+                                <input type="text" placeholder="12/28" maxlength="5">
                             </div>
                             <div class="input-grupo">
                                 <label>CVV</label>
-                                <input type="password" placeholder="123" maxlength="3" required>
+                                <input type="password" placeholder="123" maxlength="3">
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Botón oculto para activar el submit con la tecla Enter -->
                 <button type="submit" style="display:none;"></button>
             </form>
 
@@ -149,23 +172,30 @@
     <script src="../js/sesion.js"></script>
     <script src="../js/datos-demo.js"></script>
     <script>
-        // 1. DIBUJAR LOS PRODUCTOS DEL CARRITO AL CARGAR LA PÁGINA
-        document.addEventListener('DOMContentLoaded', () => {
-            const carrito = leerCarrito(); // Función de tu carrito.js
+        let carritoCheckout = [];
 
-            // Si por alguna razón entran al checkout sin productos, los regresamos al carrito
-            if (carrito.length === 0) {
+        document.addEventListener('DOMContentLoaded', () => {
+            carritoCheckout = leerCarrito(); // Función de carrito.js
+            
+            // Si el carrito está vacío, regresar a la tienda
+            if (carritoCheckout.length === 0) {
                 window.location.href = 'carrito.html';
                 return;
             }
 
+            // Pintar el resumen por primera vez
+            actualizarResumen();
+        });
+
+        // Esta función recalcula todo (productos + envío seleccionado)
+        function actualizarResumen() {
             const contenedorItems = document.getElementById('checkout-items');
             const contenedorTotal = document.getElementById('checkout-total');
-
+            
             let htmlItems = '';
-
-            // Recorrer los productos reales del carrito
-            carrito.forEach(item => {
+            
+            // 1. Mostrar productos del carrito
+            carritoCheckout.forEach(item => {
                 const subtotalItem = item.precio * item.cantidad;
                 htmlItems += `
                     <div class="resumen-item">
@@ -175,38 +205,45 @@
                 `;
             });
 
-            // Agregar costo de envío simulado
-            const costoEnvio = 150;
+            // 2. Detectar cuál opción de envío está seleccionada
+            const envioSeleccionado = document.querySelector('input[name="envio"]:checked');
+            const costoEnvio = parseFloat(envioSeleccionado.value);
+            const nombreEnvio = envioSeleccionado.getAttribute('data-nombre');
+
+            // 3. Mostrar el costo del envío
+            const textoCostoEnvio = costoEnvio === 0 ? 'Gratis' : formatearPrecio(costoEnvio);
+            
             htmlItems += `
                 <div class="resumen-item" style="margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 10px;">
-                    <span>Envío Estándar</span>
-                    <span>${formatearPrecio(costoEnvio)}</span>
+                    <span>${nombreEnvio}</span>
+                    <span>${textoCostoEnvio}</span>
                 </div>
             `;
-
+            
             contenedorItems.innerHTML = htmlItems;
 
-            // Calcular el total final real
-            const totalProductos = totalCarrito(); // Función de tu carrito.js
+            // 4. Sumar el envío al total de los productos
+            const totalProductos = totalCarrito(); // Función de carrito.js
             const totalFinal = totalProductos + costoEnvio;
 
+            // 5. Pintar el total a cobrar
             contenedorTotal.innerHTML = `
                 <span>Total a Pagar</span>
                 <strong>${formatearPrecio(totalFinal)}</strong>
             `;
-        });
+        }
 
-        // 2. LÓGICA DE PAGO
+        // Lógica de Pago
         function procesarPago(event) {
-            event.preventDefault();
-
+            event.preventDefault(); 
+            
             const btn = document.querySelector('.btn-pagar-final');
             btn.textContent = 'Procesando pago...';
             btn.style.opacity = '0.7';
-            btn.style.pointerEvents = 'none';
-
+            btn.style.pointerEvents = 'none'; 
+            
             setTimeout(() => {
-                registrarPedido(); // Función de tu carrito.js
+                registrarPedido(); 
                 document.getElementById('modal-exito').style.display = 'flex';
                 btn.textContent = '¡Pago Aprobado!';
             }, 2000);

@@ -211,3 +211,32 @@
         gap: 0;
     }
 }
+/* --- Opciones de Envío --- */
+.opciones-envio {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.opcion-radio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    color: #444;
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.opcion-radio:hover {
+    background: #fdf2f6;
+}
+
+.opcion-radio input[type="radio"] {
+    width: auto;
+    cursor: pointer;
+    accent-color: var(--color-primario);
+}
