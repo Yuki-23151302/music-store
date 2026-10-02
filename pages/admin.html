@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - Kookstore</title>
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <h2 class="admin-logo">Kookstore<span>.admin</span></h2>
+            <nav class="admin-nav">
+                <a href="#" class="activo">📦 Productos</a>
+                <a href="#">🛒 Pedidos</a>
+                <a href="#">👥 Clientes</a>
+                <a href="../index.html">⬅ Volver a la tienda</a>
+            </nav>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="admin-content">
+            <header class="admin-header">
+                <h1>Gestión de Productos</h1>
+                <button class="btn-primario" onclick="abrirModalProducto()">+ Nuevo Producto</button>
+            </header>
+
+            <div class="admin-panel">
+                <table class="admin-tabla">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre del Producto</th>
+                            <th>Categoría</th>
+                            <th>Stock</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="img-placeholder"></div></td>
+                            <td>Army Bomb Ver. 4</td>
+                            <td>Lightsticks</td>
+                            <td><span class="badge-stock alto">45</span></td>
+                            <td>$1,200.00</td>
+                            <td>
+                                <button class="btn-icono editar">✏️</button>
+                                <button class="btn-icono eliminar">🗑️</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><div class="img-placeholder"></div></td>
+                            <td>Álbum OMG - NewJeans</td>
+                            <td>Álbumes</td>
+                            <td><span class="badge-stock bajo">3</span></td>
+                            <td>$550.00</td>
+                            <td>
+                                <button class="btn-icono editar">✏️</button>
+                                <button class="btn-icono eliminar">🗑️</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Nuevo Producto -->
+    <div class="kook-modal-overlay" id="modal-producto" style="display: none;">
+        <div class="kook-modal-box form-modal">
+            <h3>Agregar Nuevo Producto</h3>
+            <form class="admin-form">
+                <input type="text" placeholder="Nombre del producto" required>
+                <select required>
+                    <option value="">Selecciona Categoría</option>
+                    <option value="lightsticks">Lightsticks</option>
+                    <option value="albumes">Álbumes</option>
+                    <option value="merch">Photocards & Merch</option>
+                </select>
+                <div class="form-row">
+                    <input type="number" placeholder="Precio ($)" required>
+                    <input type="number" placeholder="Stock" required>
+                </div>
+                <div class="kook-modal-botones">
+                    <button type="button" class="kook-btn-cancelar" onclick="cerrarModalProducto()">Cancelar</button>
+                    <button type="submit" class="kook-btn-aceptar">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function abrirModalProducto() {
+            document.getElementById('modal-producto').style.display = 'flex';
+        }
+        function cerrarModalProducto() {
+            document.getElementById('modal-producto').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
