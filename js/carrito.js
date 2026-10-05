@@ -172,13 +172,20 @@ function registrarPedido() {
     const folio = 'KS-2026-' + Math.floor(1000 + Math.random() * 9000);
     const ahora = new Date();
 
+    // 1. Crear la cadena de texto para el resumen de compra
+    const resumenTexto = carrito
+        .map(item => item.cantidad + 'x ' + item.nombre)
+        .join(', ');
+
+    // 2. Crear el objeto del pedido con la propiedad 'resumen'
     const nuevoPedido = {
         folio: folio,
         fecha: ahora.toLocaleDateString('es-MX'),
         hora: ahora.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' }),
         articulos: [...carrito],
+        resumen: resumenTexto, // <-- AQUÍ SE AGREGA PARA EL ADMIN
         total: totalCarrito(),
-        estado: 'Pagado' // ESTADO INICIAL CORRECTO
+        estado: 'Pagado'
     };
 
     pedidos.unshift(nuevoPedido);
