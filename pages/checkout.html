@@ -44,14 +44,14 @@
         </div>
 
         <div class="checkout-grid">
-            <!-- Formulario de Datos (Izquierda) -->
-            <form id="form-pago" class="checkout-formularios" onsubmit="procesarPago(event)">
+            <!-- Formulario de Datos sin validaciones -->
+            <form id="form-pago" class="checkout-formularios" onsubmit="procesarPago(event)" novalidate>
 
                 <section class="checkout-seccion">
                     <h3>1. Dirección de Envío</h3>
                     <div class="input-grupo">
                         <label>Nombre Completo</label>
-                        <input type="text" placeholder="Ej. Elvie Yuridia Flores">
+                        <input type="text" placeholder="Ej. Yuridia Flores">
                     </div>
                     <div class="input-grupo">
                         <label>Calle y Número</label>
@@ -69,12 +69,11 @@
                     </div>
                 </section>
 
-                <!-- NUEVA SECCIÓN DE ENVÍO -->
+                <!-- SECCIÓN DE ENVÍO -->
                 <section class="checkout-seccion">
                     <h3>2. Método de Envío</h3>
                     <div class="opciones-envio">
                         <label class="opcion-radio">
-                            <!-- onChange actualiza el precio al instante -->
                             <input type="radio" name="envio" value="150" data-nombre="Envío Estándar"
                                 onchange="actualizarResumen()" checked>
                             <span>Envío Estándar (3-5 días) - $150.00</span>
@@ -97,16 +96,16 @@
                     <div class="tarjeta-simulada">
                         <div class="input-grupo">
                             <label>Número de Tarjeta</label>
-                            <input type="text" placeholder="0000 0000 0000 0000" maxlength="19">
+                            <input type="text" placeholder="0000 0000 0000 0000">
                         </div>
                         <div class="input-row">
                             <div class="input-grupo">
                                 <label>Vencimiento (MM/AA)</label>
-                                <input type="text" placeholder="12/28" maxlength="5">
+                                <input type="text" placeholder="12/28">
                             </div>
                             <div class="input-grupo">
                                 <label>CVV</label>
-                                <input type="password" placeholder="123" maxlength="3">
+                                <input type="password" placeholder="123">
                             </div>
                         </div>
                     </div>
@@ -115,16 +114,14 @@
                 <button type="submit" style="display:none;"></button>
             </form>
 
-            <!-- Resumen del Pedido (Derecha) -->
+            <!-- Resumen del Pedido -->
             <aside class="checkout-resumen">
                 <h3>Resumen de Compra</h3>
 
-                <!-- Aquí se inyectarán los productos con JS -->
                 <div class="resumen-items" id="checkout-items">
                     <!-- Contenido dinámico -->
                 </div>
 
-                <!-- Aquí se inyectará el total con JS -->
                 <div class="resumen-total" id="checkout-total">
                     <!-- Contenido dinámico -->
                 </div>
@@ -133,7 +130,6 @@
                     onclick="document.getElementById('form-pago').requestSubmit()">
                     Confirmar y Pagar
                 </button>
-            </aside>
             </aside>
         </div>
     </main>
@@ -156,8 +152,7 @@
         <div class="kook-modal-box">
             <h3 style="font-size: 3.5rem; margin: 0; color: #4caf50;">✨🛒</h3>
             <h3 style="font-family: 'Baloo 2', sans-serif; color: var(--color-texto);">¡Pago Exitoso!</h3>
-            <p style="color: #666; margin-bottom: 20px;">Tu pedido <strong>#KS-9824</strong> ha sido confirmado. Hemos
-                enviado los detalles a tu correo electrónico.</p>
+            <p style="color: #666; margin-bottom: 20px;">Tu pedido <strong id="folio-modal-exito">#KS-2026-000</strong> ha sido confirmado. Hemos enviado los detalles a tu correo electrónico.</p>
             <div class="kook-modal-botones">
                 <button class="btn-primario" onclick="finalizarCompra()"
                     style="width: 100%; border: none; cursor: pointer; padding: 12px; border-radius: 25px; font-weight: 600;">
@@ -168,33 +163,29 @@
     </div>
 
     <!-- JAVASCRIPT -->
-    <script src="../js/carrito.js"></script>
     <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
     <script>
         let carritoCheckout = [];
 
         document.addEventListener('DOMContentLoaded', () => {
-            carritoCheckout = leerCarrito(); // Función de carrito.js
+            carritoCheckout = leerCarrito();
             
-            // Si el carrito está vacío, regresar a la tienda
             if (carritoCheckout.length === 0) {
                 window.location.href = 'carrito.html';
                 return;
             }
 
-            // Pintar el resumen por primera vez
             actualizarResumen();
         });
 
-        // Esta función recalcula todo (productos + envío seleccionado)
         function actualizarResumen() {
             const contenedorItems = document.getElementById('checkout-items');
             const contenedorTotal = document.getElementById('checkout-total');
             
             let htmlItems = '';
             
-            // 1. Mostrar productos del carrito
             carritoCheckout.forEach(item => {
                 const subtotalItem = item.precio * item.cantidad;
                 htmlItems += `
@@ -205,12 +196,10 @@
                 `;
             });
 
-            // 2. Detectar cuál opción de envío está seleccionada
             const envioSeleccionado = document.querySelector('input[name="envio"]:checked');
             const costoEnvio = parseFloat(envioSeleccionado.value);
             const nombreEnvio = envioSeleccionado.getAttribute('data-nombre');
 
-            // 3. Mostrar el costo del envío
             const textoCostoEnvio = costoEnvio === 0 ? 'Gratis' : formatearPrecio(costoEnvio);
             
             htmlItems += `
@@ -222,18 +211,15 @@
             
             contenedorItems.innerHTML = htmlItems;
 
-            // 4. Sumar el envío al total de los productos
-            const totalProductos = totalCarrito(); // Función de carrito.js
+            const totalProductos = totalCarrito();
             const totalFinal = totalProductos + costoEnvio;
 
-            // 5. Pintar el total a cobrar
             contenedorTotal.innerHTML = `
                 <span>Total a Pagar</span>
                 <strong>${formatearPrecio(totalFinal)}</strong>
             `;
         }
 
-        // Lógica de Pago
         function procesarPago(event) {
             event.preventDefault(); 
             
@@ -243,7 +229,10 @@
             btn.style.pointerEvents = 'none'; 
             
             setTimeout(() => {
-                registrarPedido(); 
+                const nuevoPedido = registrarPedido(); 
+                if (nuevoPedido && nuevoPedido.folio) {
+                    document.getElementById('folio-modal-exito').textContent = '#' + nuevoPedido.folio;
+                }
                 document.getElementById('modal-exito').style.display = 'flex';
                 btn.textContent = '¡Pago Aprobado!';
             }, 2000);

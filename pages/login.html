@@ -102,7 +102,7 @@
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
     <script>
-        /* INICIO DE SESIÓN CON GUARDADO DE SESIÓN ADMIN */
+        /* INICIO DE SESIÓN CON SESSIONSTORAGE (AISLADO POR PESTAÑA) */
         document.getElementById('form-login').addEventListener('submit', function (evento) {
             evento.preventDefault();
 
@@ -111,16 +111,25 @@
 
             // Si es la cuenta admin
             if ((correo === 'admin' || correo === 'admin@kookstore.mx') && contrasena === 'kook123') {
-                // Guardamos explícitamente la sesión de administrador
-                localStorage.setItem('kookstore_sesion', 'admin@kookstore.mx');
+                // Guarda la sesión de admin ÚNICAMENTE en esta pestaña
+                sessionStorage.setItem('kookstore_sesion', 'admin@kookstore.mx');
                 window.location.href = 'admin.html';
             } else {
                 // Flujo normal para clientes
-                iniciarSesion(correo, contrasena);
-                fusionarCarritoInvitado();
+                if (typeof iniciarSesion === 'function') {
+                    iniciarSesion(correo, contrasena);
+                } else {
+                    sessionStorage.setItem('kookstore_sesion', correo);
+                }
+                
+                if (typeof fusionarCarritoInvitado === 'function') {
+                    fusionarCarritoInvitado();
+                }
+                
                 window.location.href = 'perfil.html';
             }
         });
     </script>
 </body>
+
 </html>

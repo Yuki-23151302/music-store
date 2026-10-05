@@ -1,12 +1,12 @@
 /* =========================================================
-   KOOKSTORE.MX - SESIÓN DE USUARIO
+   KOOKSTORE.MX - SESIÓN DE USUARIO (POR PESTAÑA)
    ---------------------------------------------------------
    Maneja el alta de usuarios, el inicio y el cierre de
-   sesión usando localStorage (no requiere servidor).
-
-   Claves que se guardan en el navegador:
-     kookstore_usuarios -> lista de todas las cuentas creadas
-     kookstore_sesion   -> correo del usuario que inició sesión
+   sesión.
+   
+   Claves guardadas:
+     localStorage   -> kookstore_usuarios (lista permanente de cuentas)
+     sessionStorage -> kookstore_sesion (sesión activa en la pestaña actual)
 
    NOTA: este archivo debe cargarse ANTES que carrito.js,
    porque el carrito y el historial se guardan por usuario.
@@ -89,12 +89,9 @@ function mesActual() {
 
 /* ---------------------------------------------------------
    ALTA DE USUARIO (REGISTRO)
-   Crea la cuenta y deja la sesión iniciada.
+   Crea la cuenta y deja la sesión iniciada en la pestaña.
    --------------------------------------------------------- */
 function registrarUsuario(nombre, email, password) {
-    // Valores por defecto para que el flujo nunca se detenga
-    // aunque el formulario se envíe vacío (no es una validación:
-    // no se bloquea ni se avisa nada, solo se rellena).
     if (!nombre) {
         nombre = 'Fan Kookstore';
     }
@@ -111,7 +108,7 @@ function registrarUsuario(nombre, email, password) {
         existente.password = password;
         existente.avatar = inicialesDe(nombre);
         guardarUsuarios(usuarios.map(u => u.email === email ? existente : u));
-        localStorage.setItem(CLAVE_SESION, email);
+        sessionStorage.setItem(CLAVE_SESION, email);
         return existente;
     }
 
@@ -126,14 +123,13 @@ function registrarUsuario(nombre, email, password) {
 
     usuarios.push(nuevoUsuario);
     guardarUsuarios(usuarios);
-    localStorage.setItem(CLAVE_SESION, email);
+    sessionStorage.setItem(CLAVE_SESION, email);
     return nuevoUsuario;
 }
 
 /* ---------------------------------------------------------
    INICIO DE SESIÓN
-   Sin validaciones: si el correo no existe, se da de alta
-   en ese momento para que el flujo nunca se detenga.
+   Guarda el correo de sesión en sessionStorage para esta pestaña.
    --------------------------------------------------------- */
 function iniciarSesion(email, password) {
     if (!email) {
@@ -143,8 +139,18 @@ function iniciarSesion(email, password) {
     const usuario = buscarUsuarioPorEmail(email);
 
     if (usuario) {
-        localStorage.setItem(CLAVE_SESION, email);
+        sessionStorage.setItem(CLAVE_SESION, email);
         return usuario;
+    }
+
+    // Si es administrador
+    if (email === 'admin@kookstore.mx' || email === 'admin') {
+        sessionStorage.setItem(CLAVE_SESION, 'admin@kookstore.mx');
+        return {
+            nombre: 'Administrador',
+            email: 'admin@kookstore.mx',
+            avatar: 'AD'
+        };
     }
 
     // El nombre se arma con la parte del correo antes de la @
@@ -152,17 +158,26 @@ function iniciarSesion(email, password) {
     return registrarUsuario(nombreAutomatico, email, password);
 }
 
-/* Cierra la sesión (el historial de compras NO se borra) */
+/* Cierra la sesión únicamente en esta pestaña */
 function cerrarSesion() {
-    localStorage.removeItem(CLAVE_SESION);
+    sessionStorage.removeItem(CLAVE_SESION);
 }
 
-/* Devuelve el usuario con sesión iniciada, o null si no hay */
+/* Devuelve el usuario con sesión iniciada en esta pestaña, o null si no hay */
 function usuarioActivo() {
-    const email = localStorage.getItem(CLAVE_SESION);
+    const email = sessionStorage.getItem(CLAVE_SESION);
     if (!email) {
         return null;
     }
+
+    if (email === 'admin@kookstore.mx' || email === 'admin') {
+        return {
+            nombre: 'Administrador',
+            email: 'admin@kookstore.mx',
+            avatar: 'AD'
+        };
+    }
+
     return buscarUsuarioPorEmail(email);
 }
 
@@ -193,8 +208,9 @@ function pintarHeaderUsuario() {
         : '<a href="' + paginas + 'carrito.html" class="btn-carrito">Carrito</a>';
 
     if (usuario) {
+        const rutaPerfil = esAdmin() ? (paginas + 'admin.html') : (paginas + 'perfil.html');
         contenedor.innerHTML =
-            '<a href="' + paginas + 'perfil.html" class="btn-login" title="Ir a mi perfil">Hola, ' +
+            '<a href="' + rutaPerfil + '" class="btn-login" title="Ir a mi perfil">Hola, ' +
             usuario.nombre.split(' ')[0] + '</a>' +
             '<a href="#" class="btn-salir" id="btn-cerrar-sesion-header">Salir</a>' +
             htmlCarrito;
@@ -214,8 +230,8 @@ function pintarHeaderUsuario() {
 
 document.addEventListener('DOMContentLoaded', pintarHeaderUsuario);
 
-/* Verificar si la sesión activa es de Administrador */
+/* Verificar si la sesión activa de esta pestaña es de Administrador */
 function esAdmin() {
-    const sesion = localStorage.getItem('kookstore_sesion');
+    const sesion = sessionStorage.getItem(CLAVE_SESION);
     return sesion === 'admin@kookstore.mx' || sesion === 'admin';
 }

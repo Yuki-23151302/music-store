@@ -278,3 +278,18 @@ function eliminarProductoBD(id) {
     productos = productos.filter(p => p.id !== id);
     guardarProductos(productos);
 }
+/* Detecta cambios hechos desde otra pestaña (ej. Panel de Admin) */
+window.addEventListener('storage', function (e) {
+    if (e.key === 'kookstore_productos') {
+        // Actualizar la lista global de productos
+        PRODUCTOS = leerProductos();
+
+        // Si la página tiene una función para renderizar catálogo o detalle, la vuelve a ejecutar
+        if (typeof renderizarProductos === 'function') {
+            renderizarProductos(obtenerProductosPorCategoria('todos'));
+        }
+        if (typeof cargarDetalleProducto === 'function') {
+            cargarDetalleProducto();
+        }
+    }
+});

@@ -132,9 +132,29 @@ function guardarPedidos(pedidos) {
     localStorage.setItem(clavePedidos(), JSON.stringify(pedidos));
 }
 
-/* Arma un folio consecutivo: KS-2026-001, KS-2026-002, ... */
+/* Cuenta los pedidos acumulados de TODOS los clientes en la tienda */
+function contarTodosLosPedidosGlobales() {
+    let total = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+        const clave = localStorage.key(i);
+        if (clave && clave.startsWith('kookstore_pedidos_')) {
+            const datos = localStorage.getItem(clave);
+            if (datos) {
+                try {
+                    const lista = JSON.parse(datos);
+                    total += lista.length;
+                } catch (e) {
+                    // ignora registros con formato incorrecto
+                }
+            }
+        }
+    }
+    return total;
+}
+
+/* Arma un folio global único consecutivo: KS-2026-001, KS-2026-002, ... */
 function generarFolio() {
-    const consecutivo = leerPedidos().length + 1;
+    const consecutivo = contarTodosLosPedidosGlobales() + 1;
     let numero = String(consecutivo);
     while (numero.length < 3) {
         numero = '0' + numero;
@@ -146,28 +166,26 @@ function generarFolio() {
    y deja el carrito vacío. Devuelve el pedido creado. */
 function registrarPedido() {
     const carrito = leerCarrito();
-    const ahora = new Date();
-
-    const nombresProductos = carrito.map(function (item) {
-        return item.cantidad + 'x ' + item.nombre;
-    }).join(', ');
-
-    const pedido = {
-        folio: generarFolio(),
-        fecha: ahora.toLocaleDateString('es-MX'),
-        hora: ahora.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' }),
-        estado: 'En camino',
-        total: totalCarrito(),
-        resumen: nombresProductos,
-        articulos: carrito
-    };
+    if (carrito.length === 0) return null;
 
     const pedidos = leerPedidos();
-    pedidos.unshift(pedido);   // el más reciente queda primero
-    guardarPedidos(pedidos);
+    const folio = 'KS-2026-' + Math.floor(1000 + Math.random() * 9000);
+    const ahora = new Date();
 
+    const nuevoPedido = {
+        folio: folio,
+        fecha: ahora.toLocaleDateString('es-MX'),
+        hora: ahora.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' }),
+        articulos: [...carrito],
+        total: totalCarrito(),
+        estado: 'Pagado' // ESTADO INICIAL CORRECTO
+    };
+
+    pedidos.unshift(nuevoPedido);
+    guardarPedidos(pedidos);
     vaciarCarrito();
-    return pedido;
+
+    return nuevoPedido;
 }
 
 /* ---------------------------------------------------------

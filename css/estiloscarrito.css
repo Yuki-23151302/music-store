@@ -295,3 +295,189 @@
         justify-content: center;
     }
 }
+/* =========================================================
+   SEGUIMIENTO DE PEDIDOS TIPO SHEIN (DESPLEGABLE)
+   ========================================================= */
+
+.tarjeta-pedido {
+    background: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.tarjeta-pedido:hover {
+    border-color: #ff6b81;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.pedido-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pedido-header-info strong {
+    font-size: 1.1rem;
+    color: #333;
+    display: block;
+}
+
+.pedido-fecha {
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.pedido-header-derecha {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.badge-estado {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-estado.pagado { background: #e3f2fd; color: #1976d2; }
+.badge-estado.en-proceso { background: #fff3e0; color: #f57c00; }
+.badge-estado.en-camino { background: #e8f5e9; color: #2e7d32; }
+.badge-estado.entregado { background: #f3e5f5; color: #7b1fa2; }
+
+.btn-toggle-rastreo {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.flecha-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.tarjeta-pedido.desplegado .flecha-icon {
+    transform: rotate(180deg);
+}
+
+/* CONTENEDOR DESPLEGABLE DE SEGUIMIENTO */
+.desplegable-rastreo {
+    display: none;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px dashed #e0e0e0;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.rastreo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.rastreo-header h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* STEPPER / BARRA DE PROGRESO TIPO SHEIN */
+.stepper-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 10px;
+    margin: 20px 0 10px 0;
+}
+
+.stepper-linea-fondo {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 4px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+.stepper-linea-progreso {
+    height: 100%;
+    background: #4caf50;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+}
+
+.step-item {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    text-align: center;
+}
+
+.step-circulo {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.step-item.completado .step-circulo {
+    background: #4caf50;
+    border-color: #4caf50;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.step-item.activo .step-circulo {
+    background: #ffffff;
+    border-color: #4caf50;
+    animation: pulso 1.5s infinite;
+}
+
+.step-texto {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #888;
+}
+
+.step-item.completado .step-texto,
+.step-item.activo .step-texto {
+    color: #333;
+}
+
+@keyframes pulso {
+    0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(76, 175, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+}

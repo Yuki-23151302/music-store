@@ -1,5 +1,5 @@
 /* =========================================================
-   KOOKSTORE.MX - PÁGINA DEL CARRITO
+   KOOKSTORE.MX - PÁGINA DEL CARRITO E HISTORIAL DE COMPRAS
    ---------------------------------------------------------
    Dibuja las dos pestañas de carrito.html:
 
@@ -9,9 +9,9 @@
 
    Incluye:
      - Casilla de selección múltiple y general ("Seleccionar todos").
-     - Confirmación individual al eliminar un producto.
-     - Confirmación masiva al eliminar seleccionados o vaciar el carrito.
-     - Mensajes de aviso (toast) al concretar la eliminación.
+     - Botón dinámico "Eliminar seleccionados" (vacía el carrito si se seleccionan todos).
+     - Manejo de imágenes mediante rutaRaiz().
+     - Desglose desplegable con seguimiento tipo SHEIN en el Historial.
    ========================================================= */
 
 /* ---------------------------------------------------------
@@ -33,6 +33,7 @@ function pintarCarrito() {
     }
 
     let filas = '';
+    const prefixRuta = (typeof rutaRaiz === 'function') ? rutaRaiz() : '';
 
     for (let i = 0; i < carrito.length; i++) {
         const item = carrito[i];
@@ -41,13 +42,15 @@ function pintarCarrito() {
             ? '<span class="carrito-opcion">' + item.opcion + '</span>'
             : '';
 
+        const rutaImagen = prefixRuta + item.imagen;
+
         filas = filas + '' +
             '<tr>' +
             '<td><input type="checkbox" class="checkbox-item" data-indice="' + i + '"></td>' +
-            '<td><img src="' + rutaRaiz() + item.imagen + '" alt="' + item.nombre + '"></td>' +
+            '<td><img src="' + rutaImagen + '" alt="' + item.nombre + '" onerror="this.onerror=null; this.src=\'' + prefixRuta + 'assets/img/logo.png\';"></td>' +
             '<td>' +
             '<strong>' + item.nombre + '</strong>' +
-            '<span class="carrito-opcion">' + item.grupo + '</span>' +
+            '<span class="carrito-opcion">' + (item.grupo || '') + '</span>' +
             textoOpcion +
             '</td>' +
             '<td>' + formatearPrecio(item.precio) + '</td>' +
@@ -83,7 +86,6 @@ function pintarCarrito() {
         '<div class="carrito-resumen">' +
         '<h2>Total: ' + formatearPrecio(totalCarrito()) + '</h2>' +
         '<div class="carrito-acciones">' +
-        '<button type="button" class="btn-vaciar" id="btn-vaciar-carrito">Vaciar carrito</button>' +
         '<button type="button" class="btn-primario btn-pagar" id="btn-procesar-pago">Proceder al Pago</button>' +
         '</div>' +
         '</div>';
@@ -138,7 +140,7 @@ function conectarBotonesDelCarrito() {
         });
     });
 
-    // Eliminar seleccionados / Vaciar carrito por selección
+    // Eliminar seleccionados / Vaciar carrito por selección masiva
     if (btnEliminarSeleccionados) {
         btnEliminarSeleccionados.addEventListener('click', function () {
             const carrito = leerCarrito();
@@ -150,7 +152,6 @@ function conectarBotonesDelCarrito() {
                 : '¿Deseas eliminar estos productos?';
 
             if (window.confirm(mensaje)) {
-                // Obtenemos los índices de mayor a menor para eliminarlos sin alterar posiciones
                 const indicesAEliminar = seleccionados
                     .map(chk => Number(chk.getAttribute('data-indice')))
                     .sort((a, b) => b - a);
@@ -162,7 +163,7 @@ function conectarBotonesDelCarrito() {
                     for (let i = 0; i < indicesAEliminar.length; i++) {
                         eliminarDelCarrito(indicesAEliminar[i]);
                     }
-                    mostrarToast('Se eliminó el producto o productos');
+                    mostrarToast('Se eliminaron los productos seleccionados');
                 }
                 pintarCarrito();
             }
@@ -177,18 +178,7 @@ function conectarBotonesDelCarrito() {
         });
     });
 
-    // Vaciar carrito completo desde el botón inferior
-    const btnVaciar = document.getElementById('btn-vaciar-carrito');
-    if (btnVaciar) {
-        btnVaciar.addEventListener('click', function () {
-            if (window.confirm('¿Deseas vaciar tu carrito?')) {
-                vaciarCarrito();
-                pintarCarrito();
-                mostrarToast('Se vació el carrito');
-            }
-        });
-    }
-
+    // Redirección al proceso de pago (Checkout)
     const btnPagar = document.getElementById('btn-procesar-pago');
     if (btnPagar) {
         btnPagar.addEventListener('click', procesarPago);
@@ -196,13 +186,9 @@ function conectarBotonesDelCarrito() {
 }
 
 /* ---------------------------------------------------------
-   PAGO SIMULADO (ACTUALIZADO PARA CHECKOUT)
+   PAGO SIMULADO (CHECKOUT)
    --------------------------------------------------------- */
 function procesarPago() {
-    // Ya no simulamos la compra aquí directamente.
-    // Ahora enviamos al usuario al flujo visual completo.
-    
-    // Solo permitimos ir a pagar si hay algo en el carrito
     if (leerCarrito().length > 0) {
         window.location.href = 'checkout.html';
     } else {
@@ -211,8 +197,55 @@ function procesarPago() {
 }
 
 /* ---------------------------------------------------------
-   PESTAÑA 2: HISTORIAL DE COMPRAS DEL USUARIO
+   PESTAÑA 2: HISTORIAL DE COMPRAS Y SEGUIMIENTO TIPO SHEIN
    --------------------------------------------------------- */
+
+function obtenerPasoEstado(estado) {
+    const est = (estado || '').toLowerCase().trim();
+    if (est === 'pagado') return 1;
+    if (est === 'en proceso') return 2;
+    if (est === 'en camino') return 3;
+    if (est === 'entregado') return 4;
+    return 1; // Por defecto siempre inicia en paso 1 (Pagado)
+}
+
+function calcularPorcentajeLinea(paso) {
+    if (paso === 1) return 0;
+    if (paso === 2) return 33.3;
+    if (paso === 3) return 66.6;
+    if (paso === 4) return 100;
+    return 0;
+}
+
+/* Generador de círculos con estilos directos para evitar inconsistencias de CSS */
+function generarCirculoPaso(numeroPaso, pasoActual, iconoPendiente) {
+    const estaCompletado = numeroPaso <= pasoActual;
+    
+    if (estaCompletado) {
+        // Estado completado: Círculo verde lleno con palomita blanca
+        return '<div class="step-circulo" style="background-color: #2e7d32 !important; color: #ffffff !important; border: 2px solid #2e7d32 !important; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; margin: 0 auto 6px auto; box-shadow: 0 2px 5px rgba(46, 125, 50, 0.3);">✓</div>';
+    } else {
+        // Estado pendiente: Círculo gris suave con icono emoji
+        return '<div class="step-circulo" style="background-color: #f5f5f5 !important; color: #777777 !important; border: 2px solid #cccccc !important; font-size: 1rem; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; margin: 0 auto 6px auto;">' + iconoPendiente + '</div>';
+    }
+}
+
+function toggleRastreo(folio, event) {
+    if (event) {
+        event.stopPropagation();
+    }
+    const contenedor = document.getElementById('rastreo-' + folio);
+    const tarjeta = document.getElementById('tarjeta-pedido-' + folio);
+
+    if (contenedor) {
+        const estaAbierto = contenedor.style.display === 'block';
+        contenedor.style.display = estaAbierto ? 'none' : 'block';
+        if (tarjeta) {
+            tarjeta.classList.toggle('desplegado', !estaAbierto);
+        }
+    }
+}
+
 function pintarHistorial() {
     const contenedor = document.getElementById('contenido-historial');
     const usuario = usuarioActivo();
@@ -224,7 +257,7 @@ function pintarHistorial() {
         encabezado = '' +
             '<div class="historial-dueno">' +
             '<strong>Historial de ' + usuario.nombre + '</strong>' +
-            '<span>' + usuario.email + ' &bull; Cliente desde ' + usuario.miembroDesde + '</span>' +
+            '<span>' + usuario.email + ' &bull; Cliente desde ' + (usuario.miembroDesde || 'Junio 2026') + '</span>' +
             '</div>';
     } else {
         encabezado = '' +
@@ -250,30 +283,71 @@ function pintarHistorial() {
         const pedido = pedidos[i];
         let articulos = '';
 
-        for (let j = 0; j < pedido.articulos.length; j++) {
-            const articulo = pedido.articulos[j];
-            const textoOpcion = articulo.opcion ? ' (' + articulo.opcion + ')' : '';
+        if (pedido.articulos && pedido.articulos.length > 0) {
+            for (let j = 0; j < pedido.articulos.length; j++) {
+                const articulo = pedido.articulos[j];
+                const textoOpcion = articulo.opcion ? ' (' + articulo.opcion + ')' : '';
 
-            articulos = articulos + '' +
-                '<li>' +
-                '<span>' + articulo.cantidad + 'x ' + articulo.nombre + textoOpcion + '</span>' +
-                '<span>' + formatearPrecio(articulo.precio * articulo.cantidad) + '</span>' +
-                '</li>';
+                articulos += '<li>' +
+                    '<span>' + articulo.cantidad + 'x ' + articulo.nombre + textoOpcion + '</span>' +
+                    '<span>' + formatearPrecio(articulo.precio * articulo.cantidad) + '</span>' +
+                    '</li>';
+            }
+        } else if (pedido.resumen) {
+            articulos = '<li><span>' + pedido.resumen + '</span><span>' + formatearPrecio(pedido.total) + '</span></li>';
         }
 
-        tarjetas = tarjetas + '' +
-            '<article class="pedido-card">' +
+        const pasoActual = obtenerPasoEstado(pedido.estado);
+        const porcentajeLinea = calcularPorcentajeLinea(pasoActual);
+        const claseClaveEstado = (pedido.estado || 'pagado').toLowerCase().replace(/\s+/g, '-');
+
+        tarjetas += '' +
+            '<article class="pedido-card tarjeta-pedido" id="tarjeta-pedido-' + pedido.folio + '" onclick="toggleRastreo(\'' + pedido.folio + '\', event)">' +
             '<div class="pedido-encabezado">' +
             '<div>' +
             '<span class="pedido-folio">Pedido ' + pedido.folio + '</span>' +
             '<span class="pedido-fecha">' + pedido.fecha + ' &bull; ' + pedido.hora + '</span>' +
             '</div>' +
-            '<div class="pedido-derecha">' +
-            '<span class="badge-estado">' + pedido.estado + '</span>' +
+            '<div class="pedido-derecha pedido-header-derecha">' +
+            '<span class="badge-estado ' + claseClaveEstado + '">' + pedido.estado + '</span>' +
             '<div class="pedido-total">' + formatearPrecio(pedido.total) + '</div>' +
+            '<button type="button" class="btn-toggle-rastreo">Rastreo <span class="flecha-icon">▼</span></button>' +
             '</div>' +
             '</div>' +
             '<ul class="pedido-articulos">' + articulos + '</ul>' +
+
+            '<div class="desplegable-rastreo" id="rastreo-' + pedido.folio + '" style="display: none;">' +
+            '<div class="rastreo-header">' +
+            '<h4>Seguimiento del Paquete</h4>' +
+            '<span style="font-size: 0.88rem; color: #666;">Estado actual: <strong>' + pedido.estado + '</strong></span>' +
+            '</div>' +
+
+            '<div class="stepper-container">' +
+            '<div class="stepper-linea-fondo">' +
+            '<div class="stepper-linea-progreso" style="width: ' + porcentajeLinea + '%;"></div>' +
+            '</div>' +
+
+            '<div class="step-item ' + (pasoActual >= 1 ? 'completado' : '') + '">' +
+            generarCirculoPaso(1, pasoActual, '💳') +
+            '<span class="step-texto" style="color: ' + (pasoActual >= 1 ? '#2e7d32' : '#666') + '; font-weight: ' + (pasoActual >= 1 ? '700' : '400') + ';">Pagado</span>' +
+            '</div>' +
+
+            '<div class="step-item ' + (pasoActual >= 2 ? 'completado' : '') + '">' +
+            generarCirculoPaso(2, pasoActual, '📦') +
+            '<span class="step-texto" style="color: ' + (pasoActual >= 2 ? '#2e7d32' : '#666') + '; font-weight: ' + (pasoActual >= 2 ? '700' : '400') + ';">En proceso</span>' +
+            '</div>' +
+
+            '<div class="step-item ' + (pasoActual >= 3 ? 'completado' : '') + '">' +
+            generarCirculoPaso(3, pasoActual, '🚚') +
+            '<span class="step-texto" style="color: ' + (pasoActual >= 3 ? '#2e7d32' : '#666') + '; font-weight: ' + (pasoActual >= 3 ? '700' : '400') + ';">En camino</span>' +
+            '</div>' +
+
+            '<div class="step-item ' + (pasoActual >= 4 ? 'completado' : '') + '">' +
+            generarCirculoPaso(4, pasoActual, '🏠') +
+            '<span class="step-texto" style="color: ' + (pasoActual >= 4 ? '#2e7d32' : '#666') + '; font-weight: ' + (pasoActual >= 4 ? '700' : '400') + ';">Entregado</span>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
             '</article>';
     }
 
@@ -291,15 +365,19 @@ function cambiarPestana(cual) {
 
     const verCarrito = (cual === 'carrito');
 
-    tabCarrito.classList.toggle('activa', verCarrito);
-    tabHistorial.classList.toggle('activa', !verCarrito);
-    panelCarrito.classList.toggle('activo', verCarrito);
-    panelHistorial.classList.toggle('activo', !verCarrito);
+    if (tabCarrito && tabHistorial && panelCarrito && panelHistorial) {
+        tabCarrito.classList.toggle('activa', verCarrito);
+        tabHistorial.classList.toggle('activa', !verCarrito);
+        panelCarrito.classList.toggle('activo', verCarrito);
+        panelHistorial.classList.toggle('activo', !verCarrito);
+    }
 }
 
 function actualizarTituloPestanaCarrito() {
-    document.getElementById('tab-carrito').textContent =
-        'Carrito (' + contarArticulos() + ')';
+    const tab = document.getElementById('tab-carrito');
+    if (tab) {
+        tab.textContent = 'Carrito (' + contarArticulos() + ')';
+    }
 }
 
 /* ---------------------------------------------------------
@@ -310,15 +388,20 @@ document.addEventListener('DOMContentLoaded', function () {
     pintarCarrito();
     pintarHistorial();
 
-    document.getElementById('tab-carrito')
-        .addEventListener('click', function () {
+    const tabCarrito = document.getElementById('tab-carrito');
+    const tabHistorial = document.getElementById('tab-historial');
+
+    if (tabCarrito) {
+        tabCarrito.addEventListener('click', function () {
             cambiarPestana('carrito');
         });
+    }
 
-    document.getElementById('tab-historial')
-        .addEventListener('click', function () {
+    if (tabHistorial) {
+        tabHistorial.addEventListener('click', function () {
             cambiarPestana('historial');
         });
+    }
 
     if (window.location.hash === '#historial') {
         cambiarPestana('historial');

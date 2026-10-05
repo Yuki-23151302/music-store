@@ -194,7 +194,7 @@ function confirmarEliminarProducto(id) {
 }
 
 /* ---------------------------------------------------------
-   2. GESTIÓN DE PEDIDOS GLOBALES
+   2. GESTIÓN DE PEDIDOS GLOBALES (SINCRONIZADO)
    --------------------------------------------------------- */
 function obtenerTodosLosPedidosGlobales() {
     const pedidosGlobales = [];
@@ -231,7 +231,8 @@ function renderizarPedidosAdmin() {
 
     let html = '';
     pedidos.forEach(p => {
-        const estados = ['En proceso', 'En camino', 'Entregado', 'Cancelado'];
+        // Incluye los 4 estados de la barra de seguimiento SHEIN + Cancelado
+        const estados = ['Pagado', 'En proceso', 'En camino', 'Entregado', 'Cancelado'];
         let opcionesEstado = '';
         estados.forEach(est => {
             const selected = (p.estado === est) ? 'selected' : '';
@@ -246,7 +247,7 @@ function renderizarPedidosAdmin() {
                 <td>${p.resumen}</td>
                 <td><strong>${formatearPrecioAdmin(p.total)}</strong></td>
                 <td>
-                    <select onchange="cambiarEstadoPedido('${p.emailCliente}', '${p.folio}', this.value)" style="padding:4px 8px; border-radius:4px; border:1px solid #ccc;">
+                    <select onchange="cambiarEstadoPedido('${p.emailCliente}', '${p.folio}', this.value)" style="padding:6px 10px; border-radius:6px; border:1px solid #ccc; font-weight:600; cursor:pointer;">
                         ${opcionesEstado}
                     </select>
                 </td>
