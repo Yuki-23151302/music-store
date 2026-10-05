@@ -102,28 +102,25 @@
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
     <script>
-        /* INICIO DE SESIÓN CON SIMULACIÓN DE ADMIN */
+        /* INICIO DE SESIÓN CON GUARDADO DE SESIÓN ADMIN */
         document.getElementById('form-login').addEventListener('submit', function (evento) {
             evento.preventDefault();
 
             const correo = document.getElementById('login-email').value.trim().toLowerCase();
             const contrasena = document.getElementById('login-password').value;
 
-            // Validación para acceder como Administrador
-            if (correo === 'admin' && contrasena === 'kook123') {
+            // Si es la cuenta admin
+            if ((correo === 'admin' || correo === 'admin@kookstore.mx') && contrasena === 'kook123') {
+                // Guardamos explícitamente la sesión de administrador
+                localStorage.setItem('kookstore_sesion', 'admin@kookstore.mx');
                 window.location.href = 'admin.html';
             } else {
                 // Flujo normal para clientes
                 iniciarSesion(correo, contrasena);
-                
-                // Lo que había puesto en el carrito como invitado se pasa a su cuenta
                 fusionarCarritoInvitado();
-                
                 window.location.href = 'perfil.html';
             }
         });
     </script>
-
 </body>
-
 </html>

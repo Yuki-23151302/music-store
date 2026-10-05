@@ -1,23 +1,8 @@
 /* =========================================================
-   KOOKSTORE.MX - CATÁLOGO DE DATOS
-   ---------------------------------------------------------
-   Aquí viven TODOS los productos de la tienda en un solo
-   lugar. La página de detalle (productos.html) lee de aquí
-   para mostrar ÚNICAMENTE el producto seleccionado.
-
-   Campos de cada producto:
-     id          -> identificador único (viaja en la URL)
-     nombre      -> título del producto
-     grupo       -> grupo de K-pop al que pertenece
-     precio      -> número, sin símbolos (para poder sumar)
-     imagen      -> ruta desde la RAÍZ del proyecto
-     categoria   -> albumes | lightsticks | peluches
-     etiqueta    -> texto del listón rosa
-     descripcion -> texto largo del producto
-     opcion      -> (opcional) selector de versión / personaje
+   KOOKSTORE.MX - CATÁLOGO DE DATOS Y PERSISTENCIA
    ========================================================= */
 
-const PRODUCTOS = [
+const PRODUCTOS_INICIALES = [
 
     /* ================= ÁLBUMES ================= */
     {
@@ -222,17 +207,74 @@ const PRODUCTOS = [
     }
 ];
 
-/* Busca un producto por su id. Devuelve null si no existe. */
+/* ---------------------------------------------------------
+   PERSISTENCIA CON LOCALSTORAGE
+   --------------------------------------------------------- */
+
+function leerProductos() {
+    const datos = localStorage.getItem('kookstore_productos');
+    if (!datos) {
+        localStorage.setItem('kookstore_productos', JSON.stringify(PRODUCTOS_INICIALES));
+        return PRODUCTOS_INICIALES;
+    }
+    try {
+        return JSON.parse(datos);
+    } catch (e) {
+        return PRODUCTOS_INICIALES;
+    }
+}
+
+function guardarProductos(productos) {
+    localStorage.setItem('kookstore_productos', JSON.stringify(productos));
+    if (typeof PRODUCTOS !== 'undefined') {
+        PRODUCTOS = productos;
+    }
+}
+
+// Variable global para compatibilidad directa
+var PRODUCTOS = leerProductos();
+
+/* ---------------------------------------------------------
+   FUNCIONES BÚSQUEDA Y FILTRADO
+   --------------------------------------------------------- */
+
 function obtenerProductoPorId(id) {
-    for (let i = 0; i < PRODUCTOS.length; i++) {
-        if (PRODUCTOS[i].id === id) {
-            return PRODUCTOS[i];
+    const lista = leerProductos();
+    for (let i = 0; i < lista.length; i++) {
+        if (lista[i].id === id) {
+            return lista[i];
         }
     }
     return null;
 }
 
-/* Devuelve todos los productos de una categoría. */
 function obtenerProductosPorCategoria(categoria) {
-    return PRODUCTOS.filter(producto => producto.categoria === categoria);
+    const lista = leerProductos();
+    if (categoria === 'todos' || !categoria) return lista;
+    return lista.filter(producto => producto.categoria === categoria);
+}
+
+/* ---------------------------------------------------------
+   OPERACIONES CRUD PARA PANEL ADMINISTRATIVO
+   --------------------------------------------------------- */
+
+function agregarProductoBD(nuevoProducto) {
+    const productos = leerProductos();
+    productos.unshift(nuevoProducto);
+    guardarProductos(productos);
+}
+
+function editarProductoBD(idOriginal, productoActualizado) {
+    const productos = leerProductos();
+    const indice = productos.findIndex(p => p.id === idOriginal);
+    if (indice !== -1) {
+        productos[indice] = productoActualizado;
+        guardarProductos(productos);
+    }
+}
+
+function eliminarProductoBD(id) {
+    let productos = leerProductos();
+    productos = productos.filter(p => p.id !== id);
+    guardarProductos(productos);
 }

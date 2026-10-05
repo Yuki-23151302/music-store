@@ -108,13 +108,16 @@
     <script>
         /* Lógica para renderizar y filtrar el catálogo dinámicamente */
         document.addEventListener('DOMContentLoaded', function() {
-            // Permitir que el admin agregue productos temporalmente en localStorage si existen
+            // Obtener productos compatibles con la persistencia del admin y datos-productos.js
             function obtenerListaProductos() {
-                const guardados = localStorage.getItem('kookstore_productos_admin');
-                if (guardados) {
-                    return JSON.parse(guardados);
+                if (typeof leerProductos === 'function') {
+                    return leerProductos();
                 }
-                return PRODUCTOS; // Viene de datos-productos.js
+                const guardados = localStorage.getItem('kookstore_productos') || localStorage.getItem('kookstore_productos_admin');
+                if (guardados) {
+                    try { return JSON.parse(guardados); } catch(e){}
+                }
+                return (typeof PRODUCTOS !== 'undefined') ? PRODUCTOS : [];
             }
 
             const grid = document.getElementById('grid-catalogo');
@@ -123,7 +126,7 @@
             let categoriaActual = 'todos';
 
             function mostrarProductos(lista) {
-                if (lista.length === 0) {
+                if (!lista || lista.length === 0) {
                     grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">No se encontraron productos.</p>';
                     return;
                 }
@@ -131,17 +134,26 @@
                 let html = '';
                 for (let i = 0; i < lista.length; i++) {
                     const p = lista[i];
-                    // Soporte para rutas relativas desde pages/
-                    let imgRuta = p.imagen.startsWith('assets/') ? '../' + p.imagen : p.imagen;
+                    
+                    // Ajuste dinámico de rutas de imagen desde la carpeta pages/
+                    let imgRuta = p.imagen || 'https://via.placeholder.com/250';
+                    if (!imgRuta.startsWith('../') && !imgRuta.startsWith('http')) {
+                        imgRuta = '../' + imgRuta;
+                    }
+
+                    // Formato seguro de precio
+                    const precioTxt = (typeof formatearPrecio === 'function') 
+                        ? formatearPrecio(p.precio) 
+                        : '$' + Number(p.precio || 0).toLocaleString('es-MX', { minimumFractionDigits: 2 });
 
                     html += `
                         <article class="producto-card">
                             <div class="producto-imagen">
-                                <img src="${imgRuta}" alt="${p.nombre}" loading="lazy">
+                                <img src="${imgRuta}" alt="${p.nombre}" loading="lazy" onerror="this.src='https://via.placeholder.com/250'">
                             </div>
                             <h4>${p.nombre}</h4>
-                            <p class="grupo">${p.grupo}</p>
-                            <p class="precio">${formatearPrecio(p.precio)}</p>
+                            <p class="grupo">${p.grupo || 'K-POP'}</p>
+                            <p class="precio">${precioTxt}</p>
                             <a href="productos.html?id=${p.id}" class="btn-secundario">Ver detalles</a>
                         </article>
                     `;
@@ -151,11 +163,13 @@
 
             function filtrarYMostrar() {
                 const productos = obtenerListaProductos();
-                const texto = inputBuscar.value.toLowerCase().trim();
+                const texto = (inputBuscar ? inputBuscar.value : '').toLowerCase().trim();
 
                 const filtrados = productos.filter(function(p) {
                     const cumpleCategoria = (categoriaActual === 'todos' || p.categoria === categoriaActual);
-                    const cumpleTexto = p.nombre.toLowerCase().includes(texto) || p.grupo.toLowerCase().includes(texto);
+                    const nombre = (p.nombre || '').toLowerCase();
+                    const grupo = (p.grupo || '').toLowerCase();
+                    const cumpleTexto = nombre.includes(texto) || grupo.includes(texto);
                     return cumpleCategoria && cumpleTexto;
                 });
 
@@ -178,12 +192,13 @@
             });
 
             // Evento de búsqueda por texto
-            inputBuscar.addEventListener('input', filtrarYMostrar);
+            if (inputBuscar) {
+                inputBuscar.addEventListener('input', filtrarYMostrar);
+            }
 
             // Carga inicial
             filtrarYMostrar();
         });
     </script>
 </body>
-
 </html>

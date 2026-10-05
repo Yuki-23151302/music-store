@@ -1,104 +1,189 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrativo - Kookstore</title>
     <link rel="stylesheet" href="../css/estilos.css">
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/estilosadmin.css">
 </head>
+
 <body>
     <div class="admin-layout">
         <!-- Sidebar -->
         <aside class="admin-sidebar">
             <h2 class="admin-logo">Kookstore<span>.admin</span></h2>
             <nav class="admin-nav">
-                <a href="#" class="activo">📦 Productos</a>
-                <a href="#">🛒 Pedidos</a>
-                <a href="#">👥 Clientes</a>
+                <a href="#productos" class="nav-tab activo" id="tab-nav-productos">📦 Productos</a>
+                <a href="#pedidos" class="nav-tab" id="tab-nav-pedidos">🛒 Pedidos Globales</a>
+                <a href="#clientes" class="nav-tab" id="tab-nav-clientes">👥 Clientes y Sesiones</a>
                 <a href="../index.html">⬅ Volver a la tienda</a>
             </nav>
         </aside>
 
         <!-- Contenido Principal -->
         <main class="admin-content">
-            <header class="admin-header">
-                <h1>Gestión de Productos</h1>
-                <button class="btn-primario" onclick="abrirModalProducto()">+ Nuevo Producto</button>
-            </header>
 
-            <div class="admin-panel">
-                <table class="admin-tabla">
-                    <thead>
-                        <tr>
-                            <th>Imagen</th>
-                            <th>Nombre del Producto</th>
-                            <th>Categoría</th>
-                            <th>Stock</th>
-                            <th>Precio</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><div class="img-placeholder"></div></td>
-                            <td>Army Bomb Ver. 4</td>
-                            <td>Lightsticks</td>
-                            <td><span class="badge-stock alto">45</span></td>
-                            <td>$1,200.00</td>
-                            <td>
-                                <button class="btn-icono editar">✏️</button>
-                                <button class="btn-icono eliminar">🗑️</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><div class="img-placeholder"></div></td>
-                            <td>Álbum OMG - NewJeans</td>
-                            <td>Álbumes</td>
-                            <td><span class="badge-stock bajo">3</span></td>
-                            <td>$550.00</td>
-                            <td>
-                                <button class="btn-icono editar">✏️</button>
-                                <button class="btn-icono eliminar">🗑️</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <!-- SECCIÓN: PRODUCTOS -->
+            <section id="seccion-productos" class="admin-seccion activa">
+                <header class="admin-header">
+                    <h1>Gestión de Productos</h1>
+                    <button class="btn-primario" onclick="abrirModalProducto()">+ Nuevo Producto</button>
+                </header>
+
+                <div class="admin-panel">
+                    <table class="admin-tabla">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Grupo</th>
+                                <th>Categoría</th>
+                                <th>Stock</th>
+                                <th>Precio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-productos-body">
+                            <!-- Carga dinámica -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: PEDIDOS GLOBAL ES -->
+            <section id="seccion-pedidos" class="admin-seccion" style="display: none;">
+                <header class="admin-header">
+                    <h1>Gestión de Pedidos Globales</h1>
+                </header>
+
+                <div class="admin-panel">
+                    <table class="admin-tabla">
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Cliente (Email)</th>
+                                <th>Fecha</th>
+                                <th>Resumen de Compra</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-pedidos-body">
+                            <!-- Carga dinámica -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: CLIENTES Y SESIONES -->
+            <section id="seccion-clientes" class="admin-seccion" style="display: none;">
+                <header class="admin-header">
+                    <h1>Clientes Registrados y Sesiones Activas</h1>
+                </header>
+
+                <div class="admin-panel">
+                    <table class="admin-tabla">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Registro</th>
+                                <th>Dirección de Envío</th>
+                                <th>Estado Sesión</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-clientes-body">
+                            <!-- Carga dinámica -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
         </main>
     </div>
 
-    <!-- Modal Nuevo Producto -->
-    <div class="kook-modal-overlay" id="modal-producto" style="display: none;">
-        <div class="kook-modal-box form-modal">
-            <h3>Agregar Nuevo Producto</h3>
-            <form class="admin-form">
-                <input type="text" placeholder="Nombre del producto" required>
-                <select required>
-                    <option value="">Selecciona Categoría</option>
-                    <option value="lightsticks">Lightsticks</option>
-                    <option value="albumes">Álbumes</option>
-                    <option value="merch">Photocards & Merch</option>
-                </select>
-                <div class="form-row">
-                    <input type="number" placeholder="Precio ($)" required>
-                    <input type="number" placeholder="Stock" required>
+    <!-- MODAL FLOTANTE OPTIMIZADO -->
+    <div id="modal-producto" class="modal-overlay">
+        <div class="modal-card">
+
+            <div class="modal-header">
+                <h3 id="modal-titulo">Editar Producto</h3>
+                <button type="button" class="btn-cerrar-modal" onclick="cerrarModalProducto()">&times;</button>
+            </div>
+
+            <form id="form-producto">
+                <input type="hidden" id="prod-id-original">
+
+                <div class="form-grid">
+                    <div class="form-grupo">
+                        <label for="prod-id">ID del Producto</label>
+                        <input type="text" id="prod-id" required placeholder="ej. album-love-yourself">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="prod-grupo">Grupo / Artista</label>
+                        <input type="text" id="prod-grupo" placeholder="ej. BTS, Stray Kids">
+                    </div>
+
+                    <div class="form-grupo col-span-2">
+                        <label for="prod-nombre">Nombre del Producto</label>
+                        <input type="text" id="prod-nombre" required placeholder="ej. Love Yourself: Answer">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="prod-categoria">Categoría</label>
+                        <select id="prod-categoria" required>
+                            <option value="albumes">Álbumes</option>
+                            <option value="lightsticks">Lightsticks</option>
+                            <option value="peluches">Peluches</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="prod-precio">Precio ($ MXN)</label>
+                        <input type="number" id="prod-precio" step="0.01" min="0" required placeholder="950">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="prod-stock">Stock Disponibles</label>
+                        <input type="number" id="prod-stock" min="0" required placeholder="25">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="prod-etiqueta">Etiqueta Destacada</label>
+                        <input type="text" id="prod-etiqueta" placeholder="ej. ÁLBUM OFICIAL">
+                    </div>
+
+                    <div class="form-grupo col-span-2">
+                        <label for="prod-imagen">Ruta de la Imagen</label>
+                        <input type="text" id="prod-imagen" required
+                            placeholder="assets/img/productos/albums/albumlyabts.jpg">
+                    </div>
+
+                    <div class="form-grupo col-span-2">
+                        <label for="prod-descripcion">Descripción</label>
+                        <textarea id="prod-descripcion" rows="2" placeholder="Detalles del producto..."></textarea>
+                    </div>
                 </div>
-                <div class="kook-modal-botones">
-                    <button type="button" class="kook-btn-cancelar" onclick="cerrarModalProducto()">Cancelar</button>
-                    <button type="submit" class="kook-btn-aceptar">Guardar Producto</button>
+
+                <div class="modal-acciones">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModalProducto()">Cancelar</button>
+                    <button type="submit" class="btn-guardar">Guardar Producto</button>
                 </div>
             </form>
+
         </div>
     </div>
 
-    <script>
-        function abrirModalProducto() {
-            document.getElementById('modal-producto').style.display = 'flex';
-        }
-        function cerrarModalProducto() {
-            document.getElementById('modal-producto').style.display = 'none';
-        }
-    </script>
+    <!-- Scripts de la aplicación -->
+    <script src="../js/sesion.js"></script>
+    <script src="../js/datos-productos.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/datos-demo.js"></script>
+    <script src="../js/admin.js"></script>
 </body>
+
 </html>

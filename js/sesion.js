@@ -213,3 +213,9 @@ function pintarHeaderUsuario() {
 }
 
 document.addEventListener('DOMContentLoaded', pintarHeaderUsuario);
+
+/* Verificar si la sesión activa es de Administrador */
+function esAdmin() {
+    const sesion = localStorage.getItem('kookstore_sesion');
+    return sesion === 'admin@kookstore.mx' || sesion === 'admin';
+}
