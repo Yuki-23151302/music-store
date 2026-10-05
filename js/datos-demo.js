@@ -21,7 +21,6 @@
 
    Necesita que sesion.js se cargue ANTES.
    ========================================================= */
-
 const CLAVE_DEMO = 'kookstore_demo_cargado';
 
 /* Las dos cuentas de ejemplo */
@@ -64,6 +63,9 @@ const PEDIDOS_DEMO = {
 
 /* Deja las cuentas y sus pedidos guardados en el navegador */
 function cargarDatosDemo() {
+    // 🧹 Limpieza de rastros anteriores
+    /*localStorage.removeItem('kookstore_pedidos_sofia@example.com');
+    localStorage.removeItem(CLAVE_DEMO);*/
 
     // Si ya se cargó una vez, no se vuelve a tocar nada
     if (localStorage.getItem(CLAVE_DEMO)) {
