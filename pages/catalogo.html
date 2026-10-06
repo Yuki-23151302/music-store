@@ -12,6 +12,7 @@
     <!-- CSS Principal -->
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/estiloscatalogo.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 </head>
 
@@ -43,28 +44,47 @@
     <main>
 
         <!-- HERO DEL CATÁLOGO -->
-        <section class="hero catalogo-hero">
-            <div class="hero-contenido">
-                <h1>Catálogo de Productos</h1>
+        <section class="catalogo-hero">
+            <span class="hero-burbuja b1"></span>
+            <span class="hero-burbuja b2"></span>
+            <span class="hero-burbuja b3"></span>
+            <div class="catalogo-hero-contenido" data-revelar>
+                <nav class="migas-hero" aria-label="Ruta de navegación">
+                    <a href="../index.html">Inicio</a><span>›</span><strong>Catálogo</strong>
+                </nav>
+                <h1>Catálogo de productos</h1>
                 <p>Explora todos nuestros álbumes, lightsticks y coleccionables oficiales.</p>
+                <div class="catalogo-hero-chips">
+                    <span>💿 Álbumes</span>
+                    <span>💡 Lightsticks</span>
+                    <span>🧸 Peluches &amp; Dolls</span>
+                </div>
             </div>
         </section>
 
-        <!-- CONTROLES DE FILTRADO -->
-        <section class="catalogo-controles" style="max-width: 1100px; margin: 30px auto 10px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-            <div class="filtros-categorias" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button type="button" class="btn-filtro activo" data-filtro="todos" style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--color-borde); background: var(--color-primario); color: white; cursor: pointer; font-weight: 600;">Todos</button>
-                <button type="button" class="btn-filtro" data-filtro="albumes" style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--color-borde); background: white; color: #555; cursor: pointer; font-weight: 600;">Álbumes</button>
-                <button type="button" class="btn-filtro" data-filtro="lightsticks" style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--color-borde); background: white; color: #555; cursor: pointer; font-weight: 600;">Lightsticks</button>
-                <button type="button" class="btn-filtro" data-filtro="peluches" style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--color-borde); background: white; color: #555; cursor: pointer; font-weight: 600;">Peluches</button>
+        <!-- CONTROLES DE FILTRADO, BÚSQUEDA Y ORDENAMIENTO -->
+        <section class="catalogo-controles" data-revelar>
+            <div class="filtros-categorias" role="group" aria-label="Filtrar por categoría">
+                <button type="button" class="btn-filtro activo" data-filtro="todos">Todos</button>
+                <button type="button" class="btn-filtro" data-filtro="albumes">Álbumes</button>
+                <button type="button" class="btn-filtro" data-filtro="lightsticks">Lightsticks</button>
+                <button type="button" class="btn-filtro" data-filtro="peluches">Peluches</button>
             </div>
-            <div class="buscador-catalogo">
-                <input type="text" id="input-buscar" placeholder="Buscar por nombre o grupo..." style="padding: 10px 15px; border-radius: 20px; border: 1px solid var(--color-borde); width: 250px; font-family: var(--fuente-textos);">
+            <div class="catalogo-herramientas">
+                <input type="search" id="input-buscar" placeholder="Buscar por nombre o grupo..." aria-label="Buscar productos">
+                <select id="select-orden" aria-label="Ordenar productos">
+                    <option value="relevancia">Ordenar: Destacados</option>
+                    <option value="precio-asc">Precio: menor a mayor</option>
+                    <option value="precio-desc">Precio: mayor a menor</option>
+                    <option value="nombre-asc">Nombre: A → Z</option>
+                    <option value="nombre-desc">Nombre: Z → A</option>
+                </select>
             </div>
         </section>
+        <p class="catalogo-contador" id="catalogo-contador"></p>
 
         <!-- SECCIÓN DE PRODUCTOS DINÁMICOS -->
-        <section class="productos-destacados seccion-catalogo" style="padding-top: 20px;">
+        <section class="seccion-catalogo">
             <div class="productos-grid" id="grid-catalogo">
                 <!-- Los productos se inyectan automáticamente desde JavaScript -->
             </div>
@@ -105,97 +125,105 @@
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/ui.js"></script>
     <script>
-        /* Lógica para renderizar y filtrar el catálogo dinámicamente */
+        /* Lógica para renderizar, filtrar y ordenar el catálogo dinámicamente */
         document.addEventListener('DOMContentLoaded', function() {
-            function obtenerListaProductos() {
-                if (typeof leerProductos === 'function') {
-                    return leerProductos();
-                }
-                const guardados = localStorage.getItem('kookstore_productos') || localStorage.getItem('kookstore_productos_admin');
-                if (guardados) {
-                    try { return JSON.parse(guardados); } catch(e){}
-                }
-                return (typeof PRODUCTOS !== 'undefined') ? PRODUCTOS : [];
-            }
-
             const grid = document.getElementById('grid-catalogo');
             const botonesFiltro = document.querySelectorAll('.btn-filtro');
             const inputBuscar = document.getElementById('input-buscar');
-            let categoriaActual = 'todos';
+            const selectOrden = document.getElementById('select-orden');
+            const contador = document.getElementById('catalogo-contador');
+
+            // Permite llegar filtrado desde otra página: catalogo.html?categoria=peluches
+            const parametro = new URLSearchParams(location.search).get('categoria');
+            let categoriaActual = ['albumes', 'lightsticks', 'peluches'].includes(parametro) ? parametro : 'todos';
 
             function mostrarProductos(lista) {
-                if (!lista || lista.length === 0) {
-                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: #666;">No se encontraron productos.</p>';
+                const total = leerProductos().length;
+                contador.textContent = 'Mostrando ' + lista.length + ' de ' + total + ' productos';
+
+                if (lista.length === 0) {
+                    grid.innerHTML = '<p class="catalogo-sin-resultados">No se encontraron productos. Prueba con otra búsqueda o categoría.</p>';
                     return;
                 }
 
                 let html = '';
-                for (let i = 0; i < lista.length; i++) {
-                    const p = lista[i];
-                    
-                    // Ajuste dinámico de rutas de imagen (Base64, URLs web y rutas relativas)
-                    let imgRuta = p.imagen || 'https://via.placeholder.com/250';
-                    if (!imgRuta.startsWith('data:') && !imgRuta.startsWith('http') && !imgRuta.startsWith('../')) {
-                        imgRuta = '../' + imgRuta;
-                    }
-
-                    // Formato seguro de precio
-                    const precioTxt = (typeof formatearPrecio === 'function') 
-                        ? formatearPrecio(p.precio) 
-                        : '$' + Number(p.precio || 0).toLocaleString('es-MX', { minimumFractionDigits: 2 });
+                lista.forEach(function(p, i) {
+                    const agotado = p.stock <= 0;
+                    const pocoStock = !agotado && p.stock <= 5;
+                    let insignia = '';
+                    if (agotado) insignia = '<span class="insignia-stock agotado">Agotado</span>';
+                    else if (pocoStock) insignia = '<span class="insignia-stock poco">¡Últimas piezas!</span>';
+                    else if (p.tieneVariantes) insignia = '<span class="insignia-stock variantes">' + p.variantes.length + ' opciones</span>';
 
                     html += `
-                        <article class="producto-card">
+                        <article class="producto-card${agotado ? ' sin-stock' : ''}" style="--i: ${Math.min(i, 12)}">
                             <div class="producto-imagen">
-                                <img src="${imgRuta}" alt="${p.nombre}" loading="lazy" onerror="this.src='https://via.placeholder.com/250'">
+                                ${insignia}
+                                <img src="${resolverImagen(p.imagen)}" alt="${escaparHTML(p.nombre)}" loading="lazy" onerror="this.onerror=null; this.src='../assets/img/logo.png'">
                             </div>
-                            <h4>${p.nombre}</h4>
-                            <p class="grupo">${p.grupo || 'K-POP'}</p>
-                            <p class="precio">${precioTxt}</p>
-                            <a href="productos.html?id=${p.id}" class="btn-secundario">Ver detalles</a>
+                            <h4>${escaparHTML(p.nombre)}</h4>
+                            <p class="grupo">${escaparHTML(p.grupo || 'K-POP')}</p>
+                            <div class="producto-pie">
+                                <p class="precio">${formatearPrecio(Number(p.precio) || 0)}</p>
+                                <a href="productos.html?id=${encodeURIComponent(p.id)}" class="btn-secundario">Ver detalles</a>
+                            </div>
                         </article>
                     `;
-                }
+                });
                 grid.innerHTML = html;
             }
 
-            function filtrarYMostrar() {
-                const productos = obtenerListaProductos();
-                const texto = (inputBuscar ? inputBuscar.value : '').toLowerCase().trim();
+            /* Ordena una copia de la lista según el selector */
+            function ordenar(lista) {
+                const copia = lista.slice();
+                switch (selectOrden.value) {
+                    case 'precio-asc': copia.sort((a, b) => a.precio - b.precio); break;
+                    case 'precio-desc': copia.sort((a, b) => b.precio - a.precio); break;
+                    case 'nombre-asc': copia.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es')); break;
+                    case 'nombre-desc': copia.sort((a, b) => b.nombre.localeCompare(a.nombre, 'es')); break;
+                }
+                return copia;
+            }
 
-                const filtrados = productos.filter(function(p) {
+            function filtrarYMostrar() {
+                const texto = inputBuscar.value.toLowerCase().trim();
+
+                const filtrados = leerProductos().filter(function(p) {
                     const cumpleCategoria = (categoriaActual === 'todos' || p.categoria === categoriaActual);
                     const nombre = (p.nombre || '').toLowerCase();
                     const grupo = (p.grupo || '').toLowerCase();
-                    const cumpleTexto = nombre.includes(texto) || grupo.includes(texto);
-                    return cumpleCategoria && cumpleTexto;
+                    return cumpleCategoria && (nombre.includes(texto) || grupo.includes(texto));
                 });
 
-                mostrarProductos(filtrados);
+                mostrarProductos(ordenar(filtrados));
+            }
+
+            function marcarFiltroActivo() {
+                botonesFiltro.forEach(b => b.classList.toggle('activo', b.getAttribute('data-filtro') === categoriaActual));
             }
 
             // Eventos de botones de categoría
             botonesFiltro.forEach(function(boton) {
                 boton.addEventListener('click', function() {
-                    botonesFiltro.forEach(b => {
-                        b.style.background = 'white';
-                        b.style.color = '#555';
-                    });
-                    this.style.background = 'var(--color-primario)';
-                    this.style.color = 'white';
-                    
                     categoriaActual = this.getAttribute('data-filtro');
+                    marcarFiltroActivo();
                     filtrarYMostrar();
                 });
             });
 
-            // Evento de búsqueda por texto
-            if (inputBuscar) {
-                inputBuscar.addEventListener('input', filtrarYMostrar);
-            }
+            inputBuscar.addEventListener('input', filtrarYMostrar);
+            selectOrden.addEventListener('change', filtrarYMostrar);
+
+            // Si el Admin cambia productos en otra pestaña, el catálogo se actualiza solo
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'kookstore_productos') filtrarYMostrar();
+            });
 
             // Carga inicial
+            marcarFiltroActivo();
             filtrarYMostrar();
         });
     </script>

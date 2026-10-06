@@ -5,179 +5,350 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrativo - Kookstore</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/estilosadmin.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 </head>
 
-<body>
+<body class="admin-body">
     <div class="admin-layout">
-        <!-- Sidebar -->
+
+        <!-- ================= BARRA LATERAL ================= -->
         <aside class="admin-sidebar">
-            <h2 class="admin-logo">Kookstore<span>.admin</span></h2>
-            <nav class="admin-nav">
-                <a href="#productos" class="nav-tab activo" id="tab-nav-productos">📦 Productos</a>
-                <a href="#pedidos" class="nav-tab" id="tab-nav-pedidos">🛒 Pedidos Globales</a>
-                <a href="#clientes" class="nav-tab" id="tab-nav-clientes">👥 Clientes y Sesiones</a>
-                <a href="../index.html">⬅ Volver a la tienda</a>
+            <a href="../index.html" class="admin-marca">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore">
+                <span>Kookstore<em>.admin</em></span>
+            </a>
+
+            <nav class="admin-nav" aria-label="Secciones del panel">
+                <p class="admin-nav-titulo">Gestión</p>
+                <a href="#productos" class="nav-tab activo" id="tab-nav-productos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.3 7 12 12 20.7 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>
+                    <span>Productos</span>
+                    <span class="nav-contador" id="contador-nav-productos">0</span>
+                </a>
+                <a href="#pedidos" class="nav-tab" id="tab-nav-pedidos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+                    <span>Pedidos</span>
+                    <span class="nav-contador" id="contador-nav-pedidos">0</span>
+                </a>
+                <a href="#clientes" class="nav-tab" id="tab-nav-clientes">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <span>Clientes</span>
+                    <span class="nav-contador" id="contador-nav-clientes">0</span>
+                </a>
+
+                <p class="admin-nav-titulo">Tienda</p>
+                <a href="../pages/catalogo.html" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    <span>Ver catálogo</span>
+                </a>
+                <a href="../index.html">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    <span>Volver a la tienda</span>
+                </a>
             </nav>
+
+            <div class="admin-perfil">
+                <div class="admin-perfil-avatar">AD</div>
+                <div>
+                    <strong>Administrador</strong>
+                    <span>admin@kookstore.mx</span>
+                </div>
+                <button type="button" class="admin-salir" id="btn-salir-admin" title="Cerrar sesión" aria-label="Cerrar sesión">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                </button>
+            </div>
         </aside>
 
-        <!-- Contenido Principal -->
+        <!-- ================= CONTENIDO PRINCIPAL ================= -->
         <main class="admin-content">
 
-            <!-- SECCIÓN: PRODUCTOS -->
+            <!-- Aviso si se entra sin sesión de administrador -->
+            <div class="admin-aviso-sesion" id="aviso-sesion" hidden>
+                <span>⚠️ No iniciaste sesión como administrador. Estás viendo el panel en modo demostración.</span>
+                <a href="login.html">Iniciar sesión</a>
+            </div>
+
+            <!-- ================= SECCIÓN: PRODUCTOS ================= -->
             <section id="seccion-productos" class="admin-seccion activa">
                 <header class="admin-header">
-                    <h1>Gestión de Productos</h1>
-                    <button class="btn-primario" onclick="abrirModalProducto()">+ Nuevo Producto</button>
+                    <div>
+                        <h1>Inventario de productos</h1>
+                        <p class="admin-subtitulo">Administra tu catálogo, precios y el stock de cada versión o personaje.</p>
+                    </div>
+                    <button type="button" class="btn-primario btn-con-icono" id="btn-nuevo-producto">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Nuevo producto
+                    </button>
                 </header>
 
+                <!-- Tarjetas de resumen -->
+                <div class="kpi-grid" id="kpis-productos"></div>
+
                 <div class="admin-panel">
-                    <table class="admin-tabla">
-                        <thead>
-                            <tr>
-                                <th>Imagen</th>
-                                <th>Nombre</th>
-                                <th>Grupo</th>
-                                <th>Categoría</th>
-                                <th>Stock</th>
-                                <th>Precio</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla-productos-body">
-                            <!-- Carga dinámica -->
-                        </tbody>
-                    </table>
+                    <!-- Barra de herramientas -->
+                    <div class="admin-toolbar">
+                        <div class="admin-buscador">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="search" id="buscar-producto" placeholder="Buscar por nombre, grupo o ID..." aria-label="Buscar producto">
+                        </div>
+                        <select id="filtro-categoria" aria-label="Filtrar por categoría">
+                            <option value="todos">Todas las categorías</option>
+                            <option value="albumes">Álbumes</option>
+                            <option value="lightsticks">Lightsticks</option>
+                            <option value="peluches">Peluches</option>
+                        </select>
+                        <select id="filtro-stock" aria-label="Filtrar por stock">
+                            <option value="todos">Todo el stock</option>
+                            <option value="variantes">Con versiones / personajes</option>
+                            <option value="bajo">Stock bajo (≤ 5)</option>
+                            <option value="agotado">Agotados</option>
+                        </select>
+                    </div>
+
+                    <div class="tabla-scroll">
+                        <table class="admin-tabla tabla-productos">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Grupo</th>
+                                    <th>Categoría</th>
+                                    <th>Precio</th>
+                                    <th>Inventario</th>
+                                    <th class="col-acciones">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-productos-body">
+                                <!-- Carga dinámica -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
-            <!-- SECCIÓN: PEDIDOS GLOBALES -->
-            <section id="seccion-pedidos" class="admin-seccion" style="display: none;">
+            <!-- ================= SECCIÓN: PEDIDOS ================= -->
+            <section id="seccion-pedidos" class="admin-seccion" hidden>
                 <header class="admin-header">
-                    <h1>Gestión de Pedidos Globales</h1>
+                    <div>
+                        <h1>Pedidos de la tienda</h1>
+                        <p class="admin-subtitulo">Actualiza el estado de envío. El cliente lo verá en su rastreo al instante.</p>
+                    </div>
                 </header>
 
+                <div class="kpi-grid" id="kpis-pedidos"></div>
+
                 <div class="admin-panel">
-                    <table class="admin-tabla">
-                        <thead>
-                            <tr>
-                                <th>Folio</th>
-                                <th>Cliente (Email)</th>
-                                <th>Fecha</th>
-                                <th>Resumen de Compra</th>
-                                <th>Total</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla-pedidos-body">
-                            <!-- Carga dinámica -->
-                        </tbody>
-                    </table>
+                    <div class="admin-toolbar">
+                        <div class="admin-buscador">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="search" id="buscar-pedido" placeholder="Buscar por folio o cliente..." aria-label="Buscar pedido">
+                        </div>
+                        <select id="filtro-estado" aria-label="Filtrar por estado">
+                            <option value="todos">Todos los estados</option>
+                            <option value="Pagado">Pagado</option>
+                            <option value="En preparación">En preparación</option>
+                            <option value="En camino">En camino</option>
+                            <option value="Entregado">Entregado</option>
+                            <option value="Cancelado">Cancelado</option>
+                        </select>
+                    </div>
+
+                    <div class="tabla-scroll">
+                        <table class="admin-tabla">
+                            <thead>
+                                <tr>
+                                    <th>Folio</th>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+                                    <th>Artículos</th>
+                                    <th>Total</th>
+                                    <th>Estado del envío</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-pedidos-body">
+                                <!-- Carga dinámica -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
-            <!-- SECCIÓN: CLIENTES Y SESIONES -->
-            <section id="seccion-clientes" class="admin-seccion" style="display: none;">
+            <!-- ================= SECCIÓN: CLIENTES ================= -->
+            <section id="seccion-clientes" class="admin-seccion" hidden>
                 <header class="admin-header">
-                    <h1>Clientes Registrados y Sesiones Activas</h1>
+                    <div>
+                        <h1>Clientes registrados</h1>
+                        <p class="admin-subtitulo">Cuentas creadas en la tienda, su actividad y sus compras.</p>
+                    </div>
                 </header>
 
                 <div class="admin-panel">
-                    <table class="admin-tabla">
-                        <thead>
-                            <tr>
-                                <th>Avatar</th>
-                                <th>Nombre</th>
-                                <th>Email</th>
-                                <th>Registro</th>
-                                <th>Dirección de Envío</th>
-                                <th>Estado Sesión</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabla-clientes-body">
-                            <!-- Carga dinámica -->
-                        </tbody>
-                    </table>
+                    <div class="tabla-scroll">
+                        <table class="admin-tabla">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Registro</th>
+                                    <th>Dirección de envío</th>
+                                    <th>Pedidos</th>
+                                    <th>Total comprado</th>
+                                    <th>Último acceso</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-clientes-body">
+                                <!-- Carga dinámica -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
         </main>
     </div>
 
-    <!-- MODAL FLOTANTE OPTIMIZADO -->
-    <div id="modal-producto" class="modal-overlay">
-        <div class="modal-card">
+    <!-- ================= MODAL: AGREGAR / EDITAR PRODUCTO ================= -->
+    <div id="modal-producto" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
 
             <div class="modal-header">
-                <h3 id="modal-titulo">Editar Producto</h3>
-                <button type="button" class="btn-cerrar-modal" onclick="cerrarModalProducto()">&times;</button>
+                <div>
+                    <h3 id="modal-titulo">Agregar producto</h3>
+                    <p class="modal-subtitulo">Los campos con * son obligatorios.</p>
+                </div>
+                <button type="button" class="btn-cerrar-modal" data-cerrar-modal aria-label="Cerrar">&times;</button>
             </div>
 
-            <form id="form-producto">
+            <form id="form-producto" novalidate>
                 <input type="hidden" id="prod-id-original">
 
-                <div class="form-grid">
-                    <div class="form-grupo">
-                        <label for="prod-id">ID del Producto</label>
-                        <input type="text" id="prod-id" required placeholder="ej. album-love-yourself">
+                <!-- 1. Información general -->
+                <fieldset class="form-seccion">
+                    <legend><span class="paso-numero">1</span> Información general</legend>
+                    <div class="form-grid">
+                        <div class="form-grupo col-span-2">
+                            <label for="prod-nombre">Nombre del producto *</label>
+                            <input type="text" id="prod-nombre" placeholder="ej. Llavero de Colección">
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="prod-id">ID (se genera solo)</label>
+                            <input type="text" id="prod-id" placeholder="ej. llavero-de-coleccion">
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="prod-grupo">Grupo / Artista</label>
+                            <input type="text" id="prod-grupo" placeholder="ej. BTS, Stray Kids">
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="prod-categoria">Categoría *</label>
+                            <select id="prod-categoria">
+                                <option value="albumes">Álbumes</option>
+                                <option value="lightsticks">Lightsticks</option>
+                                <option value="peluches">Peluches</option>
+                            </select>
+                        </div>
+
+                        <div class="form-grupo">
+                            <label for="prod-precio">Precio (MXN) *</label>
+                            <div class="input-prefijo">
+                                <span>$</span>
+                                <input type="number" id="prod-precio" step="0.01" min="0" placeholder="950">
+                            </div>
+                        </div>
+
+                        <div class="form-grupo col-span-2">
+                            <label for="prod-etiqueta">Etiqueta destacada</label>
+                            <input type="text" id="prod-etiqueta" placeholder="ej. ÁLBUM OFICIAL">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- 2. Inventario (lógica condicional) -->
+                <fieldset class="form-seccion">
+                    <legend><span class="paso-numero">2</span> Inventario</legend>
+
+                    <p class="pregunta-variantes">¿Cuenta con versiones/personajes?</p>
+                    <div class="selector-segmentado" role="radiogroup" aria-label="¿Cuenta con versiones o personajes?">
+                        <label>
+                            <input type="radio" name="tiene-variantes" value="no" checked>
+                            <span>No, stock general</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="tiene-variantes" value="si">
+                            <span>Sí, tiene versiones</span>
+                        </label>
                     </div>
 
-                    <div class="form-grupo">
-                        <label for="prod-grupo">Grupo / Artista</label>
-                        <input type="text" id="prod-grupo" placeholder="ej. BTS, Stray Kids">
-                    </div>
-
-                    <div class="form-grupo col-span-2">
-                        <label for="prod-nombre">Nombre del Producto</label>
-                        <input type="text" id="prod-nombre" required placeholder="ej. Love Yourself: Answer">
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="prod-categoria">Categoría</label>
-                        <select id="prod-categoria" required>
-                            <option value="albumes">Álbumes</option>
-                            <option value="lightsticks">Lightsticks</option>
-                            <option value="peluches">Peluches</option>
-                        </select>
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="prod-precio">Precio ($ MXN)</label>
-                        <input type="number" id="prod-precio" step="0.01" min="0" required placeholder="950">
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="prod-stock">Stock Disponibles</label>
-                        <input type="number" id="prod-stock" min="0" required placeholder="25">
-                    </div>
-
-                    <div class="form-grupo">
-                        <label for="prod-etiqueta">Etiqueta Destacada</label>
-                        <input type="text" id="prod-etiqueta" placeholder="ej. ÁLBUM OFICIAL">
-                    </div>
-
-                    <!-- CAMPO DE IMAGEN DESDE DISPOSITIVO CON VISTA PREVIA -->
-                    <div class="form-grupo col-span-2">
-                        <label for="prod-imagen-file">Seleccionar Foto del Dispositivo</label>
-                        <input type="file" id="prod-imagen-file" accept="image/*" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 6px; margin-top: 4px;">
-                        <input type="hidden" id="prod-imagen">
-                        
-                        <div style="text-align: center; margin-top: 10px;">
-                            <p style="font-size: 0.8rem; color: #666; margin-bottom: 4px;">Vista previa:</p>
-                            <img id="preview-imagen-prod" src="https://via.placeholder.com/100" alt="Vista previa" style="max-width: 100px; max-height: 100px; border-radius: 6px; border: 1px solid #ddd; object-fit: cover;">
+                    <!-- Opción NO: stock general -->
+                    <div class="panel-inventario" id="panel-stock-general">
+                        <div class="form-grupo">
+                            <label for="prod-stock">Stock disponible *</label>
+                            <input type="number" id="prod-stock" min="0" step="1" placeholder="25">
                         </div>
                     </div>
 
-                    <div class="form-grupo col-span-2">
-                        <label for="prod-descripcion">Descripción</label>
-                        <textarea id="prod-descripcion" rows="2" placeholder="Detalles del producto..."></textarea>
+                    <!-- Opción SÍ: versiones / personajes dinámicos -->
+                    <div class="panel-inventario" id="panel-variantes" hidden>
+                        <div class="form-grupo">
+                            <label for="prod-tipo-variante">El cliente elegirá una...</label>
+                            <select id="prod-tipo-variante">
+                                <option value="Selecciona la Versión:">Versión</option>
+                                <option value="Selecciona el Personaje:">Personaje</option>
+                            </select>
+                        </div>
+
+                        <div class="variantes-encabezado">
+                            <span>Nombre de la versión / personaje</span>
+                            <span>Stock</span>
+                            <span></span>
+                        </div>
+                        <div id="lista-variantes" class="lista-variantes">
+                            <!-- Filas dinámicas -->
+                        </div>
+
+                        <div class="variantes-pie">
+                            <button type="button" class="btn-agregar-variante" id="btn-agregar-variante">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                Agregar otra versión
+                            </button>
+                            <span class="variantes-total" id="variantes-total">Total: 0 unidades</span>
+                        </div>
                     </div>
-                </div>
+                </fieldset>
+
+                <!-- 3. Imagen y descripción -->
+                <fieldset class="form-seccion">
+                    <legend><span class="paso-numero">3</span> Imagen y descripción</legend>
+                    <div class="form-grid">
+                        <div class="form-grupo col-span-2">
+                            <label for="prod-imagen-file" class="zona-imagen" id="zona-imagen">
+                                <img id="preview-imagen-prod" alt="Vista previa del producto" hidden>
+                                <span class="zona-imagen-texto" id="zona-imagen-texto">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                    <strong>Haz clic o arrastra una foto aquí *</strong>
+                                    <small>JPG o PNG desde tu computadora o celular</small>
+                                </span>
+                            </label>
+                            <input type="file" id="prod-imagen-file" accept="image/*" class="input-oculto">
+                            <input type="hidden" id="prod-imagen">
+                        </div>
+
+                        <div class="form-grupo col-span-2">
+                            <label for="prod-descripcion">Descripción</label>
+                            <textarea id="prod-descripcion" rows="3" placeholder="Detalles del producto, contenido, materiales..."></textarea>
+                        </div>
+                    </div>
+                </fieldset>
 
                 <div class="modal-acciones">
-                    <button type="button" class="btn-cancelar" onclick="cerrarModalProducto()">Cancelar</button>
-                    <button type="submit" class="btn-guardar">Guardar Producto</button>
+                    <button type="button" class="btn-cancelar" data-cerrar-modal>Cancelar</button>
+                    <button type="submit" class="btn-guardar" id="btn-guardar-producto">Guardar producto</button>
                 </div>
             </form>
 
@@ -185,6 +356,7 @@
     </div>
 
     <!-- Scripts de la aplicación -->
+    <script src="../js/notificaciones.js"></script>
     <script src="../js/sesion.js"></script>
     <script src="../js/datos-productos.js"></script>
     <script src="../js/carrito.js"></script>

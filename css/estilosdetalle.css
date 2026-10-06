@@ -156,6 +156,161 @@
     color: var(--color-secundario);
 }
 
+/* --- Migas de pan --- */
+.detalle-migas {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.migas-ruta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: #999;
+}
+
+.detalle-migas .migas-ruta a {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #777;
+    font-weight: 500;
+}
+
+.detalle-migas .migas-ruta a:hover {
+    background: none;
+    color: var(--color-primario);
+}
+
+.migas-ruta strong {
+    color: var(--color-texto);
+    font-weight: 600;
+}
+
+/* --- Versiones / personajes como botones --- */
+.variantes-lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.variante-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 0.55rem 0.9rem;
+    border: 2px solid var(--color-borde);
+    border-radius: 12px;
+    background: white;
+    font-family: var(--fuente-textos);
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+.variante-chip:hover:not(:disabled) {
+    border-color: var(--color-primario);
+}
+
+.variante-chip.activo {
+    border-color: var(--color-primario);
+    background: #fff1f6;
+    box-shadow: 0 0 0 3px rgba(255, 107, 158, 0.18);
+}
+
+.variante-nombre {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--color-texto);
+}
+
+.variante-stock {
+    font-size: 0.74rem;
+    color: #2e7d32;
+}
+
+.variante-chip.agotado {
+    cursor: not-allowed;
+    opacity: 0.55;
+    background: #f6f6f6;
+}
+
+.variante-chip.agotado .variante-nombre { text-decoration: line-through; }
+.variante-chip.agotado .variante-stock { color: #c62828; }
+
+/* --- Cantidad con botones − / + --- */
+.cantidad-fila {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.cantidad-stepper {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--color-borde);
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+}
+
+.cantidad-stepper button {
+    width: 40px;
+    height: 42px;
+    border: none;
+    background: var(--color-gris-claro);
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #444;
+    transition: background 0.2s;
+}
+
+.cantidad-stepper button:hover { background: #ffe3ee; color: var(--color-primario); }
+
+.detalle-campo .cantidad-stepper input[type="number"] {
+    width: 56px;
+    border: none;
+    border-radius: 0;
+    font-weight: 600;
+    -moz-appearance: textfield;
+}
+
+.cantidad-stepper input::-webkit-outer-spin-button,
+.cantidad-stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.detalle-disponible {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #2e7d32;
+}
+
+.detalle-disponible.poco-stock { color: #d97706; }
+.detalle-disponible.sin-stock { color: #c62828; }
+
+.detalle-subtotal {
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.detalle-subtotal strong { color: var(--color-texto); font-size: 1.1rem; }
+
+.detalle-btn-carrito:disabled {
+    background: #cfcfd6;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.detalle-enlaces {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
 /* --- Producto inexistente --- */
 .detalle-vacio {
     text-align: center;

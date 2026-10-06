@@ -1,0 +1,230 @@
+/* =========================================================
+   KOOKSTORE.MX - NOTIFICACIONES (TOASTS) Y DIÁLOGOS
+   Estilos de js/notificaciones.js
+   ========================================================= */
+
+:root {
+    --kook-exito: #16a34a;
+    --kook-exito-suave: #dcfce7;
+    --kook-error: #e11d48;
+    --kook-error-suave: #ffe4e6;
+    --kook-aviso: #d97706;
+    --kook-aviso-suave: #fef3c7;
+    --kook-info: #6C5CE7;
+    --kook-info-suave: #ede9fe;
+}
+
+/* ================= TOASTS ================= */
+.kook-toast-pila {
+    position: fixed;
+    top: 22px;
+    right: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 3000;
+    pointer-events: none;
+}
+
+.kook-toast {
+    --tono: var(--kook-exito);
+    --tono-suave: var(--kook-exito-suave);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 340px;
+    max-width: calc(100vw - 32px);
+    padding: 14px 14px 16px;
+    background: #ffffff;
+    border-radius: 14px;
+    border-left: 5px solid var(--tono);
+    box-shadow: 0 14px 34px rgba(30, 20, 60, 0.16), 0 2px 6px rgba(30, 20, 60, 0.06);
+    font-family: 'Poppins', sans-serif;
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateX(40px) scale(0.96);
+    transition: opacity 0.28s ease, transform 0.28s cubic-bezier(.2, .9, .3, 1.2);
+}
+
+.kook-toast.visible { opacity: 1; transform: translateX(0) scale(1); }
+.kook-toast.saliendo { opacity: 0; transform: translateX(40px); }
+
+.kook-toast-error { --tono: var(--kook-error); --tono-suave: var(--kook-error-suave); }
+.kook-toast-aviso { --tono: var(--kook-aviso); --tono-suave: var(--kook-aviso-suave); }
+.kook-toast-info { --tono: var(--kook-info); --tono-suave: var(--kook-info-suave); }
+
+.kook-toast-icono {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--tono-suave);
+    color: var(--tono);
+}
+
+.kook-toast-icono svg { width: 18px; height: 18px; }
+
+.kook-toast-texto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.88rem;
+    line-height: 1.35;
+    color: #2d3436;
+}
+
+.kook-toast-texto strong { font-size: 0.92rem; margin-bottom: 2px; }
+
+.kook-toast-cerrar {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    line-height: 1;
+    color: #a0a0b0;
+    cursor: pointer;
+    padding: 2px 4px;
+}
+
+.kook-toast-cerrar:hover { color: #2d3436; }
+
+/* Barra que muestra cuánto falta para que se cierre */
+.kook-toast-barra {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 100%;
+    background: var(--tono);
+    opacity: 0.35;
+    transform-origin: left;
+    animation: kookBarra 3.5s linear forwards;
+}
+
+@keyframes kookBarra { to { transform: scaleX(0); } }
+
+@media (max-width: 600px) {
+    .kook-toast-pila { top: auto; bottom: 16px; left: 16px; right: 16px; }
+    .kook-toast { width: 100%; }
+}
+
+/* ================= DIÁLOGOS (CONFIRMAR / ALERTA) ================= */
+.kook-dialogo-fondo {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(25, 18, 45, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 3100;
+    opacity: 0;
+    transition: opacity 0.22s ease;
+}
+
+.kook-dialogo-fondo.visible { opacity: 1; }
+
+.kook-dialogo {
+    --tono: var(--kook-info);
+    --tono-suave: var(--kook-info-suave);
+    width: 100%;
+    max-width: 420px;
+    padding: 32px 28px 24px;
+    background: #ffffff;
+    border-radius: 22px;
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(25, 18, 45, 0.3);
+    font-family: 'Poppins', sans-serif;
+    transform: translateY(16px) scale(0.94);
+    transition: transform 0.28s cubic-bezier(.2, .9, .3, 1.25);
+}
+
+.kook-dialogo-fondo.visible .kook-dialogo { transform: translateY(0) scale(1); }
+
+.kook-dialogo-peligro { --tono: var(--kook-error); --tono-suave: var(--kook-error-suave); }
+.kook-dialogo-aviso { --tono: var(--kook-aviso); --tono-suave: var(--kook-aviso-suave); }
+.kook-dialogo-exito { --tono: var(--kook-exito); --tono-suave: var(--kook-exito-suave); }
+.kook-dialogo-error { --tono: var(--kook-error); --tono-suave: var(--kook-error-suave); }
+
+.kook-dialogo-icono {
+    width: 74px;
+    height: 74px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--tono-suave);
+    color: var(--tono);
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--tono-suave) 50%, transparent);
+    animation: kookLatido 0.5s ease 0.15s both;
+}
+
+.kook-dialogo-icono svg { width: 34px; height: 34px; }
+
+@keyframes kookLatido {
+    0% { transform: scale(0.6); opacity: 0; }
+    70% { transform: scale(1.08); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+.kook-dialogo h3 {
+    margin: 0 0 8px;
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.45rem;
+    line-height: 1.2;
+    color: #2d3436;
+}
+
+.kook-dialogo p {
+    margin: 0;
+    font-size: 0.93rem;
+    line-height: 1.55;
+    color: #636e72;
+}
+
+.kook-dialogo-detalle {
+    margin-top: 14px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #f7f7fb;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: #2d3436;
+}
+
+.kook-dialogo-botones {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.kook-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.kook-btn:active { transform: scale(0.97); }
+
+.kook-btn-cancelar { background: #f1f2f6; color: #57606f; }
+.kook-btn-cancelar:hover { background: #e4e6ee; }
+
+.kook-btn-confirmar {
+    background: var(--tono);
+    color: #ffffff;
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--tono) 35%, transparent);
+}
+
+.kook-btn-confirmar:hover { filter: brightness(1.07); }
+
+.kook-btn:focus-visible { outline: 3px solid color-mix(in srgb, var(--tono) 40%, transparent); outline-offset: 2px; }

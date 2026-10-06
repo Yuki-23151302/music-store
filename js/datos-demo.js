@@ -61,12 +61,29 @@ const PEDIDOS_DEMO = {
     ]
 };
 
+/* Cuentas de demostración que ya no se usan. Se borran del
+   navegador (cuenta, pedidos, carrito y avisos) en cada carga. */
+const CUENTAS_RETIRADAS = ['sofia@example.com'];
+
+function limpiarCuentasRetiradas() {
+    const usuarios = leerUsuarios();
+    const restantes = usuarios.filter(u => !CUENTAS_RETIRADAS.includes(u.email));
+    if (restantes.length !== usuarios.length) {
+        guardarUsuarios(restantes);
+    }
+
+    CUENTAS_RETIRADAS.forEach(function (email) {
+        localStorage.removeItem('kookstore_pedidos_' + email);
+        localStorage.removeItem('kookstore_carrito_' + email);
+        localStorage.removeItem('kookstore_avisos_cancelacion_' + email);
+        if (sessionStorage.getItem('kookstore_sesion') === email) {
+            sessionStorage.removeItem('kookstore_sesion');
+        }
+    });
+}
+
 /* Deja las cuentas y sus pedidos guardados en el navegador */
 function cargarDatosDemo() {
-    // 🧹 Limpieza de rastros anteriores
-    /*localStorage.removeItem('kookstore_pedidos_sofia@example.com');
-    localStorage.removeItem(CLAVE_DEMO);*/
-
     // Si ya se cargó una vez, no se vuelve a tocar nada
     if (localStorage.getItem(CLAVE_DEMO)) {
         return;
@@ -93,4 +110,5 @@ function cargarDatosDemo() {
     localStorage.setItem(CLAVE_DEMO, 'si');
 }
 
+limpiarCuentasRetiradas();
 cargarDatosDemo();

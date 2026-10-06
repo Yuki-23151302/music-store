@@ -8,8 +8,8 @@
    POR USUARIO. La clave incluye el correo de quien inició
    sesión, por eso cada cliente ve únicamente sus compras:
 
-     kookstore_carrito_sofia@example.com
-     kookstore_pedidos_sofia@example.com
+     kookstore_carrito_yuridia@kookstore.mx
+     kookstore_pedidos_yuridia@kookstore.mx
 
    Si nadie inició sesión se usa la bolsa "invitado".
 
@@ -70,10 +70,11 @@ function eliminarDelCarrito(indice) {
     guardarCarrito(carrito);
 }
 
-/* Cambia la cantidad de una línea del carrito */
+/* Cambia la cantidad de una línea del carrito (mínimo 1) */
 function cambiarCantidad(indice, nuevaCantidad) {
     const carrito = leerCarrito();
-    carrito[indice].cantidad = Number(nuevaCantidad);
+    if (!carrito[indice]) return;
+    carrito[indice].cantidad = Math.max(1, Math.floor(Number(nuevaCantidad)) || 1);
     guardarCarrito(carrito);
 }
 
@@ -162,37 +163,73 @@ function generarFolio() {
     return 'KS-' + new Date().getFullYear() + '-' + numero;
 }
 
-/* Convierte el carrito actual en un pedido del historial
-   y deja el carrito vacío. Devuelve el pedido creado. */
-function registrarPedido() {
+/* Convierte el carrito actual en un pedido del historial,
+   descuenta el inventario y deja el carrito vacío.
+   "envio" = { nombre: 'Envío Estándar', costo: 150 }
+   Devuelve el pedido creado. */
+function registrarPedido(envio) {
     const carrito = leerCarrito();
     if (carrito.length === 0) return null;
+
+    envio = envio || { nombre: 'Envío Estándar', costo: 0 };
 
     const pedidos = leerPedidos();
     const folio = 'KS-2026-' + Math.floor(1000 + Math.random() * 9000);
     const ahora = new Date();
+    const subtotal = totalCarrito();
 
-    // 1. Crear la cadena de texto para el resumen de compra
+    // Resumen en texto para la tabla del Admin: "2x BT21 Mini (Koya), 1x IN LIFE"
     const resumenTexto = carrito
-        .map(item => item.cantidad + 'x ' + item.nombre)
+        .map(item => item.cantidad + 'x ' + item.nombre + (item.opcion ? ' (' + item.opcion + ')' : ''))
         .join(', ');
 
-    // 2. Crear el objeto del pedido con la propiedad 'resumen'
     const nuevoPedido = {
         folio: folio,
         fecha: ahora.toLocaleDateString('es-MX'),
         hora: ahora.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' }),
         articulos: [...carrito],
-        resumen: resumenTexto, // <-- AQUÍ SE AGREGA PARA EL ADMIN
-        total: totalCarrito(),
+        resumen: resumenTexto,
+        subtotal: subtotal,
+        envio: envio,
+        total: subtotal + Number(envio.costo || 0),
         estado: 'Pagado'
     };
 
     pedidos.unshift(nuevoPedido);
     guardarPedidos(pedidos);
-    vaciarCarrito();
 
+    // El inventario baja en cuanto se paga
+    if (typeof ajustarStock === 'function') {
+        ajustarStock(carrito, -1);
+    }
+
+    vaciarCarrito();
     return nuevoPedido;
+}
+
+/* ---------------------------------------------------------
+   ESTADOS DEL PEDIDO (compartidos por Admin y Rastreo)
+   --------------------------------------------------------- */
+const ESTADOS_PEDIDO = ['Pagado', 'En preparación', 'En camino', 'Entregado', 'Cancelado'];
+
+/* Los pedidos viejos decían "En proceso"; ahora es "En preparación" */
+function normalizarEstado(estado) {
+    const texto = (estado || 'Pagado').trim();
+    if (texto.toLowerCase() === 'en proceso') return 'En preparación';
+    if (texto.toLowerCase() === 'pedido cancelado') return 'Cancelado';
+    return texto;
+}
+
+/* "En preparación" -> "en-preparacion" (para clases CSS) */
+function claseEstado(estado) {
+    return normalizarEstado(estado)
+        .toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, '-');
+}
+
+function esPedidoCancelado(pedido) {
+    return normalizarEstado(pedido && pedido.estado) === 'Cancelado';
 }
 
 /* ---------------------------------------------------------
@@ -217,8 +254,14 @@ function actualizarContadorCarrito() {
     });
 }
 
-/* Mensaje flotante de confirmación en la esquina */
-function mostrarToast(mensaje) {
+/* Mensaje flotante de confirmación en la esquina.
+   Si la página cargó notificaciones.js usa el toast moderno. */
+function mostrarToast(mensaje, tipo) {
+    if (typeof kookToast === 'function') {
+        kookToast(mensaje, tipo || 'exito');
+        return;
+    }
+
     let toast = document.getElementById('toast-kookstore');
 
     if (!toast) {

@@ -1,77 +1,248 @@
-/* ESTILOS ESPECÍFICOS PARA LOGIN */
+/* =========================================================
+   KOOKSTORE.MX - MI CUENTA: INICIAR SESIÓN Y REGISTRO
+   Estilos compartidos por login.html y registro.html.
+   Usa las variables y utilidades de css/estilos.css
+   ========================================================= */
 
-.seccion-login {
-    padding: 4rem 5%;
+.cuenta-main {
+    min-height: calc(100vh - 90px);
+    padding: 3.5rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 10% 15%, #ffe3ef 0%, transparent 40%),
+                radial-gradient(circle at 90% 85%, #e6e0ff 0%, transparent 40%),
+                #fdf9fc;
+}
+
+.cuenta-tarjeta {
+    width: 100%;
+    max-width: 980px;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    overflow: hidden;
+    border-radius: 32px;
+    background: white;
+    box-shadow: 0 30px 70px rgba(76, 52, 140, 0.16);
+}
+
+/* ---------- Panel de marca ---------- */
+.cuenta-lateral {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 2.6rem 2.4rem;
+    background: var(--degradado-marca);
+    color: white;
+}
+
+.cuenta-lateral > * { position: relative; z-index: 1; }
+
+.cuenta-lateral .hero-burbuja {
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    animation: flotar 7s ease-in-out infinite;
+}
+
+.cuenta-lateral .hero-burbuja.b1 { width: 240px; height: 240px; top: -80px; right: -80px; }
+.cuenta-lateral .hero-burbuja.b2 { width: 150px; height: 150px; bottom: 90px; left: -60px; animation-delay: -3s; }
+
+.cuenta-marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 2.2rem;
+    font-family: var(--fuente-titulos);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.cuenta-marca img { width: 44px; border-radius: 12px; background: white; }
+
+.cuenta-lateral h2 {
+    color: white;
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    line-height: 1.1;
+    margin-bottom: 0.6rem;
+}
+
+.cuenta-lateral > p { opacity: 0.92; margin-bottom: 1.6rem; }
+
+.cuenta-beneficios { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2rem; }
+
+.cuenta-beneficios li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+
+.cuenta-beneficios li span {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.cuenta-collage {
+    margin-top: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: var(--color-gris-claro);
-    flex-grow: 1;
 }
 
-.login-card {
-    background: white;
-    padding: 2.5rem;
-    border-radius: 12px;
-    border: 1px solid var(--color-borde);
-    width: 100%;
-    max-width: 450px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+.cuenta-collage img {
+    width: 30%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 4px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 12px 26px rgba(34, 26, 61, 0.25);
+    animation: flotar 6s ease-in-out infinite;
 }
 
-.login-titulo {
-    text-align: center;
-    margin-bottom: 0.5rem;
-    font-size: 2rem;
-    color: #2D3436;
+.cuenta-collage img:nth-child(1) { transform: rotate(-8deg); margin-right: -6%; }
+.cuenta-collage img:nth-child(2) { transform: translateY(-12px); z-index: 1; animation-delay: -2s; }
+.cuenta-collage img:nth-child(3) { transform: rotate(8deg); margin-left: -6%; animation-delay: -4s; }
+
+/* ---------- Formulario ---------- */
+.cuenta-formulario {
+    padding: 3rem 2.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.login-subtitulo {
-    text-align: center;
-    color: #666;
-    margin-bottom: 2rem;
-    font-size: 0.95rem;
+.cuenta-formulario .etiqueta-seccion { align-self: flex-start; }
+
+.cuenta-formulario h1 {
+    font-size: clamp(2rem, 3.4vw, 2.5rem);
+    line-height: 1.1;
+    color: var(--tinta);
 }
 
-.login-grupo {
-    margin-bottom: 1.2rem;
-}
+.cuenta-subtitulo { color: var(--tinta-tenue); margin: 0.3rem 0 1.8rem; }
 
-.login-grupo label {
+.cuenta-campo { margin-bottom: 1.15rem; }
+
+.cuenta-campo label {
     display: block;
+    margin-bottom: 0.45rem;
+    font-size: 0.88rem;
     font-weight: 600;
-    margin-bottom: 0.4rem;
-    font-size: 0.9rem;
-    color: var(--color-texto);
+    color: var(--tinta);
 }
 
-.login-grupo input {
+.cuenta-input { position: relative; }
+
+.cuenta-input > svg {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    transform: translateY(-50%);
+    color: #b2aac9;
+    pointer-events: none;
+    transition: color 0.25s;
+}
+
+.cuenta-input input {
     width: 100%;
-    padding: 0.8rem;
-    border: 1px solid var(--color-borde);
-    border-radius: 8px;
+    padding: 0.9rem 1rem 0.9rem 2.8rem;
+    border: 1.5px solid #eee8f8;
+    border-radius: 14px;
+    background: #faf8ff;
     font-family: var(--fuente-textos);
+    font-size: 0.95rem;
+    color: var(--tinta);
     outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
 }
 
-.login-grupo input:focus {
+.cuenta-input input:focus {
     border-color: var(--color-primario);
-    box-shadow: 0 0 0 3px rgba(255, 107, 158, 0.1);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(255, 107, 158, 0.12);
 }
 
-.login-footer-texto {
-    text-align: center;
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-    color: #666;
+.cuenta-input:focus-within > svg { color: var(--color-primario); }
+
+.cuenta-input input[type="password"],
+.cuenta-input input.clave-visible { padding-right: 3rem; }
+
+.btn-ver-clave {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    width: 36px;
+    height: 36px;
+    transform: translateY(-50%);
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: #a39bbd;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.2s, color 0.2s;
 }
 
-.login-footer-texto a {
-    color: var(--color-primario);
-    font-weight: 600;
+.btn-ver-clave svg { width: 18px; height: 18px; }
+.btn-ver-clave:hover,
+.btn-ver-clave.activo { background: var(--rosa-suave); color: var(--color-primario); }
+
+.cuenta-boton {
+    width: 100%;
+    margin-top: 0.6rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem;
+    font-family: var(--fuente-textos);
+    font-size: 1rem;
 }
 
-.login-footer-texto a:hover {
-    text-decoration: underline;
+.cuenta-boton svg { width: 18px; height: 18px; transition: transform 0.25s; }
+.cuenta-boton:hover svg { transform: translateX(4px); }
+
+.cuenta-separador {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 1.6rem 0 1rem;
+    font-size: 0.85rem;
+    color: var(--tinta-tenue);
+}
+
+.cuenta-separador::before,
+.cuenta-separador::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee8f8;
+}
+
+.cuenta-boton-alterno { justify-content: center; width: 100%; padding: 0.85rem; }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 820px) {
+    .cuenta-tarjeta { grid-template-columns: 1fr; max-width: 520px; }
+    .cuenta-lateral { padding: 2rem 1.8rem; }
+    .cuenta-marca { margin-bottom: 1.2rem; }
+    .cuenta-beneficios, .cuenta-collage { display: none; }
+    .cuenta-lateral > p { margin-bottom: 0; }
+    .cuenta-formulario { padding: 2.2rem 1.8rem; }
+}
+
+@media (max-width: 480px) {
+    .cuenta-main { padding: 1.5rem 4%; }
+    .cuenta-tarjeta { border-radius: 24px; }
 }

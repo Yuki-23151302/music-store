@@ -41,6 +41,27 @@ function rutaRaiz() {
     return estaEnSubcarpeta() ? '../' : '';
 }
 
+/* Ruta final de una imagen de producto. Respeta las fotos subidas
+   desde el Admin (Base64 "data:"), las URLs web y las rutas que
+   ya traen "../"; a las demás les antepone la ruta a la raíz. */
+function resolverImagen(ruta) {
+    if (!ruta) return rutaRaiz() + 'assets/img/logo.png';
+    if (ruta.startsWith('data:') || ruta.startsWith('http') || ruta.startsWith('../')) {
+        return ruta;
+    }
+    return rutaRaiz() + ruta;
+}
+
+/* Evita que un texto capturado por el usuario se interprete como HTML */
+function escaparHTML(texto) {
+    return String(texto === undefined || texto === null ? '' : texto)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 /* ---------------------------------------------------------
    USUARIOS
    --------------------------------------------------------- */
@@ -67,7 +88,7 @@ function buscarUsuarioPorEmail(email) {
     return null;
 }
 
-/* Saca las iniciales para el avatar: "Sofia Park" -> "SP" */
+/* Saca las iniciales para el avatar: "Yuridia Flores" -> "YF" */
 function inicialesDe(nombre) {
     const partes = nombre.trim().split(' ');
     let iniciales = '';
@@ -124,7 +145,21 @@ function registrarUsuario(nombre, email, password) {
     usuarios.push(nuevoUsuario);
     guardarUsuarios(usuarios);
     sessionStorage.setItem(CLAVE_SESION, email);
+    registrarUltimoAcceso(email);
     return nuevoUsuario;
+}
+
+/* Guarda fecha y hora del último inicio de sesión. Como la sesión
+   vive en sessionStorage (por pestaña), el Admin no puede ver las
+   pestañas de los clientes; este dato es lo que puede mostrar. */
+function registrarUltimoAcceso(email) {
+    const usuarios = leerUsuarios();
+    const usuario = usuarios.find(u => u.email === email);
+    if (!usuario) return;
+    const ahora = new Date();
+    usuario.ultimoAcceso = ahora.toLocaleDateString('es-MX') + ' ' +
+        ahora.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+    guardarUsuarios(usuarios);
 }
 
 /* ---------------------------------------------------------
@@ -140,6 +175,7 @@ function iniciarSesion(email, password) {
 
     if (usuario) {
         sessionStorage.setItem(CLAVE_SESION, email);
+        registrarUltimoAcceso(email);
         return usuario;
     }
 

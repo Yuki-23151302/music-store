@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/estiloscheckout.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 </head>
 
@@ -38,87 +39,149 @@
 
     <!-- CONTENIDO PRINCIPAL: CHECKOUT -->
     <main class="checkout-container">
-        <div class="checkout-header-titulo">
-            <h2>Pago Seguro 🔒</h2>
-            <a href="carrito.html" class="enlace-volver">⬅ Volver al carrito</a>
-        </div>
+
+        <!-- ENCABEZADO CON PASOS -->
+        <section class="checkout-encabezado" data-revelar>
+            <div>
+                <a href="carrito.html" class="enlace-volver">← Volver al carrito</a>
+                <h1>Finalizar compra</h1>
+                <p>Completa tus datos para recibir tus productos. <span class="etiqueta-segura">🔒 Pago seguro</span></p>
+            </div>
+            <ol class="checkout-pasos" aria-label="Pasos de la compra">
+                <li class="hecho"><span>✓</span>Carrito</li>
+                <li class="activo"><span>2</span>Pago</li>
+                <li><span>3</span>Confirmación</li>
+            </ol>
+        </section>
 
         <div class="checkout-grid">
             <!-- Formulario de Datos sin validaciones -->
             <form id="form-pago" class="checkout-formularios" onsubmit="procesarPago(event)" novalidate>
 
-                <section class="checkout-seccion">
-                    <h3>1. Dirección de Envío</h3>
+                <!-- 1. DIRECCIÓN -->
+                <section class="checkout-seccion" data-revelar>
+                    <header class="seccion-cabecera">
+                        <span class="seccion-numero">1</span>
+                        <div>
+                            <h2>Dirección de envío</h2>
+                            <p>¿A dónde enviamos tu pedido?</p>
+                        </div>
+                    </header>
                     <div class="input-grupo">
-                        <label>Nombre Completo</label>
-                        <input type="text" placeholder="Ej. Yuridia Flores">
+                        <label for="envio-nombre">Nombre completo</label>
+                        <input type="text" id="envio-nombre" placeholder="Ej. Yuridia Flores" autocomplete="name">
                     </div>
                     <div class="input-grupo">
-                        <label>Calle y Número</label>
-                        <input type="text" placeholder="Ej. Av. Tecnológico 123">
+                        <label for="envio-calle">Calle y número</label>
+                        <input type="text" id="envio-calle" placeholder="Ej. Av. Tecnológico 123" autocomplete="street-address">
                     </div>
                     <div class="input-row">
                         <div class="input-grupo">
-                            <label>Código Postal</label>
-                            <input type="text" placeholder="20256">
+                            <label for="envio-cp">Código postal</label>
+                            <input type="text" id="envio-cp" placeholder="20256" inputmode="numeric" autocomplete="postal-code">
                         </div>
                         <div class="input-grupo">
-                            <label>Ciudad</label>
-                            <input type="text" placeholder="Aguascalientes">
+                            <label for="envio-ciudad">Ciudad</label>
+                            <input type="text" id="envio-ciudad" placeholder="Aguascalientes" autocomplete="address-level2">
                         </div>
                     </div>
                 </section>
 
-                <!-- SECCIÓN DE ENVÍO -->
-                <section class="checkout-seccion">
-                    <h3>2. Método de Envío</h3>
+                <!-- 2. MÉTODO DE ENVÍO -->
+                <section class="checkout-seccion" data-revelar style="--retraso: 0.08s">
+                    <header class="seccion-cabecera">
+                        <span class="seccion-numero">2</span>
+                        <div>
+                            <h2>Método de envío</h2>
+                            <p>Elige qué tan rápido quieres recibirlo.</p>
+                        </div>
+                    </header>
                     <div class="opciones-envio">
-                        <label class="opcion-radio">
+                        <label class="opcion-envio">
                             <input type="radio" name="envio" value="150" data-nombre="Envío Estándar"
                                 onchange="actualizarResumen()" checked>
-                            <span>Envío Estándar (3-5 días) - $150.00</span>
+                            <span class="opcion-icono">📦</span>
+                            <span class="opcion-texto"><strong>Envío estándar</strong><small>3 a 5 días hábiles</small></span>
+                            <span class="opcion-precio">$150.00</span>
                         </label>
-                        <label class="opcion-radio">
+                        <label class="opcion-envio">
                             <input type="radio" name="envio" value="250" data-nombre="Envío Exprés"
                                 onchange="actualizarResumen()">
-                            <span>Envío Exprés (1-2 días) - $250.00</span>
+                            <span class="opcion-icono">⚡</span>
+                            <span class="opcion-texto"><strong>Envío exprés</strong><small>1 a 2 días hábiles</small></span>
+                            <span class="opcion-precio">$250.00</span>
                         </label>
-                        <label class="opcion-radio">
+                        <label class="opcion-envio">
                             <input type="radio" name="envio" value="0" data-nombre="Recoger en tienda"
                                 onchange="actualizarResumen()">
-                            <span>Recoger en tienda - Gratis</span>
+                            <span class="opcion-icono">🏬</span>
+                            <span class="opcion-texto"><strong>Recoger en tienda</strong><small>Te avisamos cuando esté listo</small></span>
+                            <span class="opcion-precio gratis">Gratis</span>
                         </label>
                     </div>
                 </section>
 
-                <section class="checkout-seccion">
-                    <h3>3. Método de Pago (Simulado)</h3>
-                    <div class="tarjeta-simulada">
-                        <div class="input-grupo">
-                            <label>Número de Tarjeta</label>
-                            <input type="text" placeholder="0000 0000 0000 0000">
+                <!-- 3. PAGO -->
+                <section class="checkout-seccion" data-revelar style="--retraso: 0.16s">
+                    <header class="seccion-cabecera">
+                        <span class="seccion-numero">3</span>
+                        <div>
+                            <h2>Método de pago</h2>
+                            <p>Pago simulado para fines de demostración.</p>
                         </div>
-                        <div class="input-row">
+                    </header>
+
+                    <div class="pago-contenido">
+                        <!-- Tarjeta visual que se llena mientras se escribe -->
+                        <div class="tarjeta-visual" aria-hidden="true">
+                            <div class="tarjeta-fila">
+                                <span class="tarjeta-chip"></span>
+                                <span class="tarjeta-marca">KOOKPAY</span>
+                            </div>
+                            <div class="tarjeta-numero" id="vista-numero">•••• •••• •••• ••••</div>
+                            <div class="tarjeta-fila">
+                                <div><small>Titular</small><span id="vista-titular">TU NOMBRE</span></div>
+                                <div><small>Vence</small><span id="vista-vence">MM/AA</span></div>
+                            </div>
+                        </div>
+
+                        <div class="tarjeta-campos">
                             <div class="input-grupo">
-                                <label>Vencimiento (MM/AA)</label>
-                                <input type="text" placeholder="12/28">
+                                <label for="pago-numero">Número de tarjeta</label>
+                                <input type="text" id="pago-numero" placeholder="0000 0000 0000 0000" inputmode="numeric" maxlength="19" autocomplete="off">
                             </div>
                             <div class="input-grupo">
-                                <label>CVV</label>
-                                <input type="password" placeholder="123">
+                                <label for="pago-titular">Nombre en la tarjeta</label>
+                                <input type="text" id="pago-titular" placeholder="Como aparece en la tarjeta" autocomplete="off">
+                            </div>
+                            <div class="input-row">
+                                <div class="input-grupo">
+                                    <label for="pago-vence">Vence (MM/AA)</label>
+                                    <input type="text" id="pago-vence" placeholder="12/28" inputmode="numeric" maxlength="5" autocomplete="off">
+                                </div>
+                                <div class="input-grupo">
+                                    <label for="pago-cvv">CVV</label>
+                                    <input type="password" id="pago-cvv" placeholder="123" inputmode="numeric" maxlength="4" autocomplete="off">
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <p class="aviso-simulado">ℹ️ Esta tienda es una demostración: no ingreses datos reales de tarjeta.</p>
                 </section>
 
                 <button type="submit" style="display:none;"></button>
             </form>
 
             <!-- Resumen del Pedido -->
-            <aside class="checkout-resumen">
-                <h3>Resumen de Compra</h3>
+            <aside class="checkout-resumen" data-revelar style="--retraso: 0.1s">
+                <h2>Resumen de compra</h2>
 
                 <div class="resumen-items" id="checkout-items">
+                    <!-- Contenido dinámico -->
+                </div>
+
+                <div class="resumen-desglose" id="checkout-desglose">
                     <!-- Contenido dinámico -->
                 </div>
 
@@ -128,8 +191,15 @@
 
                 <button type="button" class="btn-pagar-final"
                     onclick="document.getElementById('form-pago').requestSubmit()">
-                    Confirmar y Pagar
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                    <span>Confirmar y pagar</span>
                 </button>
+
+                <ul class="resumen-garantias">
+                    <li><span>🔒</span>Tus datos viajan protegidos</li>
+                    <li><span>📦</span>Rastrea tu pedido desde tu cuenta</li>
+                    <li><span>💎</span>Productos 100% oficiales</li>
+                </ul>
             </aside>
         </div>
     </main>
@@ -150,91 +220,151 @@
     <!-- MODAL DE ÉXITO -->
     <div class="kook-modal-overlay" id="modal-exito" style="display: none;">
         <div class="kook-modal-box">
-            <h3 style="font-size: 3.5rem; margin: 0; color: #4caf50;">✨🛒</h3>
-            <h3 style="font-family: 'Baloo 2', sans-serif; color: var(--color-texto);">¡Pago Exitoso!</h3>
-            <p style="color: #666; margin-bottom: 20px;">Tu pedido <strong id="folio-modal-exito">#KS-2026-000</strong> ha sido confirmado. Hemos enviado los detalles a tu correo electrónico.</p>
+            <div class="exito-icono">
+                <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none"/><path fill="none" d="M15 27l7 7 15-15"/></svg>
+            </div>
+            <span class="exito-confeti" aria-hidden="true">🎉</span>
+            <h2>¡Pago exitoso!</h2>
+            <p>Tu pedido fue confirmado y ya lo estamos preparando. Te enviamos los detalles a tu correo electrónico.</p>
+            <div class="exito-folio">Pedido <strong id="folio-modal-exito">#KS-2026-000</strong></div>
             <div class="kook-modal-botones">
-                <button class="btn-primario" onclick="finalizarCompra()"
-                    style="width: 100%; border: none; cursor: pointer; padding: 12px; border-radius: 25px; font-weight: 600;">
-                    Volver a la tienda
-                </button>
+                <button type="button" class="btn-primario" onclick="finalizarCompra()">Ver mi pedido</button>
+                <a href="catalogo.html" class="btn-contorno">Seguir comprando</a>
             </div>
         </div>
     </div>
 
     <!-- JAVASCRIPT -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/datos-productos.js"></script>
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
     <script>
         let carritoCheckout = [];
 
         document.addEventListener('DOMContentLoaded', () => {
             carritoCheckout = leerCarrito();
-            
+
             if (carritoCheckout.length === 0) {
                 window.location.href = 'carrito.html';
                 return;
             }
 
+            // Si hay sesión, se adelanta el nombre del cliente
+            const usuario = usuarioActivo();
+            if (usuario && usuario.nombre) {
+                document.getElementById('envio-nombre').value = usuario.nombre;
+            }
+
+            conectarTarjetaVisual();
             actualizarResumen();
         });
 
+        /* La tarjeta de la izquierda refleja lo que se escribe (sin validar) */
+        function conectarTarjetaVisual() {
+            const numero = document.getElementById('pago-numero');
+            const titular = document.getElementById('pago-titular');
+            const vence = document.getElementById('pago-vence');
+            const cvv = document.getElementById('pago-cvv');
+
+            numero.addEventListener('input', function () {
+                const digitos = this.value.replace(/\D/g, '').slice(0, 16);
+                this.value = digitos.replace(/(.{4})/g, '$1 ').trim();
+                const relleno = (digitos + '•'.repeat(16 - digitos.length)).replace(/(.{4})/g, '$1 ').trim();
+                document.getElementById('vista-numero').textContent = relleno;
+            });
+
+            titular.addEventListener('input', function () {
+                document.getElementById('vista-titular').textContent = this.value.trim().toUpperCase() || 'TU NOMBRE';
+            });
+
+            vence.addEventListener('input', function () {
+                const digitos = this.value.replace(/\D/g, '').slice(0, 4);
+                this.value = digitos.length > 2 ? digitos.slice(0, 2) + '/' + digitos.slice(2) : digitos;
+                document.getElementById('vista-vence').textContent = this.value || 'MM/AA';
+            });
+
+            cvv.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, '').slice(0, 4);
+            });
+        }
+
         function actualizarResumen() {
             const contenedorItems = document.getElementById('checkout-items');
+            const contenedorDesglose = document.getElementById('checkout-desglose');
             const contenedorTotal = document.getElementById('checkout-total');
-            
-            let htmlItems = '';
-            
-            carritoCheckout.forEach(item => {
-                const subtotalItem = item.precio * item.cantidad;
-                htmlItems += `
-                    <div class="resumen-item">
-                        <span>${item.nombre} (x${item.cantidad})</span>
-                        <span>${formatearPrecio(subtotalItem)}</span>
+
+            contenedorItems.innerHTML = carritoCheckout.map(item => `
+                <div class="resumen-item">
+                    <div class="resumen-item-foto">
+                        <img src="${resolverImagen(item.imagen)}" alt="" onerror="this.onerror=null; this.src='../assets/img/logo.png'">
+                        <span class="resumen-item-cantidad">${item.cantidad}</span>
                     </div>
-                `;
-            });
+                    <div class="resumen-item-info">
+                        <strong>${escaparHTML(item.nombre)}</strong>
+                        <small>${item.opcion ? escaparHTML(item.opcion) : escaparHTML(item.grupo || '')}</small>
+                    </div>
+                    <span class="resumen-item-precio">${formatearPrecio(item.precio * item.cantidad)}</span>
+                </div>
+            `).join('');
 
             const envioSeleccionado = document.querySelector('input[name="envio"]:checked');
             const costoEnvio = parseFloat(envioSeleccionado.value);
             const nombreEnvio = envioSeleccionado.getAttribute('data-nombre');
-
-            const textoCostoEnvio = costoEnvio === 0 ? 'Gratis' : formatearPrecio(costoEnvio);
-            
-            htmlItems += `
-                <div class="resumen-item" style="margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 10px;">
-                    <span>${nombreEnvio}</span>
-                    <span>${textoCostoEnvio}</span>
-                </div>
-            `;
-            
-            contenedorItems.innerHTML = htmlItems;
-
             const totalProductos = totalCarrito();
-            const totalFinal = totalProductos + costoEnvio;
+
+            contenedorDesglose.innerHTML = `
+                <div class="resumen-linea"><span>Subtotal (${contarArticulos()} artículos)</span><span>${formatearPrecio(totalProductos)}</span></div>
+                <div class="resumen-linea"><span>${nombreEnvio}</span><span class="${costoEnvio === 0 ? 'texto-gratis' : ''}">${costoEnvio === 0 ? 'Gratis' : formatearPrecio(costoEnvio)}</span></div>
+            `;
 
             contenedorTotal.innerHTML = `
-                <span>Total a Pagar</span>
-                <strong>${formatearPrecio(totalFinal)}</strong>
+                <span>Total a pagar</span>
+                <strong>${formatearPrecio(totalProductos + costoEnvio)}</strong>
             `;
         }
 
         function procesarPago(event) {
-            event.preventDefault(); 
-            
+            event.preventDefault();
+
             const btn = document.querySelector('.btn-pagar-final');
-            btn.textContent = 'Procesando pago...';
-            btn.style.opacity = '0.7';
-            btn.style.pointerEvents = 'none'; 
-            
+            btn.classList.add('procesando');
+            btn.querySelector('span').textContent = 'Procesando pago...';
+
+            // Último chequeo de inventario antes de cobrar
+            const sinStock = leerCarrito().filter(item => {
+                const producto = obtenerProductoPorId(item.id);
+                return !producto || item.cantidad > stockDisponible(producto, producto.tieneVariantes ? item.opcion : undefined);
+            });
+            if (sinStock.length > 0) {
+                kookAlerta({
+                    tipo: 'aviso',
+                    titulo: 'Stock insuficiente',
+                    texto: 'Mientras comprabas se agotaron algunas piezas. Ajusta tu carrito para continuar.',
+                    detalle: sinStock.map(i => i.nombre + (i.opcion ? ' (' + i.opcion + ')' : '')).join(', '),
+                    textoBoton: 'Volver al carrito'
+                }).then(() => { window.location.href = 'carrito.html'; });
+                return;
+            }
+
+            const radioEnvio = document.querySelector('input[name="envio"]:checked');
+            const envio = {
+                nombre: radioEnvio.getAttribute('data-nombre'),
+                costo: parseFloat(radioEnvio.value)
+            };
+
             setTimeout(() => {
-                const nuevoPedido = registrarPedido(); 
+                const nuevoPedido = registrarPedido(envio);
                 if (nuevoPedido && nuevoPedido.folio) {
                     document.getElementById('folio-modal-exito').textContent = '#' + nuevoPedido.folio;
                 }
+                document.querySelectorAll('.checkout-pasos li').forEach(li => { li.className = 'hecho'; li.querySelector('span').textContent = '✓'; });
                 document.getElementById('modal-exito').style.display = 'flex';
-                btn.textContent = '¡Pago Aprobado!';
+                btn.classList.remove('procesando');
+                btn.classList.add('aprobado');
+                btn.querySelector('span').textContent = '¡Pago aprobado!';
             }, 2000);
         }
 

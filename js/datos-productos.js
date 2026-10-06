@@ -208,26 +208,132 @@ const PRODUCTOS_INICIALES = [
 ];
 
 /* ---------------------------------------------------------
+   MODELO DE VARIANTES (VERSIONES / PERSONAJES)
+   ---------------------------------------------------------
+   Cada producto puede tener o no versiones/personajes:
+
+     tieneVariantes: false -> usa "stock" general
+     tieneVariantes: true  -> usa "variantes" con stock propio
+         tituloVariante: "Selecciona el Personaje:"
+         variantes: [ { nombre: "Koya (RM)", stock: 10 }, ... ]
+         stock: suma de todas las variantes (se calcula solo)
+
+   Los personajes pueden repetirse entre productos distintos,
+   pero cada producto guarda su propio inventario.
+   --------------------------------------------------------- */
+
+const STOCK_INICIAL_GENERAL = 20;
+const STOCK_INICIAL_VARIANTE = 10;
+
+/* Suma el stock de todas las variantes */
+function sumarStockVariantes(variantes) {
+    let total = 0;
+    for (let i = 0; i < variantes.length; i++) {
+        total += Number(variantes[i].stock) || 0;
+    }
+    return total;
+}
+
+/* Convierte productos con el formato anterior (opcion.valores)
+   al formato nuevo con variantes y stock. */
+function normalizarProducto(p) {
+    const producto = Object.assign({}, p);
+
+    if (!Array.isArray(producto.variantes)) {
+        if (producto.opcion && Array.isArray(producto.opcion.valores)) {
+            producto.tituloVariante = producto.opcion.titulo;
+            producto.variantes = producto.opcion.valores.map(function (valor) {
+                return { nombre: valor, stock: STOCK_INICIAL_VARIANTE };
+            });
+        } else {
+            producto.variantes = [];
+        }
+    }
+    delete producto.opcion;
+
+    producto.tieneVariantes = producto.variantes.length > 0;
+
+    if (producto.tieneVariantes) {
+        producto.tituloVariante = producto.tituloVariante || 'Selecciona la versión:';
+        producto.stock = sumarStockVariantes(producto.variantes);
+    } else {
+        producto.stock = (producto.stock === undefined || producto.stock === null || producto.stock === '')
+            ? STOCK_INICIAL_GENERAL
+            : Number(producto.stock);
+    }
+
+    return producto;
+}
+
+/* Stock disponible de un producto, o de una variante concreta */
+function stockDisponible(producto, nombreVariante) {
+    if (!producto) return 0;
+    if (producto.tieneVariantes) {
+        if (!nombreVariante) return producto.stock;
+        const variante = producto.variantes.find(v => v.nombre === nombreVariante);
+        return variante ? Number(variante.stock) : 0;
+    }
+    return Number(producto.stock) || 0;
+}
+
+/* Suma (signo = +1) o resta (signo = -1) del inventario las piezas
+   de una lista de artículos de carrito/pedido. Se usa al pagar
+   y al cancelar un pedido desde el Admin. */
+function ajustarStock(articulos, signo) {
+    const productos = leerProductos();
+
+    (articulos || []).forEach(function (articulo) {
+        const producto = productos.find(p => p.id === articulo.id);
+        if (!producto) return;
+
+        const piezas = (Number(articulo.cantidad) || 0) * signo;
+
+        if (producto.tieneVariantes) {
+            const variante = producto.variantes.find(v => v.nombre === articulo.opcion);
+            if (variante) {
+                variante.stock = Math.max(0, Number(variante.stock) + piezas);
+            }
+            producto.stock = sumarStockVariantes(producto.variantes);
+        } else {
+            producto.stock = Math.max(0, Number(producto.stock) + piezas);
+        }
+    });
+
+    guardarProductos(productos);
+}
+
+/* ---------------------------------------------------------
    PERSISTENCIA CON LOCALSTORAGE
    --------------------------------------------------------- */
 
 function leerProductos() {
     const datos = localStorage.getItem('kookstore_productos');
-    if (!datos) {
-        localStorage.setItem('kookstore_productos', JSON.stringify(PRODUCTOS_INICIALES));
-        return PRODUCTOS_INICIALES;
+    let lista = PRODUCTOS_INICIALES;
+
+    if (datos) {
+        try {
+            lista = JSON.parse(datos);
+        } catch (e) {
+            lista = PRODUCTOS_INICIALES;
+        }
     }
-    try {
-        return JSON.parse(datos);
-    } catch (e) {
-        return PRODUCTOS_INICIALES;
+
+    const normalizados = lista.map(normalizarProducto);
+
+    // La primera vez (o si venían en el formato anterior) se guardan ya convertidos
+    const faltaMigrar = !datos || lista.some(p => p.tieneVariantes === undefined);
+    if (faltaMigrar) {
+        localStorage.setItem('kookstore_productos', JSON.stringify(normalizados));
     }
+
+    return normalizados;
 }
 
 function guardarProductos(productos) {
-    localStorage.setItem('kookstore_productos', JSON.stringify(productos));
+    const normalizados = productos.map(normalizarProducto);
+    localStorage.setItem('kookstore_productos', JSON.stringify(normalizados));
     if (typeof PRODUCTOS !== 'undefined') {
-        PRODUCTOS = productos;
+        PRODUCTOS = normalizados;
     }
 }
 

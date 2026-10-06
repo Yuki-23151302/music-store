@@ -14,6 +14,7 @@
     <!-- CSS Principal -->
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/estiloscarrito.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 </head>
 
@@ -43,8 +44,18 @@
     <!-- CONTENEDOR PRINCIPAL -->
     <main class="carrito-container">
 
-        <h1>Tu Carrito de Compras</h1>
-        <p class="carrito-intro">Revisa tus productos y consulta las compras que ya realizaste.</p>
+        <section class="carrito-encabezado" data-revelar>
+            <div>
+                <span class="etiqueta-seccion">🛍️ Tu bolsa</span>
+                <h1>Tu Carrito de Compras</h1>
+                <p class="carrito-intro">Revisa tus productos y consulta las compras que ya realizaste.</p>
+            </div>
+            <ol class="carrito-pasos" aria-label="Pasos de la compra">
+                <li class="activo"><span>1</span>Carrito</li>
+                <li><span>2</span>Pago</li>
+                <li><span>3</span>Confirmación</li>
+            </ol>
+        </section>
 
         <!-- PESTAÑAS: CARRITO / HISTORIAL -->
         <div class="carrito-tabs">
@@ -97,9 +108,12 @@
     </footer>
 
     <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/datos-productos.js"></script>
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
     <script src="../js/pagina-carrito.js"></script>
 
 </body>

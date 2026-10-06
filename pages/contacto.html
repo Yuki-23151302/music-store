@@ -42,43 +42,98 @@
     <main>
 
         <!-- HERO DE CONTACTO -->
-        <section class="hero" style="padding: 3rem 5%;">
-            <div class="hero-contenido">
-                <h1>Ponte en Contacto</h1>
+        <section class="contacto-hero">
+            <span class="hero-burbuja b1"></span>
+            <span class="hero-burbuja b2"></span>
+            <div class="contacto-hero-contenido" data-revelar>
+                <span class="contacto-etiqueta">💌 ESTAMOS PARA AYUDARTE</span>
+                <h1>Ponte en contacto</h1>
                 <p>¿Tienes dudas sobre tu pedido, un álbum en específico o pedidos especiales? Escríbenos.</p>
             </div>
         </section>
 
-        <!-- SECCIÓN DE FORMULARIO Y REDES -->
+        <!-- MEDIOS DE CONTACTO -->
+        <section class="contacto-medios">
+            <article class="medio-card" data-revelar>
+                <span class="medio-icono">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><polyline points="22 7 12 13 2 7"/></svg>
+                </span>
+                <div>
+                    <h3>Correo</h3>
+                    <a href="mailto:contacto@kookstore.mx">contacto@kookstore.mx</a>
+                </div>
+            </article>
+            <article class="medio-card" data-revelar style="--retraso: 0.08s">
+                <span class="medio-icono">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </span>
+                <div>
+                    <h3>Horario de atención</h3>
+                    <p>Lunes a viernes · 10:00 a 19:00</p>
+                </div>
+            </article>
+            <article class="medio-card" data-revelar style="--retraso: 0.16s">
+                <span class="medio-icono">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </span>
+                <div>
+                    <h3>Redes sociales</h3>
+                    <p>@kookstore.mx</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- FORMULARIO Y REDES -->
         <section class="seccion-contacto">
             <div class="contacto-contenedor">
 
                 <!-- Formulario de Contacto -->
-                <div class="contacto-card">
-                    <h3>Envíanos un mensaje</h3>
+                <div class="contacto-card contacto-formulario" data-revelar>
+                    <span class="etiqueta-seccion">✉️ Mensaje directo</span>
+                    <h2>Envíanos un mensaje</h2>
+                    <p class="contacto-ayuda">Te responderemos lo antes posible en horario de atención.</p>
 
                     <form id="formContacto">
-                        <div class="form-grupo">
-                            <label>Nombre</label>
-                            <input type="text" id="nombre" placeholder="Tu nombre">
+                        <div class="form-fila">
+                            <div class="form-grupo">
+                                <label for="nombre">Nombre</label>
+                                <div class="campo-icono">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    <input type="text" id="nombre" placeholder="Tu nombre">
+                                </div>
+                            </div>
+
+                            <div class="form-grupo">
+                                <label for="correo">Correo electrónico</label>
+                                <div class="campo-icono">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><polyline points="22 7 12 13 2 7"/></svg>
+                                    <input type="text" id="correo" placeholder="tucorreo@example.com">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-grupo">
-                            <label>Correo Electrónico</label>
-                            <input type="text" id="correo" placeholder="tucorreo@example.com">
+                            <label>¿Sobre qué nos escribes?</label>
+                            <div class="motivos" role="radiogroup" aria-label="Motivo del mensaje">
+                                <label><input type="radio" name="motivo" value="pedido" checked><span>📦 Mi pedido</span></label>
+                                <label><input type="radio" name="motivo" value="producto"><span>💿 Un producto</span></label>
+                                <label><input type="radio" name="motivo" value="especial"><span>✨ Pedido especial</span></label>
+                                <label><input type="radio" name="motivo" value="otro"><span>💬 Otro</span></label>
+                            </div>
                         </div>
 
                         <div class="form-grupo">
-                            <label>Mensaje</label>
-                            <textarea id="mensaje" rows="4" placeholder="Escribe tu consulta aquí..."></textarea>
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" rows="5" placeholder="Escribe tu consulta aquí..."></textarea>
                         </div>
 
-                        <button type="submit" class="btn-primario"
-                            style="width: 100%; border: none; cursor: pointer; text-align: center; font-size: 1rem;">Enviar
-                            Mensaje</button>
+                        <button type="submit" class="btn-primario btn-enviar-contacto">
+                            Enviar mensaje
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </button>
                     </form>
 
-                    <!-- Mensaje de Éxito Estilo FAQ -->
+                    <!-- Mensaje de éxito -->
                     <div id="mensajeExito" class="mensaje-exito">
                         <div class="mensaje-icono">✓</div>
                         <div>
@@ -88,45 +143,53 @@
                     </div>
                 </div>
 
-                <!-- Redes Sociales e Información -->
+                <!-- Redes sociales y accesos rápidos -->
                 <div class="redes-info-wrapper">
 
-                    <div class="contacto-card">
-                        <h3 style="color: var(--color-secundario);">Nuestras Redes Sociales</h3>
-                        <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">
-                            Síguenos para enterarte de preventas exclusivas, unboxing de nuevos álbumes y avisos de
-                            llegada de mercancía oficial.
-                        </p>
+                    <div class="contacto-card redes-card" data-revelar style="--retraso: 0.1s">
+                        <h3>Síguenos</h3>
+                        <p>Entérate de preventas exclusivas, unboxings de nuevos álbumes y avisos de llegada de mercancía oficial.</p>
 
                         <ul class="redes-lista">
                             <li>
-                                <a href="https://instagram.com" target="_blank">
-                                    <span
-                                        style="background: rgba(255, 107, 158, 0.1); color: var(--color-primario); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">IG</span>
-                                    Instagram: @kookstore.mx
+                                <a href="https://instagram.com" target="_blank" rel="noopener" class="red instagram">
+                                    <span class="red-icono">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+                                    </span>
+                                    <span><strong>Instagram</strong><small>@kookstore.mx</small></span>
+                                    <span class="red-flecha">→</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="https://tiktok.com" target="_blank">
-                                    <span
-                                        style="background: rgba(108, 92, 231, 0.1); color: var(--color-secundario); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">TK</span>
-                                    TikTok: @kookstore_mx
+                                <a href="https://tiktok.com" target="_blank" rel="noopener" class="red tiktok">
+                                    <span class="red-icono">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.5 2.5 4.5 5 5"/></svg>
+                                    </span>
+                                    <span><strong>TikTok</strong><small>@kookstore_mx</small></span>
+                                    <span class="red-flecha">→</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="https://twitter.com" target="_blank">
-                                    <span
-                                        style="background: rgba(0, 184, 148, 0.1); color: #00b894; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">X</span>
-                                    X (Twitter): @KookstoreMx
+                                <a href="https://twitter.com" target="_blank" rel="noopener" class="red equis">
+                                    <span class="red-icono">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="4" x2="19" y2="20"/><line x1="19" y1="4" x2="5" y2="20"/></svg>
+                                    </span>
+                                    <span><strong>X (Twitter)</strong><small>@KookstoreMx</small></span>
+                                    <span class="red-flecha">→</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="contacto-card" style="padding: 2rem;">
-                        <h4 style="margin-bottom: 0.5rem; color: #2D3436;">Atención al Cliente</h4>
-                        <p style="color: #666; font-size: 0.9rem;">Lunes a Viernes de 10:00 AM a 7:00
-                            PM.<br>contacto@kookstore.mx</p>
+                    <div class="contacto-card accesos-card" data-revelar style="--retraso: 0.2s">
+                        <a href="carrito.html#historial" class="acceso">
+                            <span class="acceso-icono">🚚</span>
+                            <span><strong>Rastrear mi pedido</strong><small>Consulta el estado de tu envío</small></span>
+                        </a>
+                        <a href="../index.html#faq" class="acceso">
+                            <span class="acceso-icono">❓</span>
+                            <span><strong>Preguntas frecuentes</strong><small>Respuestas a las dudas más comunes</small></span>
+                        </a>
                     </div>
 
                 </div>
@@ -189,6 +252,7 @@
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
 
 </body>
 

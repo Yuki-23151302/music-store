@@ -32,8 +32,7 @@
             <ul>
                 <li><a href="../index.html">Inicio</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="nuestra-empresa.html" style="color: var(--color-primario); font-weight: 600;">Nuestra
-                        Empresa</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
             </ul>
         </nav>
@@ -48,7 +47,10 @@
 
         <!-- HERO -->
         <section class="empresa-hero">
-            <div class="empresa-hero-contenido">
+            <span class="hero-burbuja b1"></span>
+            <span class="hero-burbuja b2"></span>
+            <span class="hero-burbuja b3"></span>
+            <div class="empresa-hero-contenido" data-revelar>
                 <span class="empresa-etiqueta">CONÓCENOS</span>
                 <h1>Sobre Kookstore.mx</h1>
                 <p>Somos una tienda dedicada a conectar a los fans del K-pop en México con sus artistas y productos
@@ -56,10 +58,30 @@
             </div>
         </section>
 
+        <!-- CIFRAS -->
+        <section class="empresa-cifras" data-revelar>
+            <div class="empresa-cifra">
+                <strong id="cifra-productos">16</strong>
+                <span>Productos oficiales</span>
+            </div>
+            <div class="empresa-cifra">
+                <strong id="cifra-grupos">6</strong>
+                <span>Grupos y artistas</span>
+            </div>
+            <div class="empresa-cifra">
+                <strong>3</strong>
+                <span>Categorías</span>
+            </div>
+            <div class="empresa-cifra">
+                <strong>100%</strong>
+                <span>Productos originales</span>
+            </div>
+        </section>
+
         <!-- QUIÉNES SOMOS -->
         <section class="empresa-historia">
             <div class="empresa-historia-contenedor">
-                <div class="empresa-historia-texto">
+                <div class="empresa-historia-texto" data-revelar>
                     <span class="empresa-subtitulo">NUESTRA HISTORIA</span>
                     <h2>Más que una tienda, una comunidad</h2>
                     <p>Kookstore.mx nació de la pasión por el K-pop y la cultura coreana. Nuestro objetivo es crear un
@@ -72,7 +94,9 @@
                         la música y la cultura del K-pop.</p>
                 </div>
 
-                <div class="empresa-historia-visual">
+                <div class="empresa-historia-visual" data-revelar style="--retraso: 0.15s">
+                    <img class="historia-foto f1" src="../assets/img/productos/albums/albumbp.jpg" alt="Álbum de BLACKPINK" loading="lazy">
+                    <img class="historia-foto f2" src="../assets/img/productos/peluches/njbunnies.jpg" alt="Peluches de NewJeans" loading="lazy">
                     <div class="empresa-logo-card">
                         <img src="../assets/img/logo.png" alt="Logo de Kookstore.mx">
                         <h3>Kookstore.mx</h3>
@@ -84,7 +108,7 @@
 
         <!-- MISIÓN Y VISIÓN -->
         <section class="empresa-mision-vision">
-            <div class="empresa-seccion-encabezado">
+            <div class="empresa-seccion-encabezado" data-revelar>
                 <span class="empresa-subtitulo">NUESTRO PROPÓSITO</span>
                 <h2>Misión y Visión</h2>
                 <p>Trabajamos para ofrecer una experiencia de compra pensada especialmente para la comunidad del K-pop.
@@ -93,7 +117,7 @@
 
             <div class="empresa-mv-grid">
                 <!-- MISIÓN -->
-                <article class="empresa-mv-card">
+                <article class="empresa-mv-card" data-revelar style="--retraso: 0.00s">
                     <div class="empresa-mv-icono">💜</div>
                     <h3>Nuestra Misión</h3>
                     <p>Proveer productos de K-pop originales y confiables en México, ofreciendo una experiencia de
@@ -101,7 +125,7 @@
                 </article>
 
                 <!-- VISIÓN -->
-                <article class="empresa-mv-card">
+                <article class="empresa-mv-card" data-revelar style="--retraso: 0.08s">
                     <div class="empresa-mv-icono">✨</div>
                     <h3>Nuestra Visión</h3>
                     <p>Convertirnos en una de las tiendas de referencia para la comunidad del K-pop en México,
@@ -112,29 +136,29 @@
 
         <!-- VALORES -->
         <section class="empresa-valores">
-            <div class="empresa-seccion-encabezado">
+            <div class="empresa-seccion-encabezado" data-revelar>
                 <span class="empresa-subtitulo">LO QUE NOS REPRESENTA</span>
                 <h2>Nuestros Valores</h2>
                 <p>Estos son los principios que buscamos mantener en cada interacción con nuestra comunidad.</p>
             </div>
 
             <div class="empresa-valores-grid">
-                <article class="empresa-valor">
+                <article class="empresa-valor" data-revelar style="--retraso: 0.00s">
                     <div class="empresa-valor-icono">💎</div>
                     <h3>Calidad</h3>
                     <p>Buscamos ofrecer productos seleccionados con atención a cada detalle.</p>
                 </article>
-                <article class="empresa-valor">
+                <article class="empresa-valor" data-revelar style="--retraso: 0.08s">
                     <div class="empresa-valor-icono">🔒</div>
                     <h3>Confianza</h3>
                     <p>Queremos que cada compra sea una experiencia segura y transparente.</p>
                 </article>
-                <article class="empresa-valor">
+                <article class="empresa-valor" data-revelar style="--retraso: 0.16s">
                     <div class="empresa-valor-icono">💗</div>
                     <h3>Pasión</h3>
                     <p>Compartimos el entusiasmo por el K-pop y buscamos transmitirlo en nuestro trabajo.</p>
                 </article>
-                <article class="empresa-valor">
+                <article class="empresa-valor" data-revelar style="--retraso: 0.24s">
                     <div class="empresa-valor-icono">🤝</div>
                     <h3>Comunidad</h3>
                     <p>Creemos en crear un espacio para conectar y compartir nuestra pasión.</p>
@@ -145,7 +169,7 @@
         <!-- POR QUÉ ELEGIR KOOKSTORE -->
         <section class="empresa-beneficios">
             <div class="empresa-beneficios-contenedor">
-                <div class="empresa-beneficios-texto">
+                <div class="empresa-beneficios-texto" data-revelar>
                     <span class="empresa-subtitulo">¿POR QUÉ KOOKSTORE?</span>
                     <h2>Pensamos en los fans</h2>
                     <p>Cada parte de nuestra tienda está pensada para que encontrar tus productos favoritos sea una
@@ -153,28 +177,28 @@
                 </div>
 
                 <div class="empresa-beneficios-grid">
-                    <div class="empresa-beneficio">
+                    <div class="empresa-beneficio" data-revelar style="--retraso: 0.00s">
                         <span class="beneficio-numero">01</span>
                         <div>
                             <h3>Productos seleccionados</h3>
                             <p>Elegimos productos pensando en los gustos y necesidades de nuestra comunidad.</p>
                         </div>
                     </div>
-                    <div class="empresa-beneficio">
+                    <div class="empresa-beneficio" data-revelar style="--retraso: 0.08s">
                         <span class="beneficio-numero">02</span>
                         <div>
                             <h3>Compra sencilla</h3>
                             <p>Diseñamos nuestra tienda para que navegar y encontrar productos sea fácil.</p>
                         </div>
                     </div>
-                    <div class="empresa-beneficio">
+                    <div class="empresa-beneficio" data-revelar style="--retraso: 0.16s">
                         <span class="beneficio-numero">03</span>
                         <div>
                             <h3>Atención cercana</h3>
                             <p>Queremos mantener una comunicación clara y cercana con nuestros clientes.</p>
                         </div>
                     </div>
-                    <div class="empresa-beneficio">
+                    <div class="empresa-beneficio" data-revelar style="--retraso: 0.24s">
                         <span class="beneficio-numero">04</span>
                         <div>
                             <h3>Comunidad K-pop</h3>
@@ -187,7 +211,7 @@
 
         <!-- LLAMADA A LA ACCIÓN -->
         <section class="empresa-cta">
-            <div class="empresa-cta-contenido">
+            <div class="empresa-cta-contenido" data-revelar>
                 <span class="empresa-subtitulo">FORMA PARTE DE KOOKSTORE</span>
                 <h2>Tu próximo álbum favorito te espera</h2>
                 <p>Explora nuestro catálogo y descubre productos para seguir disfrutando del K-pop.</p>
@@ -224,9 +248,19 @@
         </div>
     </footer>
     <!-- JAVASCRIPT (encabezado de usuario y contador del carrito) -->
+    <script src="../js/datos-productos.js"></script>
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
+    <script>
+        /* Cifras reales del catálogo */
+        document.addEventListener('DOMContentLoaded', function () {
+            const productos = leerProductos();
+            document.getElementById('cifra-productos').textContent = productos.length;
+            document.getElementById('cifra-grupos').textContent = new Set(productos.map(p => p.grupo).filter(Boolean)).size;
+        });
+    </script>
 
 </body>
 

@@ -14,6 +14,7 @@
     <!-- CSS Principal y Específico -->
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/estilosperfil.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
@@ -44,47 +45,8 @@
 
     <!-- CONTENEDOR PRINCIPAL (PANEL DE PERFIL) -->
     <main class="perfil-main">
-        <div class="perfil-contenedor" id="perfil-contenedor">
-
-            <!-- Encabezado del Perfil (se llena con JavaScript) -->
-            <div class="perfil-header-card">
-                <div class="perfil-avatar" id="perfil-avatar">KS</div>
-                <div class="perfil-info">
-                    <h2 id="perfil-nombre">Cargando...</h2>
-                    <p id="perfil-datos"></p>
-                </div>
-            </div>
-
-            <!-- Grid de Información y Pedidos -->
-            <div class="perfil-grid">
-
-                <!-- Datos de Envío -->
-                <div class="perfil-card envio">
-                    <h3>Dirección de Envío</h3>
-                    <p id="perfil-direccion"></p>
-                    <a href="#" class="perfil-enlace-accion">Editar dirección</a>
-                </div>
-
-                <!-- Historial de Pedidos de ESTE usuario -->
-                <div class="perfil-card pedidos">
-                    <h3>Mis Pedidos Recientes</h3>
-                    <ul class="perfil-lista-pedidos" id="lista-pedidos-usuario">
-                        <li class="perfil-pedido-item" style="border: none;">
-                            <span>Cargando historial...</span>
-                        </li>
-                    </ul>
-                    <a href="carrito.html#historial" class="perfil-enlace-accion" id="perfil-ver-historial"
-                        style="display: none;">Ver historial completo</a>
-                </div>
-
-            </div>
-
-            <!-- Botón de Cerrar Sesión -->
-            <div class="perfil-logout-contenedor">
-                <a href="#" class="btn-cerrar-sesion" id="btn-cerrar-sesion">Cerrar Sesión</a>
-            </div>
-
-        </div>
+        <!-- Todo el contenido se dibuja desde js/pagina-perfil.js -->
+        <div class="perfil-contenedor" id="perfil-contenedor"></div>
     </main>
 
     <!-- PIE DE PÁGINA (FOOTER) -->
@@ -116,9 +78,11 @@
     </footer>
 
     <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/notificaciones.js"></script>
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
     <script src="../js/pagina-perfil.js"></script>
 
 </body>

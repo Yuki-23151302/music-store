@@ -40,31 +40,54 @@
     </header>
 
     <!-- CONTENEDOR PRINCIPAL (FORMULARIO DE LOGIN) -->
-    <main class="seccion-login">
-        <div class="login-card">
+    <main class="cuenta-main">
+        <div class="cuenta-tarjeta" data-revelar>
 
-            <h2 class="login-titulo">Iniciar Sesión</h2>
-            <p class="login-subtitulo">Accede a tu perfil de Kookstore.mx</p>
+            <aside class="cuenta-lateral">
+                <span class="hero-burbuja b1"></span>
+                <span class="hero-burbuja b2"></span>
+                <a href="../index.html" class="cuenta-marca">
+                    <img src="../assets/img/logo.png" alt="Logo Kookstore">
+                    <span>Kookstore.mx</span>
+                </a>
+                <h2>¡Hola de nuevo!</h2>
+                <p>Entra para ver tus pedidos, rastrear tus envíos y comprar más rápido.</p>
+                <ul class="cuenta-beneficios"><li><span>📦</span>Rastrea tus pedidos paso a paso</li><li><span>🛒</span>Tu carrito se guarda en tu cuenta</li><li><span>💜</span>Historial de todas tus compras</li></ul>
+                <div class="cuenta-collage"><img src="../assets/img/productos/albums/albumlyabts.jpg" alt="" loading="lazy"><img src="../assets/img/productos/peluches/bt21mini.jpg" alt="" loading="lazy"><img src="../assets/img/productos/lightsticks/candybong.jpg" alt="" loading="lazy"></div>
+            </aside>
 
-            <!-- Formulario de Inicio de Sesión -->
-            <form id="form-login">
-                <div class="login-grupo">
-                    <label for="login-email">Correo Electrónico o Usuario</label>
-                    <input type="text" id="login-email" placeholder="tucorreo@example.com o usuario">
-                </div>
+            <section class="cuenta-formulario">
+                <span class="etiqueta-seccion">👋 Mi cuenta</span>
+                <h1>Iniciar sesión</h1>
+                <p class="cuenta-subtitulo">Accede a tu perfil de Kookstore.mx</p>
 
-                <div class="login-grupo" style="margin-bottom: 1.5rem;">
-                    <label for="login-password">Contraseña</label>
-                    <input type="password" id="login-password" placeholder="••••••••">
-                </div>
+                <!-- Formulario de Inicio de Sesión -->
+                <form id="form-login">
+                    <div class="cuenta-campo">
+                        <label for="login-email">Correo electrónico o usuario</label>
+                        <div class="cuenta-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><polyline points="22 7 12 13 2 7"/></svg>
+                            <input type="text" id="login-email" placeholder="tucorreo@example.com o usuario" autocomplete="username">
+                        </div>
+                    </div>
+                    <div class="cuenta-campo">
+                        <label for="login-password">Contraseña</label>
+                        <div class="cuenta-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                            <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+                            <button type="button" class="btn-ver-clave" aria-label="Mostrar contraseña"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                        </div>
+                    </div>
 
-                <button type="submit" class="btn-primario"
-                    style="width: 100%; border: none; cursor: pointer; text-align: center; font-size: 1rem;">Entrar</button>
-            </form>
+                    <button type="submit" class="btn-primario cuenta-boton">
+                        Entrar
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                </form>
 
-            <p class="login-footer-texto">
-                ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
-            </p>
+                <div class="cuenta-separador"><span>¿Eres nuevo en Kookstore?</span></div>
+                <a href="registro.html" class="btn-contorno cuenta-boton-alterno">Crear una cuenta</a>
+            </section>
 
         </div>
     </main>
@@ -101,6 +124,7 @@
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
     <script>
         /* INICIO DE SESIÓN CON SESSIONSTORAGE (AISLADO POR PESTAÑA) */
         document.getElementById('form-login').addEventListener('submit', function (evento) {

@@ -53,187 +53,166 @@
     <!-- CONTENEDOR PRINCIPAL -->
     <main>
 
-        <!-- HERO / BANNER PRINCIPAL -->
-        <section class="hero">
-            <div class="hero-contenido">
-                <h1>
-                    Tu tienda de K-pop favorita
-                </h1>
+        <!-- HERO PRINCIPAL -->
+        <section class="inicio-hero">
+            <div class="inicio-hero-contenedor">
 
-                <p>
-                    Encuentra los álbumes más recientes, lightsticks oficiales
-                    y merchandising de tus grupos favoritos.
-                </p>
+                <div class="inicio-hero-texto" data-revelar>
+                    <span class="etiqueta-seccion">✨ Tienda K-pop en México</span>
+                    <h1>Tu tienda de <span class="texto-degradado">K-pop</span> favorita</h1>
+                    <p>
+                        Encuentra los álbumes más recientes, lightsticks oficiales
+                        y peluches coleccionables de tus grupos favoritos.
+                    </p>
 
-                <a href="pages/catalogo.html" class="btn-primario">
-                    Ver Catálogo
-                </a>
-            </div>
-        </section>
+                    <div class="inicio-hero-acciones">
+                        <a href="pages/catalogo.html" class="btn-primario">Explorar catálogo</a>
+                        <a href="#destacados" class="btn-contorno">Ver destacados ↓</a>
+                    </div>
 
-
-        <!-- CATEGORÍAS RÁPIDAS -->
-        <section class="categorias">
-
-            <h2>
-                Nuestros Productos
-            </h2>
-
-            <div class="categorias-grid">
-
-                <div class="categoria-item">
-                    <h3>
-                        Álbumes
-                    </h3>
+                    <div class="inicio-hero-datos">
+                        <div><strong id="dato-productos">16</strong><span>productos oficiales</span></div>
+                        <div><strong id="dato-grupos">6</strong><span>grupos y artistas</span></div>
+                        <div><strong>100%</strong><span>originales</span></div>
+                    </div>
                 </div>
 
-                <div class="categoria-item">
-                    <h3>
-                        Lightsticks
-                    </h3>
-                </div>
-
-                <div class="categoria-item">
-                    <h3>
-                        Peluches & Dolls
-                    </h3>
+                <div class="inicio-collage" data-revelar style="--retraso: 0.15s">
+                    <div class="collage-foto derecha">
+                        <img src="assets/img/productos/peluches/bt21rainbow.jpg" alt="Peluches BT21 Rainbow">
+                    </div>
+                    <div class="collage-foto principal">
+                        <img src="assets/img/productos/albums/albumlyabts.jpg" alt="Álbum Love Yourself: Answer de BTS">
+                    </div>
+                    <div class="collage-foto izquierda">
+                        <img src="assets/img/productos/lightsticks/lightstickbp.jpg" alt="Lightstick Hammer Bong de BLACKPINK">
+                    </div>
+                    <span class="collage-chip uno">💜 Álbumes oficiales</span>
+                    <span class="collage-chip dos">🚚 Envíos a todo México</span>
+                    <span class="destello" style="top: 2%; left: 14%;">✦</span>
+                    <span class="destello" style="bottom: 4%; right: 34%; animation-delay: -1.3s; color: var(--color-secundario);">✦</span>
                 </div>
 
             </div>
         </section>
 
+        <!-- CINTA DE GRUPOS (se llena desde js/inicio.js) -->
+        <div class="cinta-grupos" aria-hidden="true">
+            <div class="cinta-grupos-pista" id="cinta-grupos"></div>
+        </div>
 
-        <!-- PRODUCTOS DESTACADOS -->
-        <section class="productos-destacados">
+        <!-- CARRUSEL DE PRODUCTOS DESTACADOS -->
+        <section class="inicio-seccion" id="destacados">
+            <div class="inicio-seccion-contenedor">
 
-            <h2>
-                Destacados de la Semana
-            </h2>
-
-            <div class="productos-grid">
-
-                <!-- Producto 1 -->
-                <article class="producto-card">
-
-                    <div class="producto-imagen">
-                        <img src="assets/img/productos/albums/albumlyabts.jpg" alt="Love Yourself Answer"
-                            loading="lazy">
+                <div class="carrusel-cabecera" data-revelar>
+                    <div class="seccion-encabezado">
+                        <span class="etiqueta-seccion">⭐ Lo más buscado</span>
+                        <h2>Destacados de la semana</h2>
+                        <p>Los favoritos de la comunidad, listos para llegar a tu casa.</p>
                     </div>
-
-                    <h4>
-                        Love Yourself: Answer
-                    </h4>
-
-                    <p class="grupo">
-                        BTS
-                    </p>
-
-                    <p class="precio">
-                        $950 MXN
-                    </p>
-
-                    <a href="pages/productos.html?id=album-love-yourself" class="btn-secundario">
-                        Ver producto
-                    </a>
-
-                </article>
-
-
-                <!-- Producto 2 -->
-                <article class="producto-card">
-
-                    <div class="producto-imagen">
-                        <img src="assets/img/productos/lightsticks/lightstickbp.jpg" alt="Hammer Bong" loading="lazy">
+                    <div class="carrusel-controles">
+                        <button type="button" class="carrusel-flecha" data-direccion="-1" aria-label="Anterior">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <button type="button" class="carrusel-flecha" data-direccion="1" aria-label="Siguiente">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
                     </div>
+                </div>
 
-                    <h4>
-                        Hammer Bong
-                    </h4>
-
-                    <p class="grupo">
-                        BLACKPINK
-                    </p>
-
-                    <p class="precio">
-                        $1,550 MXN
-                    </p>
-
-                    <a href="pages/productos.html?id=lightstick-hammer-bong" class="btn-secundario">
-                        Ver producto
-                    </a>
-
-                </article>
-
-
-                <!-- Producto 3 -->
-                <article class="producto-card">
-
-                    <div class="producto-imagen">
-                        <img src="assets/img/productos/albums/albuminlifeskz.jpg" alt="In Life" loading="lazy">
+                <div class="carrusel" id="carrusel-destacados" data-intervalo="4500" tabindex="0" aria-roledescription="carrusel" aria-label="Productos destacados" data-revelar>
+                    <div class="carrusel-pista" id="pista-destacados">
+                        <!-- Tarjetas generadas desde js/inicio.js -->
                     </div>
-
-                    <h4>
-                        IN LIFE
-                    </h4>
-
-                    <p class="grupo">
-                        Stray Kids
-                    </p>
-
-                    <p class="precio">
-                        $820 MXN
-                    </p>
-
-                    <a href="pages/productos.html?id=in-life" class="btn-secundario">
-                        Ver producto
-                    </a>
-
-                </article>
+                    <div class="carrusel-puntos"></div>
+                </div>
 
             </div>
         </section>
 
-
-        <!-- POR QUÉ COMPRAR EN KOOKSTORE -->
-        <section class="ventajas">
-
-            <h2>
-                ¿Por qué elegirnos?
-            </h2>
-
-            <div class="ventajas-grid">
-
-                <div class="ventaja-item">
-                    <h4>
-                        Productos Oficiales
-                    </h4>
-
-                    <p>
-                        Importados directamente desde Corea del Sur.
-                    </p>
+        <!-- CATEGORÍAS -->
+        <section class="inicio-seccion fondo-suave">
+            <div class="inicio-seccion-contenedor">
+                <div class="seccion-encabezado" data-revelar>
+                    <span class="etiqueta-seccion">🛍️ Categorías</span>
+                    <h2>Encuentra lo que buscas</h2>
+                    <p>Explora nuestra colección por tipo de producto.</p>
                 </div>
 
-                <div class="ventaja-item">
-                    <h4>
-                        Envíos Seguros
-                    </h4>
+                <div class="inicio-categorias">
+                    <a href="pages/catalogo.html?categoria=albumes" class="categoria-tarjeta" data-revelar>
+                        <img src="assets/img/productos/albums/albuminlifeskz.jpg" alt="" loading="lazy">
+                        <div class="categoria-contenido">
+                            <h3>Álbumes</h3>
+                            <p>CDs, photobooks y photocards oficiales.</p>
+                            <span class="categoria-enlace">Ver álbumes →</span>
+                        </div>
+                    </a>
+                    <a href="pages/catalogo.html?categoria=lightsticks" class="categoria-tarjeta" data-revelar style="--retraso: 0.1s">
+                        <img src="assets/img/productos/lightsticks/candybong.jpg" alt="" loading="lazy">
+                        <div class="categoria-contenido">
+                            <h3>Lightsticks</h3>
+                            <p>Ilumina cada concierto con tu fandom.</p>
+                            <span class="categoria-enlace">Ver lightsticks →</span>
+                        </div>
+                    </a>
+                    <a href="pages/catalogo.html?categoria=peluches" class="categoria-tarjeta" data-revelar style="--retraso: 0.2s">
+                        <img src="assets/img/productos/peluches/skzoopink.jpg" alt="" loading="lazy">
+                        <div class="categoria-contenido">
+                            <h3>Peluches &amp; Dolls</h3>
+                            <p>BT21, SKZOO y más personajes para coleccionar.</p>
+                            <span class="categoria-enlace">Ver peluches →</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-                    <p>
-                        Empaque reforzado para que tus álbumes lleguen intactos.
-                    </p>
+        <!-- POR QUÉ ELEGIRNOS -->
+        <section class="inicio-seccion">
+            <div class="inicio-seccion-contenedor">
+                <div class="seccion-encabezado" data-revelar>
+                    <span class="etiqueta-seccion">💖 Kookstore</span>
+                    <h2>¿Por qué elegirnos?</h2>
+                    <p>Cuidamos cada detalle para que tu experiencia sea tan especial como tu bias.</p>
                 </div>
 
-                <div class="ventaja-item">
-                    <h4>
-                        Comunidad
-                    </h4>
-
-                    <p>
-                        ¿Buscas algo específico?
-                        Te ayudamos a conseguirlo.
-                    </p>
+                <div class="inicio-ventajas">
+                    <article class="ventaja-tarjeta" data-revelar>
+                        <div class="ventaja-icono">💎</div>
+                        <h3>Productos oficiales</h3>
+                        <p>Importados directamente desde Corea del Sur.</p>
+                    </article>
+                    <article class="ventaja-tarjeta" data-revelar style="--retraso: 0.08s">
+                        <div class="ventaja-icono">📦</div>
+                        <h3>Envíos seguros</h3>
+                        <p>Empaque reforzado para que tus álbumes lleguen intactos.</p>
+                    </article>
+                    <article class="ventaja-tarjeta" data-revelar style="--retraso: 0.16s">
+                        <div class="ventaja-icono">🚚</div>
+                        <h3>Rastreo de pedidos</h3>
+                        <p>Sigue tu paquete desde el pago hasta la entrega.</p>
+                    </article>
+                    <article class="ventaja-tarjeta" data-revelar style="--retraso: 0.24s">
+                        <div class="ventaja-icono">🤝</div>
+                        <h3>Comunidad</h3>
+                        <p>¿Buscas algo específico? Te ayudamos a conseguirlo.</p>
+                    </article>
                 </div>
+            </div>
+        </section>
 
+        <!-- BANNER -->
+        <section class="inicio-seccion" style="padding-top: 0;">
+            <div class="inicio-banner" data-revelar>
+                <div>
+                    <h2>Tu próximo álbum favorito te está esperando</h2>
+                    <p>Descubre álbumes, lightsticks y peluches de BTS, BLACKPINK, Stray Kids, TWICE y más.</p>
+                </div>
+                <div class="inicio-banner-acciones">
+                    <a href="pages/catalogo.html" class="btn-blanco">Ir al catálogo →</a>
+                </div>
             </div>
         </section>
 
@@ -571,9 +550,12 @@
 
 
     <!-- CARRITO DE COMPRAS -->
+    <script src="js/datos-productos.js"></script>
     <script src="js/sesion.js"></script>
     <script src="js/carrito.js"></script>
     <script src="js/datos-demo.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/inicio.js"></script>
 
 
     <!-- JAVASCRIPT -->
