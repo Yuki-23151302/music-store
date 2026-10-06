@@ -50,7 +50,7 @@
             </div>
         </section>
 
-        <!-- CONTROLES DE FILTRADO (Filtros visuales solicitados en Bloque 2) -->
+        <!-- CONTROLES DE FILTRADO -->
         <section class="catalogo-controles" style="max-width: 1100px; margin: 30px auto 10px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
             <div class="filtros-categorias" style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <button type="button" class="btn-filtro activo" data-filtro="todos" style="padding: 8px 16px; border-radius: 20px; border: 1px solid var(--color-borde); background: var(--color-primario); color: white; cursor: pointer; font-weight: 600;">Todos</button>
@@ -108,7 +108,6 @@
     <script>
         /* Lógica para renderizar y filtrar el catálogo dinámicamente */
         document.addEventListener('DOMContentLoaded', function() {
-            // Obtener productos compatibles con la persistencia del admin y datos-productos.js
             function obtenerListaProductos() {
                 if (typeof leerProductos === 'function') {
                     return leerProductos();
@@ -135,9 +134,9 @@
                 for (let i = 0; i < lista.length; i++) {
                     const p = lista[i];
                     
-                    // Ajuste dinámico de rutas de imagen desde la carpeta pages/
+                    // Ajuste dinámico de rutas de imagen (Base64, URLs web y rutas relativas)
                     let imgRuta = p.imagen || 'https://via.placeholder.com/250';
-                    if (!imgRuta.startsWith('../') && !imgRuta.startsWith('http')) {
+                    if (!imgRuta.startsWith('data:') && !imgRuta.startsWith('http') && !imgRuta.startsWith('../')) {
                         imgRuta = '../' + imgRuta;
                     }
 

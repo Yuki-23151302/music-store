@@ -18,13 +18,15 @@ function formatearPrecioAdmin(precio) {
 
 function resolverRutaImagen(ruta) {
     if (!ruta) return 'https://via.placeholder.com/45';
-    if (ruta.startsWith('../') || ruta.startsWith('http')) return ruta;
+    // Si la imagen es Base64 (data:), URL web (http) o ruta relativa comience con '../'
+    if (ruta.startsWith('data:') || ruta.startsWith('http') || ruta.startsWith('../')) {
+        return ruta;
+    }
     return '../' + ruta;
 }
 
 // Inicialización al cargar la página
 document.addEventListener('DOMContentLoaded', function () {
-    // Si no ha iniciado sesión como admin, se le notifica
     if (!validarAccesoAdmin()) {
         console.warn('Sesión de administrador no detectada.');
     }
@@ -37,6 +39,24 @@ document.addEventListener('DOMContentLoaded', function () {
     const formProd = document.getElementById('form-producto');
     if (formProd) {
         formProd.addEventListener('submit', guardarProductoFormulario);
+    }
+
+    // 📸 Escucha la selección de imágenes desde la computadora/celular
+    const inputArchivo = document.getElementById('prod-imagen-file');
+    if (inputArchivo) {
+        inputArchivo.addEventListener('change', function (e) {
+            const archivo = e.target.files[0];
+            if (archivo) {
+                const lector = new FileReader();
+                lector.onload = function (evento) {
+                    const contenidoBase64 = evento.target.result;
+                    document.getElementById('prod-imagen').value = contenidoBase64;
+                    const preview = document.getElementById('preview-imagen-prod');
+                    if (preview) preview.src = contenidoBase64;
+                };
+                lector.readAsDataURL(archivo);
+            }
+        });
     }
 });
 
@@ -77,7 +97,6 @@ function renderizarProductosAdmin() {
     const tbody = document.getElementById('tabla-productos-body');
     if (!tbody) return;
 
-    // Leer productos desde datos-productos.js / localStorage
     const productos = (typeof leerProductos === 'function') ? leerProductos() : [];
 
     if (productos.length === 0) {
@@ -115,6 +134,12 @@ function abrirModalProducto() {
     document.getElementById('form-producto').reset();
     document.getElementById('prod-id-original').value = '';
     document.getElementById('prod-id').disabled = false;
+    document.getElementById('prod-imagen').value = '';
+    
+    // Limpiar vista previa
+    const preview = document.getElementById('preview-imagen-prod');
+    if (preview) preview.src = 'https://via.placeholder.com/100';
+
     modal.style.display = 'flex';
 }
 
@@ -136,9 +161,15 @@ function prepararEdicionProducto(id) {
     document.getElementById('prod-categoria').value = p.categoria;
     document.getElementById('prod-precio').value = p.precio;
     document.getElementById('prod-stock').value = p.stock !== undefined ? p.stock : 10;
-    document.getElementById('prod-imagen').value = p.imagen;
+    document.getElementById('prod-imagen').value = p.imagen || '';
     document.getElementById('prod-etiqueta').value = p.etiqueta || 'PRODUCTO OFICIAL';
     document.getElementById('prod-descripcion').value = p.descripcion || '';
+
+    // Mostrar foto guardada en la vista previa
+    const preview = document.getElementById('preview-imagen-prod');
+    if (preview) {
+        preview.src = resolverRutaImagen(p.imagen);
+    }
 
     document.getElementById('modal-producto').style.display = 'flex';
 }
@@ -156,6 +187,11 @@ function guardarProductoFormulario(e) {
     const imagen = document.getElementById('prod-imagen').value.trim();
     const etiqueta = document.getElementById('prod-etiqueta').value.trim();
     const descripcion = document.getElementById('prod-descripcion').value.trim();
+
+    if (!imagen) {
+        alert('Por favor selecciona una imagen para el producto.');
+        return;
+    }
 
     const productoObjeto = {
         id: id,
@@ -231,7 +267,6 @@ function renderizarPedidosAdmin() {
 
     let html = '';
     pedidos.forEach(p => {
-        // Incluye los 4 estados de la barra de seguimiento SHEIN + Cancelado
         const estados = ['Pagado', 'En proceso', 'En camino', 'Entregado', 'Cancelado'];
         let opcionesEstado = '';
         estados.forEach(est => {

@@ -52,7 +52,7 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN: PEDIDOS GLOBAL ES -->
+            <!-- SECCIÓN: PEDIDOS GLOBALES -->
             <section id="seccion-pedidos" class="admin-seccion" style="display: none;">
                 <header class="admin-header">
                     <h1>Gestión de Pedidos Globales</h1>
@@ -157,10 +157,16 @@
                         <input type="text" id="prod-etiqueta" placeholder="ej. ÁLBUM OFICIAL">
                     </div>
 
+                    <!-- CAMPO DE IMAGEN DESDE DISPOSITIVO CON VISTA PREVIA -->
                     <div class="form-grupo col-span-2">
-                        <label for="prod-imagen">Ruta de la Imagen</label>
-                        <input type="text" id="prod-imagen" required
-                            placeholder="assets/img/productos/albums/albumlyabts.jpg">
+                        <label for="prod-imagen-file">Seleccionar Foto del Dispositivo</label>
+                        <input type="file" id="prod-imagen-file" accept="image/*" style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 6px; margin-top: 4px;">
+                        <input type="hidden" id="prod-imagen">
+                        
+                        <div style="text-align: center; margin-top: 10px;">
+                            <p style="font-size: 0.8rem; color: #666; margin-bottom: 4px;">Vista previa:</p>
+                            <img id="preview-imagen-prod" src="https://via.placeholder.com/100" alt="Vista previa" style="max-width: 100px; max-height: 100px; border-radius: 6px; border: 1px solid #ddd; object-fit: cover;">
+                        </div>
                     </div>
 
                     <div class="form-grupo col-span-2">
