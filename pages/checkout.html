@@ -189,6 +189,12 @@
                     <!-- Contenido dinámico -->
                 </div>
 
+                <label class="casilla-terminos" id="casilla-terminos">
+                    <input type="checkbox" id="acepto-terminos">
+                    <span class="casilla-caja"></span>
+                    <span>He leído y acepto los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>, la <a href="terminos.html#devoluciones" target="_blank" rel="noopener">política de devoluciones</a> y el <a href="terminos.html#privacidad" target="_blank" rel="noopener">Aviso de Privacidad</a>.</span>
+                </label>
+
                 <button type="button" class="btn-pagar-final"
                     onclick="document.getElementById('form-pago').requestSubmit()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
@@ -261,6 +267,10 @@
 
             conectarTarjetaVisual();
             actualizarResumen();
+
+            document.getElementById('acepto-terminos').addEventListener('change', function () {
+                document.getElementById('casilla-terminos').classList.remove('requerida');
+            });
         });
 
         /* La tarjeta de la izquierda refleja lo que se escribe (sin validar) */
@@ -331,6 +341,17 @@
         function procesarPago(event) {
             event.preventDefault();
 
+            // Igual que en las tiendas reales: sin aceptar los términos no se cobra
+            const casilla = document.getElementById('casilla-terminos');
+            if (!document.getElementById('acepto-terminos').checked) {
+                casilla.classList.remove('requerida');
+                void casilla.offsetWidth;            // reinicia la animación
+                casilla.classList.add('requerida');
+                casilla.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                kookToast('Acepta los Términos y Condiciones para confirmar tu compra.', 'aviso', 'Falta un paso');
+                return;
+            }
+
             const btn = document.querySelector('.btn-pagar-final');
             btn.classList.add('procesando');
             btn.querySelector('span').textContent = 'Procesando pago...';
@@ -358,7 +379,7 @@
             };
 
             setTimeout(() => {
-                const nuevoPedido = registrarPedido(envio);
+                const nuevoPedido = registrarPedido(envio, { terminosAceptados: new Date().toLocaleString('es-MX') });
                 if (nuevoPedido && nuevoPedido.folio) {
                     document.getElementById('folio-modal-exito').textContent = '#' + nuevoPedido.folio;
                 }

@@ -603,3 +603,7 @@
     .opcion-envio { padding: 0.85rem; gap: 0.7rem; }
     .opcion-icono { width: 40px; height: 40px; }
 }
+
+
+/* Casilla de términos encima del botón de pagar */
+.checkout-resumen .casilla-terminos { margin-bottom: 1rem; }

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/estilos.css">
     <link rel="stylesheet" href="../css/estiloslogin.css">
     <link rel="stylesheet" href="../css/estilosregistro.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
@@ -90,6 +91,12 @@
                         </div>
                     </div>
 
+                    <label class="casilla-terminos" id="casilla-terminos">
+                        <input type="checkbox" id="acepto-terminos">
+                        <span class="casilla-caja"></span>
+                        <span>He leído y acepto los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a> y el <a href="terminos.html#privacidad" target="_blank" rel="noopener">Aviso de Privacidad</a> de Kookstore.mx.</span>
+                    </label>
+
                     <button type="submit" class="btn-primario cuenta-boton">
                         Registrarme
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -122,7 +129,7 @@
                 <h4>Ayuda</h4>
                 <ul>
                     <li><a href="../index.html#faq">Preguntas Frecuentes</a></li>
-                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="terminos.html">Términos y Condiciones</a></li>
                 </ul>
             </div>
         </div>
@@ -132,6 +139,7 @@
     </footer>
 
     <!-- JAVASCRIPT -->
+    <script src="../js/notificaciones.js"></script>
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
@@ -139,15 +147,37 @@
     <script>
         /* ALTA DE USUARIO
            Se guarda la cuenta nueva en el navegador y la sesión
-           queda iniciada de inmediato. Sin validaciones. */
+           queda iniciada de inmediato. Los campos no se validan;
+           lo único obligatorio es aceptar los Términos y Condiciones,
+           como en cualquier tienda en línea. */
+        const casilla = document.getElementById('casilla-terminos');
+        const aceptoTerminos = document.getElementById('acepto-terminos');
+        aceptoTerminos.addEventListener('change', () => casilla.classList.remove('requerida'));
+
         document.getElementById('form-registro').addEventListener('submit', function (evento) {
             evento.preventDefault();
+
+            if (!aceptoTerminos.checked) {
+                casilla.classList.remove('requerida');
+                void casilla.offsetWidth;            // reinicia la animación
+                casilla.classList.add('requerida');
+                kookToast('Para crear tu cuenta necesitas aceptar los Términos y Condiciones.', 'aviso', 'Falta un paso');
+                return;
+            }
 
             const nombre = document.getElementById('registro-nombre').value;
             const correo = document.getElementById('registro-email').value;
             const contrasena = document.getElementById('registro-password').value;
 
-            registrarUsuario(nombre, correo, contrasena);
+            const nuevoUsuario = registrarUsuario(nombre, correo, contrasena);
+
+            // Se guarda cuándo aceptó los términos
+            const usuarios = leerUsuarios();
+            const cuenta = usuarios.find(u => u.email === nuevoUsuario.email);
+            if (cuenta) {
+                cuenta.terminosAceptados = new Date().toLocaleString('es-MX');
+                guardarUsuarios(usuarios);
+            }
 
             // Lo que había puesto en el carrito como invitado
             // se pasa a su cuenta nueva

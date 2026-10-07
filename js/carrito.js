@@ -198,8 +198,10 @@ function generarFolio() {
 /* Convierte el carrito actual en un pedido del historial,
    descuenta el inventario y deja el carrito vacío.
    "envio" = { nombre: 'Envío Estándar', costo: 150 }
+   "extras" = datos adicionales que se guardan en el pedido,
+   por ejemplo { terminosAceptados: '6/10/2026 10:30' }.
    Devuelve el pedido creado. */
-function registrarPedido(envio) {
+function registrarPedido(envio, extras) {
     const carrito = leerCarrito();
     if (carrito.length === 0) return null;
 
@@ -226,6 +228,7 @@ function registrarPedido(envio) {
         total: subtotal + Number(envio.costo || 0),
         estado: 'Pagado'
     };
+    Object.assign(nuevoPedido, extras || {});
 
     pedidos.unshift(nuevoPedido);
     guardarPedidos(pedidos);
