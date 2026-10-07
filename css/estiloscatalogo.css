@@ -678,3 +678,61 @@
     .catalogo-controles { margin-left: 4%; margin-right: 4%; }
     .seccion-catalogo .productos-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
 }
+
+
+/* =========================================================
+   OFERTAS EN EL CATÁLOGO
+   ========================================================= */
+.btn-filtro-ofertas { border-color: #ffd0bf; color: #e8590c; background: #fff6f1; }
+.btn-filtro-ofertas[hidden] { display: none; }
+
+.btn-filtro-ofertas span {
+    display: inline-block;
+    min-width: 20px;
+    margin-left: 2px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #ff8f6b;
+    color: white;
+    font-size: 0.72rem;
+}
+
+.btn-filtro.btn-filtro-ofertas.activo { background: linear-gradient(135deg, #ff6b9e, #ff8f6b); }
+.btn-filtro-ofertas.activo span { background: rgba(255, 255, 255, 0.3); }
+
+.insignia-oferta {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ff6b9e, #ff8f6b);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 800;
+    box-shadow: 0 6px 14px rgba(255, 107, 158, 0.4);
+    animation: latidoOferta 2.4s ease-in-out infinite;
+}
+
+@keyframes latidoOferta {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+.seccion-catalogo .producto-card.en-oferta { border-color: #ffd6e5; }
+
+.precio.con-oferta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
+
+.precio-antes {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #a39bbd;
+    text-decoration: line-through;
+}
+
+.precio.con-oferta .precio-ahora { color: #e8366f; }
+
+@media (prefers-reduced-motion: reduce) {
+    .insignia-oferta { animation: none; }
+}

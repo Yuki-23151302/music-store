@@ -69,6 +69,7 @@
                 <button type="button" class="btn-filtro" data-filtro="albumes">Álbumes</button>
                 <button type="button" class="btn-filtro" data-filtro="lightsticks">Lightsticks</button>
                 <button type="button" class="btn-filtro" data-filtro="peluches">Peluches</button>
+                <button type="button" class="btn-filtro btn-filtro-ofertas" data-filtro="ofertas" hidden>🔥 Ofertas <span id="contador-ofertas"></span></button>
             </div>
             <div class="catalogo-herramientas">
                 <input type="search" id="input-buscar" placeholder="Buscar por nombre o grupo..." aria-label="Buscar productos">
@@ -76,6 +77,7 @@
                     <option value="relevancia">Ordenar: Destacados</option>
                     <option value="precio-asc">Precio: menor a mayor</option>
                     <option value="precio-desc">Precio: mayor a menor</option>
+                    <option value="descuento">Mayor descuento</option>
                     <option value="nombre-asc">Nombre: A → Z</option>
                     <option value="nombre-desc">Nombre: Z → A</option>
                 </select>
@@ -138,7 +140,7 @@
 
             // Permite llegar filtrado desde otra página: catalogo.html?categoria=peluches
             const parametro = new URLSearchParams(location.search).get('categoria');
-            let categoriaActual = ['albumes', 'lightsticks', 'peluches'].includes(parametro) ? parametro : 'todos';
+            let categoriaActual = ['albumes', 'lightsticks', 'peluches', 'ofertas'].includes(parametro) ? parametro : 'todos';
 
             function mostrarProductos(lista) {
                 const total = leerProductos().length;
@@ -158,16 +160,23 @@
                     else if (pocoStock) insignia = '<span class="insignia-stock poco">¡Últimas piezas!</span>';
                     else if (p.tieneVariantes) insignia = '<span class="insignia-stock variantes">' + p.variantes.length + ' opciones</span>';
 
+                    // Oferta vigente: etiqueta con el % y precio anterior tachado
+                    const info = precioProducto(p);
+                    const etiquetaOferta = info.oferta ? '<span class="insignia-oferta">-' + info.descuento + '%</span>' : '';
+
                     html += `
-                        <article class="producto-card${agotado ? ' sin-stock' : ''}" style="--i: ${Math.min(i, 12)}">
+                        <article class="producto-card${agotado ? ' sin-stock' : ''}${info.oferta ? ' en-oferta' : ''}" style="--i: ${Math.min(i, 12)}">
                             <div class="producto-imagen">
-                                ${insignia}
+                                ${insignia}${etiquetaOferta}
                                 <img src="${resolverImagen(p.imagen)}" alt="${escaparHTML(p.nombre)}" loading="lazy" onerror="this.onerror=null; this.src='../assets/img/logo.png'">
                             </div>
                             <h4>${escaparHTML(p.nombre)}</h4>
                             <p class="grupo">${escaparHTML(p.grupo || 'K-POP')}</p>
                             <div class="producto-pie">
-                                <p class="precio">${formatearPrecio(Number(p.precio) || 0)}</p>
+                                <p class="precio${info.oferta ? ' con-oferta' : ''}">
+                                    ${info.oferta ? '<span class="precio-antes">' + formatearPrecio(info.original) + '</span>' : ''}
+                                    <span class="precio-ahora">${formatearPrecio(info.precio)}</span>
+                                </p>
                                 <a href="productos.html?id=${encodeURIComponent(p.id)}" class="btn-secundario">Ver detalles</a>
                             </div>
                         </article>
@@ -180,8 +189,9 @@
             function ordenar(lista) {
                 const copia = lista.slice();
                 switch (selectOrden.value) {
-                    case 'precio-asc': copia.sort((a, b) => a.precio - b.precio); break;
-                    case 'precio-desc': copia.sort((a, b) => b.precio - a.precio); break;
+                    case 'precio-asc': copia.sort((a, b) => precioProducto(a).precio - precioProducto(b).precio); break;
+                    case 'precio-desc': copia.sort((a, b) => precioProducto(b).precio - precioProducto(a).precio); break;
+                    case 'descuento': copia.sort((a, b) => precioProducto(b).descuento - precioProducto(a).descuento); break;
                     case 'nombre-asc': copia.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es')); break;
                     case 'nombre-desc': copia.sort((a, b) => b.nombre.localeCompare(a.nombre, 'es')); break;
                 }
@@ -192,7 +202,8 @@
                 const texto = inputBuscar.value.toLowerCase().trim();
 
                 const filtrados = leerProductos().filter(function(p) {
-                    const cumpleCategoria = (categoriaActual === 'todos' || p.categoria === categoriaActual);
+                    const cumpleCategoria = categoriaActual === 'todos' ||
+                        (categoriaActual === 'ofertas' ? precioProducto(p).oferta !== null : p.categoria === categoriaActual);
                     const nombre = (p.nombre || '').toLowerCase();
                     const grupo = (p.grupo || '').toLowerCase();
                     return cumpleCategoria && (nombre.includes(texto) || grupo.includes(texto));
@@ -219,10 +230,23 @@
 
             // Si el Admin cambia productos en otra pestaña, el catálogo se actualiza solo
             window.addEventListener('storage', function(e) {
-                if (e.key === 'kookstore_productos') filtrarYMostrar();
+                if (e.key === 'kookstore_productos' || e.key === CLAVE_OFERTAS) {
+                    mostrarBotonOfertas();
+                    marcarFiltroActivo();
+                    filtrarYMostrar();
+                }
             });
 
+            /* El filtro de ofertas solo aparece si hay alguna vigente */
+            function mostrarBotonOfertas() {
+                const cuantas = leerProductos().filter(p => precioProducto(p).oferta).length;
+                document.querySelector('.btn-filtro-ofertas').hidden = cuantas === 0;
+                document.getElementById('contador-ofertas').textContent = cuantas;
+                if (cuantas === 0 && categoriaActual === 'ofertas') categoriaActual = 'todos';
+            }
+
             // Carga inicial
+            mostrarBotonOfertas();
             marcarFiltroActivo();
             filtrarYMostrar();
         });

@@ -93,6 +93,38 @@ function totalCarrito() {
     return total;
 }
 
+/* Pone al día el precio de cada línea con las ofertas vigentes.
+   Así, si una oferta empieza, termina o se pausa desde el Admin,
+   el carrito y el checkout cobran el precio correcto.
+   Solo funciona en páginas que cargaron datos-productos.js. */
+function sincronizarPreciosCarrito() {
+    if (typeof precioProducto !== 'function') return;
+
+    const carrito = leerCarrito();
+    let cambio = false;
+
+    carrito.forEach(function (item) {
+        const producto = obtenerProductoPorId(item.id);
+        if (!producto) return;
+        const info = precioProducto(producto);
+        if (item.precio !== info.precio || item.precioOriginal !== info.original) {
+            item.precio = info.precio;
+            item.precioOriginal = info.original;
+            cambio = true;
+        }
+    });
+
+    if (cambio) guardarCarrito(carrito);
+}
+
+/* Cuánto se ahorra el cliente con las ofertas del carrito */
+function ahorroCarrito() {
+    return leerCarrito().reduce(function (suma, item) {
+        const original = Number(item.precioOriginal) || item.precio;
+        return suma + Math.max(0, original - item.precio) * item.cantidad;
+    }, 0);
+}
+
 /* Cuántos artículos hay en total (sumando cantidades) */
 function contarArticulos() {
     const carrito = leerCarrito();

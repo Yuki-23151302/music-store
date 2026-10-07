@@ -345,3 +345,38 @@
         font-size: 1.6rem;
     }
 }
+
+
+/* --- Precio en oferta --- */
+.detalle-precio-oferta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #fff0f6, #fff4ee);
+    border: 1px solid #ffd6e5;
+}
+
+.detalle-precio-oferta .detalle-precio { margin-bottom: 0; color: #e8366f; }
+
+.detalle-etiqueta-oferta {
+    padding: 0.25rem 0.8rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ff6b9e, #ff8f6b);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.detalle-precio-antes {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #a39bbd;
+    text-decoration: line-through;
+}
+
+.detalle-ahorro { font-size: 0.88rem; font-weight: 700; color: #16a34a; }
+.detalle-oferta-fin { font-size: 0.82rem; color: #b45309; }

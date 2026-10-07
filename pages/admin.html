@@ -41,6 +41,11 @@
                     <span>Clientes</span>
                     <span class="nav-contador" id="contador-nav-clientes">0</span>
                 </a>
+                <a href="#ofertas" class="nav-tab" id="tab-nav-ofertas">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7" cy="7" r="1.5"/></svg>
+                    <span>Ofertas</span>
+                    <span class="nav-contador" id="contador-nav-ofertas">0</span>
+                </a>
 
                 <p class="admin-nav-titulo">Tienda</p>
                 <a href="../pages/catalogo.html" target="_blank" rel="noopener">
@@ -208,7 +213,143 @@
                 </div>
             </section>
 
+            <!-- ================= SECCIÓN: OFERTAS ================= -->
+            <section id="seccion-ofertas" class="admin-seccion" hidden>
+                <header class="admin-header">
+                    <div>
+                        <h1>Ofertas y descuentos</h1>
+                        <p class="admin-subtitulo">Crea descuentos por producto. Se muestran automáticamente en el catálogo, el detalle y el carrito.</p>
+                    </div>
+                    <button type="button" class="btn-primario btn-con-icono" id="btn-nueva-oferta">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Nueva oferta
+                    </button>
+                </header>
+
+                <div class="kpi-grid" id="kpis-ofertas"></div>
+
+                <div class="admin-panel">
+                    <div class="admin-toolbar">
+                        <div class="admin-buscador">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="search" id="buscar-oferta" placeholder="Buscar por producto o grupo..." aria-label="Buscar oferta">
+                        </div>
+                        <select id="filtro-estado-oferta" aria-label="Filtrar por estado">
+                            <option value="todos">Todos los estados</option>
+                            <option value="activa">Activas</option>
+                            <option value="programada">Programadas</option>
+                            <option value="pausada">Pausadas</option>
+                            <option value="vencida">Vencidas</option>
+                        </select>
+                    </div>
+
+                    <div class="tabla-scroll">
+                        <table class="admin-tabla">
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Descuento</th>
+                                    <th>Precio</th>
+                                    <th>Vigencia</th>
+                                    <th>Estado</th>
+                                    <th class="col-acciones">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabla-ofertas-body">
+                                <!-- Carga dinámica (js/admin-ofertas.js) -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
         </main>
+    </div>
+
+    <!-- ================= MODAL: AGREGAR / EDITAR OFERTA ================= -->
+    <div id="modal-oferta" class="modal-overlay" aria-hidden="true">
+        <div class="modal-card modal-oferta-card" role="dialog" aria-modal="true" aria-labelledby="oferta-titulo">
+
+            <div class="modal-header">
+                <div>
+                    <h3 id="oferta-titulo">Nueva oferta</h3>
+                    <p class="modal-subtitulo">El descuento aplica a todas las versiones del producto.</p>
+                </div>
+                <button type="button" class="btn-cerrar-modal" data-cerrar-oferta aria-label="Cerrar">&times;</button>
+            </div>
+
+            <form id="form-oferta" novalidate>
+                <input type="hidden" id="oferta-id">
+
+                <fieldset class="form-seccion">
+                    <legend><span class="paso-numero">1</span> Producto</legend>
+                    <div class="form-grupo">
+                        <label for="oferta-producto">¿Qué producto tendrá descuento?</label>
+                        <select id="oferta-producto"></select>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-seccion">
+                    <legend><span class="paso-numero">2</span> Descuento</legend>
+
+                    <div class="selector-segmentado" role="radiogroup" aria-label="Tipo de descuento">
+                        <label>
+                            <input type="radio" name="oferta-tipo" value="porcentaje" checked>
+                            <span>Porcentaje (%)</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="oferta-tipo" value="monto">
+                            <span>Monto fijo ($)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="oferta-valor" id="oferta-valor-etiqueta">Porcentaje de descuento</label>
+                        <div class="input-prefijo">
+                            <span id="oferta-valor-simbolo">%</span>
+                            <input type="number" id="oferta-valor" min="0" step="1" placeholder="20">
+                        </div>
+                        <div class="descuentos-rapidos" id="descuentos-rapidos">
+                            <button type="button" data-valor="10">10%</button>
+                            <button type="button" data-valor="15">15%</button>
+                            <button type="button" data-valor="20">20%</button>
+                            <button type="button" data-valor="30">30%</button>
+                            <button type="button" data-valor="50">50%</button>
+                        </div>
+                    </div>
+
+                    <!-- Vista previa del precio -->
+                    <div class="oferta-vista-previa" id="oferta-vista-previa"></div>
+                </fieldset>
+
+                <fieldset class="form-seccion">
+                    <legend><span class="paso-numero">3</span> Vigencia</legend>
+                    <div class="form-grid">
+                        <div class="form-grupo">
+                            <label for="oferta-inicio">Empieza</label>
+                            <input type="date" id="oferta-inicio">
+                        </div>
+                        <div class="form-grupo">
+                            <label for="oferta-fin">Termina</label>
+                            <input type="date" id="oferta-fin">
+                        </div>
+                    </div>
+                    <p class="nota-formulario">Sin fechas, la oferta aplica desde hoy y hasta que la pauses o la elimines.</p>
+
+                    <label class="interruptor">
+                        <input type="checkbox" id="oferta-activa" checked>
+                        <span class="interruptor-pista"></span>
+                        <span>Oferta activa</span>
+                    </label>
+                </fieldset>
+
+                <div class="modal-acciones">
+                    <button type="button" class="btn-cancelar" data-cerrar-oferta>Cancelar</button>
+                    <button type="submit" class="btn-guardar" id="btn-guardar-oferta">Guardar oferta</button>
+                </div>
+            </form>
+
+        </div>
     </div>
 
     <!-- ================= MODAL: AGREGAR / EDITAR PRODUCTO ================= -->
@@ -362,6 +503,7 @@
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
     <script src="../js/admin.js"></script>
+    <script src="../js/admin-ofertas.js"></script>
 </body>
 
 </html>

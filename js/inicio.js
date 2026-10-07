@@ -43,8 +43,10 @@ function pintarCarruselDestacados() {
     if (!pista) return;
 
     pista.innerHTML = obtenerDestacados().map(function (p) {
+        const info = precioProducto(p);
         let insignia = '<span class="slide-insignia">★ Destacado</span>';
-        if (p.stock <= 5) insignia = '<span class="slide-insignia poco">¡Últimas piezas!</span>';
+        if (info.oferta) insignia = '<span class="slide-insignia oferta">🔥 -' + info.descuento + '%</span>';
+        else if (p.stock <= 5) insignia = '<span class="slide-insignia poco">¡Últimas piezas!</span>';
         else if (p.tieneVariantes) insignia = '<span class="slide-insignia">' + p.variantes.length + ' opciones</span>';
 
         return '' +
@@ -58,7 +60,9 @@ function pintarCarruselDestacados() {
             '<span class="slide-grupo">' + escaparHTML(p.grupo || 'K-POP') + '</span>' +
             '<h3>' + escaparHTML(p.nombre) + '</h3>' +
             '<div class="slide-pie">' +
-            '<span class="slide-precio">' + formatearPrecio(Number(p.precio) || 0) + '</span>' +
+            '<span class="slide-precio">' +
+            (info.oferta ? '<small class="slide-precio-antes">' + formatearPrecio(info.original) + '</small>' : '') +
+            formatearPrecio(info.precio) + '</span>' +
             '<span class="slide-boton">Ver →</span>' +
             '</div>' +
             '</div>' +

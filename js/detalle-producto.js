@@ -97,8 +97,33 @@ function construirSelector(producto) {
         '</div>';
 }
 
+/* Bloque de precio: normal, o con oferta (precio anterior, % y fecha de fin) */
+function construirPrecio(info) {
+    if (!info.oferta) {
+        return '<p class="detalle-precio">' + formatearPrecio(info.precio) + '</p>';
+    }
+
+    let vigencia = '';
+    if (info.oferta.fin) {
+        const [anio, mes, dia] = info.oferta.fin.split('-').map(Number);
+        vigencia = '<span class="detalle-oferta-fin">⏰ Oferta válida hasta el ' +
+            new Date(anio, mes - 1, dia).toLocaleDateString('es-MX', { day: 'numeric', month: 'long' }) + '</span>';
+    }
+
+    return '' +
+        '<div class="detalle-precio-oferta">' +
+        '<span class="detalle-etiqueta-oferta">🔥 Oferta -' + info.descuento + '%</span>' +
+        '<p class="detalle-precio">' + formatearPrecio(info.precio) +
+        ' <span class="detalle-precio-antes">' + formatearPrecio(info.original) + '</span></p>' +
+        '<span class="detalle-ahorro">Ahorras ' + formatearPrecio(info.original - info.precio) + '</span>' +
+        vigencia +
+        '</div>';
+}
+
 /* Dibuja en pantalla el producto seleccionado */
 function mostrarDetalle(producto, contenedor) {
+    const info = precioProducto(producto);
+
     // El título de la pestaña también cambia al producto elegido
     document.title = producto.nombre + ' | Kookstore.mx';
     pintarMigas(producto);
@@ -115,7 +140,7 @@ function mostrarDetalle(producto, contenedor) {
         '<span class="catalogo-etiqueta">' + escaparHTML(producto.etiqueta || 'PRODUCTO OFICIAL') + '</span>' +
         '<h1>' + escaparHTML(producto.nombre) + '</h1>' +
         '<p class="detalle-grupo">Grupo: ' + escaparHTML(producto.grupo || 'K-POP') + '</p>' +
-        '<p class="detalle-precio">' + formatearPrecio(producto.precio) + '</p>' +
+        construirPrecio(info) +
 
         '<div class="detalle-bloque">' +
         '<h2>Descripción</h2>' +
@@ -136,7 +161,7 @@ function mostrarDetalle(producto, contenedor) {
         '</div>' +
         '</div>' +
 
-        '<p class="detalle-subtotal">Subtotal: <strong id="texto-subtotal">' + formatearPrecio(producto.precio) + '</strong></p>' +
+        '<p class="detalle-subtotal">Subtotal: <strong id="texto-subtotal">' + formatearPrecio(info.precio) + '</strong></p>' +
 
         '<button type="button" class="btn-primario detalle-btn-carrito" id="btn-agregar-carrito">' +
         'Añadir al Carrito</button>' +
@@ -188,7 +213,7 @@ function mostrarDetalle(producto, contenedor) {
         botonAgregar.textContent = (producto.tieneVariantes && !varianteElegida)
             ? 'Elige una opción'
             : (maximo <= 0 ? 'Sin stock disponible' : 'Añadir al Carrito');
-        textoSubtotal.textContent = formatearPrecio(producto.precio * cantidad);
+        textoSubtotal.textContent = formatearPrecio(info.precio * cantidad);
     }
 
     // Selección de versión / personaje
@@ -233,7 +258,8 @@ function mostrarDetalle(producto, contenedor) {
             id: producto.id,
             nombre: producto.nombre,
             grupo: producto.grupo,
-            precio: producto.precio,
+            precio: info.precio,
+            precioOriginal: info.original,
             imagen: producto.imagen,
             cantidad: cantidad,
             opcion: varianteElegida ? varianteElegida.nombre : ''

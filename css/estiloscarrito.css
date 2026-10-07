@@ -1051,3 +1051,15 @@ main.carrito-container {
     }
     .carrito-layout .carrito-tabla td:first-child { padding-left: 10px; }
 }
+
+
+/* Ofertas en el carrito */
+.carrito-precio-antes {
+    display: block;
+    font-size: 0.78rem;
+    color: #a39bbd;
+    text-decoration: line-through;
+}
+
+.carrito-precio-oferta { color: #e8366f; font-weight: 700; }
+.resumen-ahorro span:last-child { color: #16a34a; font-weight: 700; white-space: nowrap; }

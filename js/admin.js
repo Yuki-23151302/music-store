@@ -33,6 +33,14 @@ function formatearPrecioAdmin(precio) {
     return formatearPrecio(Number(precio) || 0);
 }
 
+/* Precio de la tabla de productos; si tiene oferta vigente se marca */
+function celdaPrecioAdmin(producto) {
+    const info = precioProducto(producto);
+    if (!info.oferta) return formatearPrecioAdmin(info.original);
+    return '<span class="precio-tachado">' + formatearPrecioAdmin(info.original) + '</span>' +
+        formatearPrecioAdmin(info.precio) + ' <span class="chip-oferta">-' + info.descuento + '%</span>';
+}
+
 /* "Llavero de Colección" -> "llavero-de-coleccion" */
 function generarSlug(texto) {
     return texto
@@ -93,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Si un cliente compra en otra pestaña, el panel se actualiza solo
     window.addEventListener('storage', function (e) {
         if (!e.key) return;
-        if (e.key === 'kookstore_productos' || e.key.startsWith('kookstore_pedidos_') || e.key === 'kookstore_usuarios') {
+        if (e.key === 'kookstore_productos' || e.key.startsWith('kookstore_pedidos_') || e.key === 'kookstore_usuarios' || e.key === CLAVE_OFERTAS) {
             renderizarTodo();
         }
     });
@@ -103,6 +111,7 @@ function renderizarTodo() {
     renderizarProductosAdmin();
     renderizarPedidosAdmin();
     renderizarClientesAdmin();
+    if (typeof renderizarOfertasAdmin === 'function') renderizarOfertasAdmin();
 }
 
 /* ---------------------------------------------------------
@@ -130,7 +139,7 @@ function inicializarNavegacionAdmin() {
     });
 
     const inicial = location.hash.replace('#', '');
-    if (['productos', 'pedidos', 'clientes'].includes(inicial)) {
+    if (['productos', 'pedidos', 'clientes', 'ofertas'].includes(inicial)) {
         mostrarSeccion(inicial);
     }
 }
@@ -252,7 +261,7 @@ function renderizarProductosAdmin() {
             '</td>' +
             '<td>' + escaparHTML(p.grupo || '—') + '</td>' +
             '<td><span class="chip-categoria cat-' + escaparHTML(p.categoria) + '">' + (NOMBRES_CATEGORIA[p.categoria] || escaparHTML(p.categoria)) + '</span></td>' +
-            '<td class="celda-precio">' + formatearPrecioAdmin(p.precio) + '</td>' +
+            '<td class="celda-precio">' + celdaPrecioAdmin(p) + '</td>' +
             '<td>' + inventario + '</td>' +
             '<td class="col-acciones">' +
             '<button type="button" class="btn-icono editar" data-accion="editar" data-id="' + idSeguro + '" title="Editar" aria-label="Editar ' + escaparHTML(p.nombre) + '">' +

@@ -303,6 +303,78 @@ function ajustarStock(articulos, signo) {
 }
 
 /* ---------------------------------------------------------
+   OFERTAS
+   ---------------------------------------------------------
+   Se guardan aparte en "kookstore_ofertas" y se administran
+   desde el Panel Admin. Cada producto tiene como máximo una:
+
+     {
+       id: "oferta-1696...",
+       productoId: "bt21-mini",
+       tipo: "porcentaje" | "monto",   // -20 %  o  -$50
+       valor: 20,
+       inicio: "2026-10-01",           // opcional (AAAA-MM-DD)
+       fin: "2026-10-31",              // opcional, el día cuenta completo
+       activa: true                    // false = pausada a mano
+     }
+   --------------------------------------------------------- */
+
+const CLAVE_OFERTAS = 'kookstore_ofertas';
+
+function leerOfertas() {
+    try {
+        return JSON.parse(localStorage.getItem(CLAVE_OFERTAS)) || [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function guardarOfertas(ofertas) {
+    localStorage.setItem(CLAVE_OFERTAS, JSON.stringify(ofertas));
+}
+
+/* Fecha local de hoy como "AAAA-MM-DD" (mismo formato que <input type="date">) */
+function fechaHoyISO() {
+    const hoy = new Date();
+    const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+    const dia = String(hoy.getDate()).padStart(2, '0');
+    return hoy.getFullYear() + '-' + mes + '-' + dia;
+}
+
+/* "activa" | "programada" | "vencida" | "pausada" */
+function estadoOferta(oferta) {
+    const hoy = fechaHoyISO();
+    if (!oferta.activa) return 'pausada';
+    if (oferta.fin && hoy > oferta.fin) return 'vencida';
+    if (oferta.inicio && hoy < oferta.inicio) return 'programada';
+    return 'activa';
+}
+
+/* Oferta que aplica HOY a un producto, o null */
+function ofertaVigente(productoId) {
+    return leerOfertas().find(o => o.productoId === productoId && estadoOferta(o) === 'activa') || null;
+}
+
+/* Precio con el descuento de una oferta (nunca menor a 0) */
+function aplicarDescuento(precio, oferta) {
+    const base = Number(precio) || 0;
+    if (!oferta) return base;
+    const valor = Number(oferta.valor) || 0;
+    const final = oferta.tipo === 'monto' ? base - valor : base * (1 - valor / 100);
+    return Math.max(0, Math.round(final * 100) / 100);
+}
+
+/* Todo lo que la tienda necesita para mostrar el precio de un producto:
+   { precio, original, descuento (en %), oferta } */
+function precioProducto(producto) {
+    const original = Number(producto && producto.precio) || 0;
+    const oferta = producto ? ofertaVigente(producto.id) : null;
+    const precio = aplicarDescuento(original, oferta);
+    const descuento = oferta && original > 0 ? Math.round((1 - precio / original) * 100) : 0;
+    return { precio: precio, original: original, descuento: descuento, oferta: precio < original ? oferta : null };
+}
+
+/* ---------------------------------------------------------
    PERSISTENCIA CON LOCALSTORAGE
    --------------------------------------------------------- */
 
@@ -383,10 +455,13 @@ function eliminarProductoBD(id) {
     let productos = leerProductos();
     productos = productos.filter(p => p.id !== id);
     guardarProductos(productos);
+
+    // Su oferta (si tenía) deja de tener sentido
+    guardarOfertas(leerOfertas().filter(o => o.productoId !== id));
 }
 /* Detecta cambios hechos desde otra pestaña (ej. Panel de Admin) */
 window.addEventListener('storage', function (e) {
-    if (e.key === 'kookstore_productos') {
+    if (e.key === 'kookstore_productos' || e.key === CLAVE_OFERTAS) {
         // Actualizar la lista global de productos
         PRODUCTOS = leerProductos();
 

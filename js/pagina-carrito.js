@@ -33,6 +33,7 @@ function stockDeLinea(item) {
    --------------------------------------------------------- */
 function pintarCarrito() {
     const contenedor = document.getElementById('contenido-carrito');
+    sincronizarPreciosCarrito();   // aplica ofertas que empezaron o terminaron
     const carrito = leerCarrito();
 
     actualizarTituloPestanaCarrito();
@@ -72,7 +73,10 @@ function pintarCarrito() {
             '<span class="carrito-opcion">' + escaparHTML(item.grupo || '') + '</span>' +
             textoOpcion + avisoStock +
             '</td>' +
-            '<td>' + formatearPrecio(item.precio) + '</td>' +
+            '<td>' +
+            (item.precioOriginal > item.precio ? '<span class="carrito-precio-antes">' + formatearPrecio(item.precioOriginal) + '</span>' : '') +
+            '<span class="' + (item.precioOriginal > item.precio ? 'carrito-precio-oferta' : '') + '">' + formatearPrecio(item.precio) + '</span>' +
+            '</td>' +
             '<td>' +
             '<div class="carrito-stepper">' +
             '<button type="button" class="btn-cantidad" data-indice="' + i + '" data-paso="-1" aria-label="Restar uno"' + (item.cantidad <= 1 ? ' disabled' : '') + '>−</button>' +
@@ -88,6 +92,7 @@ function pintarCarrito() {
     }
 
     const articulos = contarArticulos();
+    const ahorro = ahorroCarrito();
 
     contenedor.innerHTML = '' +
         '<div class="carrito-barra">' +
@@ -119,6 +124,7 @@ function pintarCarrito() {
         '<h2>Resumen</h2>' +
         '<div class="resumen-linea"><span>Artículos</span><span>' + articulos + '</span></div>' +
         '<div class="resumen-linea"><span>Subtotal</span><span>' + formatearPrecio(totalCarrito()) + '</span></div>' +
+        (ahorro > 0 ? '<div class="resumen-linea resumen-ahorro"><span>🔥 Ahorro</span><span>-' + formatearPrecio(ahorro) + '</span></div>' : '') +
         '<div class="resumen-linea resumen-nota"><span>Envío</span><span>Se elige al pagar</span></div>' +
         '<div class="resumen-linea resumen-total"><span>Total</span><strong>' + formatearPrecio(totalCarrito()) + '</strong></div>' +
         '<div class="carrito-acciones">' +
@@ -587,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function () {
             avisarCambiosDeEstado();
             revisarCancelaciones();
         }
-        if (e.key === claveCarrito() || e.key === 'kookstore_productos') {
+        if (e.key === claveCarrito() || e.key === 'kookstore_productos' || e.key === CLAVE_OFERTAS) {
             pintarCarrito();
             actualizarContadorCarrito();
         }

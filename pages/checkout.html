@@ -245,6 +245,7 @@
         let carritoCheckout = [];
 
         document.addEventListener('DOMContentLoaded', () => {
+            sincronizarPreciosCarrito();   // cobra el precio con las ofertas vigentes
             carritoCheckout = leerCarrito();
 
             if (carritoCheckout.length === 0) {
@@ -317,6 +318,7 @@
 
             contenedorDesglose.innerHTML = `
                 <div class="resumen-linea"><span>Subtotal (${contarArticulos()} artículos)</span><span>${formatearPrecio(totalProductos)}</span></div>
+                ${ahorroCarrito() > 0 ? `<div class="resumen-linea"><span>🔥 Ahorro en ofertas</span><span class="texto-gratis">-${formatearPrecio(ahorroCarrito())}</span></div>` : ''}
                 <div class="resumen-linea"><span>${nombreEnvio}</span><span class="${costoEnvio === 0 ? 'texto-gratis' : ''}">${costoEnvio === 0 ? 'Gratis' : formatearPrecio(costoEnvio)}</span></div>
             `;
 

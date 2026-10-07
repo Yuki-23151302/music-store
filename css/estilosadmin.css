@@ -747,7 +747,7 @@
     font-weight: 600;
     color: var(--admin-tenue);
 }
-.form-grupo .input-prefijo input { padding-left: 26px; }
+.form-grupo .input-prefijo input { padding-left: 32px; }
 
 /* ---------- ¿Cuenta con versiones/personajes? ---------- */
 .pregunta-variantes {
@@ -981,6 +981,135 @@
 }
 
 .btn-guardar:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(255, 107, 158, 0.4); }
+
+/* =========================================================
+   OFERTAS
+   ========================================================= */
+.precio-tachado {
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--admin-tenue);
+    text-decoration: line-through;
+}
+
+.chip-oferta {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #ff6b9e, #ff8f6b);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.chip-oferta.grande { padding: 5px 12px; font-size: 0.85rem; }
+
+.estado-oferta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 11px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.estado-oferta::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.estado-oferta.estado-activa { background: #dcfce7; color: #15803d; }
+.estado-oferta.estado-programada { background: #e0f2fe; color: #0369a1; }
+.estado-oferta.estado-pausada { background: #fef3c7; color: #b45309; }
+.estado-oferta.estado-vencida { background: #f1f2f6; color: #6b7085; }
+
+.btn-icono.pausar:hover { color: #b45309; border-color: #fde68a; background: #fffbeb; }
+
+.modal-oferta-card { max-width: 560px; }
+
+.descuentos-rapidos { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+
+.descuentos-rapidos button {
+    padding: 5px 12px;
+    border: 1.5px solid var(--admin-borde);
+    border-radius: 20px;
+    background: white;
+    font-family: var(--fuente-textos);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #5f6477;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.descuentos-rapidos button:hover { border-color: var(--admin-rosa); color: var(--admin-rosa); background: var(--admin-rosa-suave); }
+
+.oferta-vista-previa {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #fff0f6, #f1efff);
+}
+
+.oferta-vista-previa img {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    object-fit: cover;
+    background: white;
+}
+
+.oferta-vista-previa small { display: block; font-size: 0.72rem; color: var(--admin-tenue); }
+.oferta-vista-previa strong { display: block; color: var(--admin-texto); font-size: 0.92rem; }
+
+.vista-precios { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.vista-precios .precio-tachado { display: inline; font-size: 0.82rem; }
+.vista-final { font-family: var(--fuente-titulos); font-size: 1.25rem; font-weight: 700; color: var(--admin-rosa); }
+
+.nota-formulario { margin-top: 10px; font-size: 0.78rem; color: var(--admin-tenue); }
+
+/* Interruptor (switch) */
+.interruptor {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--admin-texto);
+    cursor: pointer;
+}
+
+.interruptor input { position: absolute; opacity: 0; pointer-events: none; }
+
+.interruptor-pista {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    border-radius: 20px;
+    background: #d9dbe5;
+    transition: background 0.25s;
+}
+
+.interruptor-pista::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    transition: transform 0.25s;
+}
+
+.interruptor input:checked + .interruptor-pista { background: linear-gradient(135deg, var(--admin-rosa), #ff8fb5); }
+.interruptor input:checked + .interruptor-pista::after { transform: translateX(20px); }
+.interruptor input:focus-visible + .interruptor-pista { outline: 2px solid var(--admin-rosa); outline-offset: 2px; }
 
 /* =========================================================
    RESPONSIVO

@@ -1449,3 +1449,15 @@ ul {
     .inicio-hero-datos strong { font-size: 1.5rem; }
     .inicio-hero-datos span { font-size: 0.75rem; }
 }
+
+
+/* Ofertas en el carrusel del inicio */
+.slide-insignia.oferta { background: linear-gradient(135deg, #ff6b9e, #ff8f6b); color: white; }
+
+.slide-precio-antes {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #a39bbd;
+    text-decoration: line-through;
+}
