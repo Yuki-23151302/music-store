@@ -380,3 +380,18 @@
 
 .detalle-ahorro { font-size: 0.88rem; font-weight: 700; color: #16a34a; }
 .detalle-oferta-fin { font-size: 0.82rem; color: #b45309; }
+
+
+/* --- Productos relacionados (usa el carrusel de css/estilos.css) --- */
+.relacionados { margin-top: 4rem; }
+.relacionados[hidden],
+.relacionados [hidden] { display: none; }
+
+.relacionados .carrusel-cabecera { margin-bottom: 1.2rem; }
+
+.relacionados .seccion-encabezado h2 {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    margin-bottom: 0.3rem;
+}
+
+.relacionados .carrusel-pista { padding-bottom: 1rem; }

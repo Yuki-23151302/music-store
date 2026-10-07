@@ -88,12 +88,14 @@ function iniciarRevelado() {
    funciona de forma nativa en celulares.
    "controles" (opcional) es otro elemento que contiene las
    flechas, por ejemplo la cabecera de la sección.
+   Con data-autoplay="no" el carrusel solo se mueve a mano.
    --------------------------------------------------------- */
 function iniciarCarrusel(carrusel, controles) {
     const pista = carrusel.querySelector('.carrusel-pista');
     const puntos = carrusel.querySelector('.carrusel-puntos');
     const intervalo = Number(carrusel.getAttribute('data-intervalo')) || 4500;
     const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const autoplay = carrusel.getAttribute('data-autoplay') !== 'no';
     let temporizador = null;
     let pausado = false;
 
@@ -137,7 +139,7 @@ function iniciarCarrusel(carrusel, controles) {
 
     function reiniciar() {
         clearInterval(temporizador);
-        if (sinMovimiento) return;
+        if (sinMovimiento || !autoplay) return;
         temporizador = setInterval(() => { if (!pausado) mover(1); }, intervalo);
     }
 

@@ -274,6 +274,98 @@ function mostrarDetalle(producto, contenedor) {
     refrescarEstado();
 }
 
+/* ---------------------------------------------------------
+   PRODUCTOS RELACIONADOS
+   Puntaje: mismo grupo +3, misma categoría +2, en oferta +1.
+   Los agotados van al final. Se muestran hasta 8.
+   --------------------------------------------------------- */
+const MAX_RELACIONADOS = 8;
+let carruselRelacionadosListo = false;
+
+function obtenerRelacionados(producto) {
+    return leerProductos()
+        .filter(p => p.id !== producto.id)
+        .map(function (p) {
+            let puntos = 0;
+            if (p.grupo && p.grupo === producto.grupo) puntos += 3;
+            if (p.categoria === producto.categoria) puntos += 2;
+            if (precioProducto(p).oferta) puntos += 1;
+            return { producto: p, puntos: puntos };
+        })
+        .filter(r => r.puntos >= 2)                      // al menos comparte grupo o categoría
+        .sort((a, b) =>
+            (a.producto.stock <= 0) - (b.producto.stock <= 0) ||   // con stock primero
+            b.puntos - a.puntos)
+        .slice(0, MAX_RELACIONADOS)
+        .map(r => r.producto);
+}
+
+function tarjetaRelacionado(p, productoActual) {
+    const info = precioProducto(p);
+    let insignia = '';
+    if (p.stock <= 0) insignia = '<span class="slide-insignia poco">Agotado</span>';
+    else if (info.oferta) insignia = '<span class="slide-insignia oferta">🔥 -' + info.descuento + '%</span>';
+    else if (p.grupo && p.grupo === productoActual.grupo) insignia = '<span class="slide-insignia">Más de ' + escaparHTML(p.grupo) + '</span>';
+
+    return '' +
+        '<a class="slide-producto" href="productos.html?id=' + encodeURIComponent(p.id) + '">' +
+        '<div class="slide-imagen">' +
+        insignia +
+        '<img src="' + resolverImagen(p.imagen) + '" alt="' + escaparHTML(p.nombre) + '" loading="lazy"' +
+        ' onerror="this.onerror=null; this.src=\'' + rutaRaiz() + 'assets/img/logo.png\'">' +
+        '</div>' +
+        '<div class="slide-info">' +
+        '<span class="slide-grupo">' + escaparHTML(p.grupo || 'K-POP') + '</span>' +
+        '<h3>' + escaparHTML(p.nombre) + '</h3>' +
+        '<div class="slide-pie">' +
+        '<span class="slide-precio">' +
+        (info.oferta ? '<small class="slide-precio-antes">' + formatearPrecio(info.original) + '</small>' : '') +
+        formatearPrecio(info.precio) + '</span>' +
+        '<span class="slide-boton">Ver →</span>' +
+        '</div>' +
+        '</div>' +
+        '</a>';
+}
+
+function pintarRelacionados(producto) {
+    const seccion = document.getElementById('seccion-relacionados');
+    if (!seccion) return;
+
+    const relacionados = producto ? obtenerRelacionados(producto) : [];
+    seccion.hidden = relacionados.length === 0;
+    if (relacionados.length === 0) return;
+
+    const mismoGrupo = relacionados.some(p => p.grupo && p.grupo === producto.grupo);
+    document.getElementById('relacionados-subtitulo').textContent = mismoGrupo
+        ? 'Más productos de ' + producto.grupo + ' y artículos similares.'
+        : 'Otros ' + (NOMBRES_CATEGORIA[producto.categoria] || 'productos').toLowerCase() + ' que te pueden interesar.';
+
+    const pista = document.getElementById('pista-relacionados');
+    pista.innerHTML = relacionados.map(p => tarjetaRelacionado(p, producto)).join('');
+    pista.scrollLeft = 0;
+
+    const carrusel = document.getElementById('carrusel-relacionados');
+    if (!carruselRelacionadosListo && typeof iniciarCarrusel === 'function') {
+        iniciarCarrusel(carrusel, seccion.querySelector('.carrusel-cabecera'));
+        window.addEventListener('resize', actualizarControlesRelacionados);
+        carruselRelacionadosListo = true;
+    }
+
+    requestAnimationFrame(function () {
+        actualizarControlesRelacionados();
+        window.dispatchEvent(new Event('resize'));   // el carrusel recalcula sus puntos
+    });
+}
+
+/* Si todas las tarjetas caben en pantalla, las flechas y los puntos sobran */
+function actualizarControlesRelacionados() {
+    const seccion = document.getElementById('seccion-relacionados');
+    const pista = document.getElementById('pista-relacionados');
+    const cabe = pista.scrollWidth <= pista.clientWidth + 4;
+    seccion.querySelector('.carrusel-controles').hidden = cabe;
+    seccion.querySelector('.carrusel-puntos').hidden = cabe;
+}
+
 /* Punto de entrada de la página */
 function cargarDetalleProducto() {
     const contenedor = document.getElementById('detalle-producto');
@@ -288,6 +380,8 @@ function cargarDetalleProducto() {
     } else {
         mostrarProductoNoEncontrado(contenedor);
     }
+
+    pintarRelacionados(producto);
 }
 
 document.addEventListener('DOMContentLoaded', cargarDetalleProducto);

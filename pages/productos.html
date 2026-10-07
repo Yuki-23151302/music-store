@@ -54,13 +54,36 @@
         </div>
 
         <!--
-            AQUÍ SE DIBUJA ÚNICAMENTE EL PRODUCTO SELECCIONADO.
+            AQUÍ SE DIBUJA EL PRODUCTO SELECCIONADO.
             El archivo js/detalle-producto.js lee el id que viene
             en la dirección (productos.html?id=...) y construye
-            solo esa ficha: ningún otro producto existe en esta
-            página.
+            su ficha.
         -->
         <div id="detalle-producto"></div>
+
+        <!-- PRODUCTOS RELACIONADOS (mismo grupo o misma categoría) -->
+        <section class="relacionados" id="seccion-relacionados" hidden>
+            <div class="carrusel-cabecera">
+                <div class="seccion-encabezado">
+                    <span class="etiqueta-seccion">💜 También te puede gustar</span>
+                    <h2>Productos relacionados</h2>
+                    <p id="relacionados-subtitulo"></p>
+                </div>
+                <div class="carrusel-controles">
+                    <button type="button" class="carrusel-flecha" data-direccion="-1" aria-label="Anteriores">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                    </button>
+                    <button type="button" class="carrusel-flecha" data-direccion="1" aria-label="Siguientes">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="carrusel" id="carrusel-relacionados" data-autoplay="no" tabindex="0" aria-roledescription="carrusel" aria-label="Productos relacionados">
+                <div class="carrusel-pista" id="pista-relacionados"></div>
+                <div class="carrusel-puntos"></div>
+            </div>
+        </section>
 
     </main>
 
