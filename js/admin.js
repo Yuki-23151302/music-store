@@ -396,10 +396,7 @@ function inicializarFormularioProducto() {
         const boton = e.target.closest('.btn-quitar-variante');
         if (boton) quitarFilaVariante(boton.closest('.fila-variante'));
     });
-    lista.addEventListener('input', function (e) {
-        e.target.classList.remove('campo-error');
-        actualizarTotalVariantes();
-    });
+    lista.addEventListener('input', actualizarTotalVariantes);
 
     // Imagen: clic, cambio de archivo y arrastrar/soltar
     const inputArchivo = document.getElementById('prod-imagen-file');
@@ -418,11 +415,6 @@ function inicializarFormularioProducto() {
     zona.addEventListener('drop', function (e) {
         const archivo = e.dataTransfer.files[0];
         if (archivo && archivo.type.startsWith('image/')) cargarImagen(archivo);
-    });
-
-    // Quitar la marca de error al corregir un campo
-    form.addEventListener('input', function (e) {
-        if (e.target.classList) e.target.classList.remove('campo-error');
     });
 }
 
@@ -449,7 +441,6 @@ function mostrarVistaPrevia(ruta) {
     const texto = document.getElementById('zona-imagen-texto');
     const zona = document.getElementById('zona-imagen');
     document.getElementById('prod-imagen').value = ruta || '';
-    zona.classList.remove('campo-error');
 
     if (ruta) {
         preview.src = resolverImagen(ruta);
@@ -460,7 +451,7 @@ function mostrarVistaPrevia(ruta) {
         preview.hidden = true;
         preview.removeAttribute('src');
         texto.classList.remove('sobre-imagen');
-        texto.querySelector('strong').textContent = 'Haz clic o arrastra una foto aquí *';
+        texto.querySelector('strong').textContent = 'Haz clic o arrastra una foto aquí';
     }
 }
 
@@ -578,7 +569,6 @@ function limpiarFormulario() {
     document.getElementById('prod-id-original').value = '';
     document.getElementById('prod-id').disabled = false;
     document.getElementById('lista-variantes').innerHTML = '';
-    document.querySelectorAll('.campo-error').forEach(c => c.classList.remove('campo-error'));
     idEditadoManualmente = false;
     mostrarVistaPrevia('');
     aplicarModoVariantes(false);
@@ -637,86 +627,50 @@ function prepararEdicionProducto(id) {
     abrirModal();
 }
 
-/* Marca un campo con error y avisa */
-function errorEnCampo(campo, mensaje) {
-    campo.classList.add('campo-error');
-    campo.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    if (campo.focus) campo.focus({ preventScroll: true });
-    kookToast(mensaje, 'error', 'Revisa el formulario');
-    return false;
+/* Número entero de 0 o más; lo vacío o inválido cuenta como 0 */
+function aEntero(valor) {
+    return Math.max(0, Math.floor(Number(valor)) || 0);
 }
 
-/* Lee las versiones del formulario validando nombres y stock */
+/* Lee las versiones del formulario (sin validar).
+   Una fila sin nombre recibe "Versión N" para que se pueda elegir. */
 function leerVariantesFormulario() {
-    const filas = Array.from(document.querySelectorAll('.fila-variante'));
-    const variantes = [];
-    const vistos = new Set();
-
-    if (filas.length === 0) {
-        errorEnCampo(document.getElementById('btn-agregar-variante'), 'Agrega al menos una versión/personaje o elige "No".');
-        return null;
-    }
-
-    for (const fila of filas) {
-        const inputNombre = fila.querySelector('.variante-input-nombre');
-        const inputStock = fila.querySelector('.variante-input-stock');
-        const nombre = inputNombre.value.trim();
-        const stock = Number(inputStock.value);
-
-        if (!nombre) {
-            errorEnCampo(inputNombre, 'Cada versión necesita un nombre.');
-            return null;
-        }
-        if (vistos.has(nombre.toLowerCase())) {
-            errorEnCampo(inputNombre, '"' + nombre + '" está repetido en este producto.');
-            return null;
-        }
-        if (inputStock.value === '' || !Number.isInteger(stock) || stock < 0) {
-            errorEnCampo(inputStock, 'El stock de "' + nombre + '" debe ser un número entero de 0 o más.');
-            return null;
-        }
-
-        vistos.add(nombre.toLowerCase());
-        variantes.push({ nombre: nombre, stock: stock });
-    }
-
-    return variantes;
+    return Array.from(document.querySelectorAll('.fila-variante')).map(function (fila, i) {
+        return {
+            nombre: fila.querySelector('.variante-input-nombre').value.trim() || 'Versión ' + (i + 1),
+            stock: aEntero(fila.querySelector('.variante-input-stock').value)
+        };
+    });
 }
 
+/* Si el ID ya existe al crear, se le agrega -2, -3... en lugar de marcar error */
+function idDisponible(base) {
+    let id = base;
+    let n = 2;
+    while (obtenerProductoPorId(id)) {
+        id = base + '-' + n;
+        n++;
+    }
+    return id;
+}
+
+/* Guarda el producto SIN validaciones: los campos vacíos toman un valor por defecto */
 function guardarProductoFormulario(e) {
     e.preventDefault();
 
     const idOriginal = document.getElementById('prod-id-original').value;
-    const campoNombre = document.getElementById('prod-nombre');
-    const campoId = document.getElementById('prod-id');
-    const campoPrecio = document.getElementById('prod-precio');
-    const campoStock = document.getElementById('prod-stock');
-    const conVariantes = document.querySelector('input[name="tiene-variantes"]:checked').value === 'si';
+    const nombre = document.getElementById('prod-nombre').value.trim() || 'Producto sin nombre';
+    const idEscrito = document.getElementById('prod-id').value.trim() || generarSlug(nombre) || 'producto-' + Date.now();
+    const id = idOriginal ? idOriginal : idDisponible(idEscrito);
+    const precio = Math.max(0, Number(document.getElementById('prod-precio').value) || 0);
+    const imagen = document.getElementById('prod-imagen').value.trim();   // vacía = se muestra el logo
 
-    const nombre = campoNombre.value.trim();
-    const id = (campoId.value.trim() || generarSlug(nombre));
-    const precio = Number(campoPrecio.value);
-    const imagen = document.getElementById('prod-imagen').value.trim();
-
-    // Validaciones
-    if (!nombre) return errorEnCampo(campoNombre, 'Escribe el nombre del producto.');
-    if (!id) return errorEnCampo(campoId, 'El ID no puede quedar vacío.');
-    if (!idOriginal && obtenerProductoPorId(id)) return errorEnCampo(campoId, 'Ya existe un producto con el ID "' + id + '".');
-    if (campoPrecio.value === '' || precio < 0) return errorEnCampo(campoPrecio, 'Escribe un precio válido.');
-
-    let variantes = [];
-    let stock = 0;
-    if (conVariantes) {
-        variantes = leerVariantesFormulario();
-        if (!variantes) return;
-    } else {
-        stock = Number(campoStock.value);
-        if (campoStock.value === '' || !Number.isInteger(stock) || stock < 0) {
-            return errorEnCampo(campoStock, 'El stock debe ser un número entero de 0 o más.');
-        }
-    }
-
-    if (!imagen) return errorEnCampo(document.getElementById('zona-imagen'), 'Selecciona una imagen para el producto.');
+    // Con "Sí" pero sin filas, el producto se guarda como stock general
+    let variantes = document.querySelector('input[name="tiene-variantes"]:checked').value === 'si'
+        ? leerVariantesFormulario()
+        : [];
+    const conVariantes = variantes.length > 0;
+    const stock = conVariantes ? sumarStockVariantes(variantes) : aEntero(document.getElementById('prod-stock').value);
 
     const productoObjeto = {
         id: id,
@@ -730,7 +684,7 @@ function guardarProductoFormulario(e) {
         tieneVariantes: conVariantes,
         tituloVariante: conVariantes ? document.getElementById('prod-tipo-variante').value : undefined,
         variantes: variantes,
-        stock: conVariantes ? sumarStockVariantes(variantes) : stock
+        stock: stock
     };
 
     try {
@@ -750,7 +704,7 @@ function guardarProductoFormulario(e) {
     renderizarProductosAdmin();
 
     kookToast(
-        nombre + (conVariantes ? ' · ' + variantes.length + ' versiones, ' + productoObjeto.stock + ' unids' : ' · ' + stock + ' unids'),
+        nombre + (conVariantes ? ' · ' + variantes.length + ' versiones, ' + stock + ' unids' : ' · ' + stock + ' unids'),
         'exito',
         idOriginal ? 'Producto actualizado' : 'Producto agregado'
     );

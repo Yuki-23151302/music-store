@@ -749,21 +749,6 @@
 }
 .form-grupo .input-prefijo input { padding-left: 26px; }
 
-.campo-error,
-.form-grupo input.campo-error,
-.fila-variante input.campo-error {
-    border-color: #e11d48 !important;
-    background: #fff7f8 !important;
-    box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12) !important;
-    animation: sacudir 0.35s;
-}
-
-@keyframes sacudir {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
-}
-
 /* ---------- ¿Cuenta con versiones/personajes? ---------- */
 .pregunta-variantes {
     margin-bottom: 8px;
