@@ -27,6 +27,7 @@
             <ul>
                 <li><a href="../index.html">Inicio</a></li>
                 <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
                 <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
             </ul>
@@ -246,6 +247,7 @@
     <script src="../js/sesion.js"></script>
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
+    <script src="../js/cupones.js"></script>
     <script src="../js/ui.js"></script>
     <script>
         let carritoCheckout = [];
@@ -325,16 +327,26 @@
             const costoEnvio = parseFloat(envioSeleccionado.value);
             const nombreEnvio = envioSeleccionado.getAttribute('data-nombre');
             const totalProductos = totalCarrito();
+            const cupon = infoCuponCarrito();
+            const descuentoCupon = cupon && cupon.valido ? cupon.descuento : 0;
+
+            let lineaCupon = '';
+            if (cupon && cupon.valido) {
+                lineaCupon = `<div class="resumen-linea linea-cupon"><span>🎟️ Código <strong>${escaparHTML(cupon.codigo)}</strong> (${textoDescuentoCupon(cupon.cupon)})</span><span class="texto-gratis">-${formatearPrecio(descuentoCupon)}</span></div>`;
+            } else if (cupon) {
+                lineaCupon = `<div class="aviso-cupon">⚠️ El código ${escaparHTML(cupon.codigo)} no se aplicará: ${escaparHTML(cupon.mensaje)}</div>`;
+            }
 
             contenedorDesglose.innerHTML = `
                 <div class="resumen-linea"><span>Subtotal (${contarArticulos()} artículos)</span><span>${formatearPrecio(totalProductos)}</span></div>
                 ${ahorroCarrito() > 0 ? `<div class="resumen-linea"><span>🔥 Ahorro en ofertas</span><span class="texto-gratis">-${formatearPrecio(ahorroCarrito())}</span></div>` : ''}
+                ${lineaCupon}
                 <div class="resumen-linea"><span>${nombreEnvio}</span><span class="${costoEnvio === 0 ? 'texto-gratis' : ''}">${costoEnvio === 0 ? 'Gratis' : formatearPrecio(costoEnvio)}</span></div>
             `;
 
             contenedorTotal.innerHTML = `
                 <span>Total a pagar</span>
-                <strong>${formatearPrecio(totalProductos + costoEnvio)}</strong>
+                <strong>${formatearPrecio(totalProductos - descuentoCupon + costoEnvio)}</strong>
             `;
         }
 
@@ -378,8 +390,23 @@
                 costo: parseFloat(radioEnvio.value)
             };
 
+            // Código de descuento: se vuelve a revisar justo antes de cobrar
+            const cupon = infoCuponCarrito();
+            const extras = { terminosAceptados: new Date().toLocaleString('es-MX') };
+            if (cupon && cupon.valido) {
+                extras.cupon = cupon.codigo;
+                extras.descuentoCupon = cupon.descuento;
+            }
+
             setTimeout(() => {
-                const nuevoPedido = registrarPedido(envio, { terminosAceptados: new Date().toLocaleString('es-MX') });
+                const nuevoPedido = registrarPedido(envio, extras);
+
+                // El código queda canjeado para esta cuenta (una sola vez)
+                if (nuevoPedido && extras.cupon) {
+                    canjearCupon(extras.cupon, clienteActual(), nuevoPedido.folio);
+                }
+                quitarCuponDelCarrito();
+
                 if (nuevoPedido && nuevoPedido.folio) {
                     document.getElementById('folio-modal-exito').textContent = '#' + nuevoPedido.folio;
                 }

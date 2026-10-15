@@ -199,7 +199,8 @@ function generarFolio() {
    descuenta el inventario y deja el carrito vacío.
    "envio" = { nombre: 'Envío Estándar', costo: 150 }
    "extras" = datos adicionales que se guardan en el pedido,
-   por ejemplo { terminosAceptados: '6/10/2026 10:30' }.
+   por ejemplo { terminosAceptados: '6/10/2026 10:30' } o el
+   cupón usado { cupon: 'KPOP15', descuentoCupon: 120 }.
    Devuelve el pedido creado. */
 function registrarPedido(envio, extras) {
     const carrito = leerCarrito();
@@ -229,6 +230,11 @@ function registrarPedido(envio, extras) {
         estado: 'Pagado'
     };
     Object.assign(nuevoPedido, extras || {});
+
+    // Código de descuento: { cupon: 'KPOP15', descuentoCupon: 120 } en "extras"
+    if (nuevoPedido.descuentoCupon) {
+        nuevoPedido.total = Math.max(0, nuevoPedido.total - Number(nuevoPedido.descuentoCupon));
+    }
 
     pedidos.unshift(nuevoPedido);
     guardarPedidos(pedidos);

@@ -1,0 +1,356 @@
+/* =========================================================
+   KOOKSTORE.MX - PROMOCIONES (CÓDIGOS DE DESCUENTO)
+   Usa las variables y utilidades de css/estilos.css
+   ========================================================= */
+
+/* ---------- Hero ---------- */
+.promos-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 4.5rem 5% 6.5rem;
+    text-align: center;
+    color: white;
+    background: linear-gradient(135deg, #ff6b9e 0%, #ff8f6b 45%, #c86bfa 100%);
+}
+
+.promos-hero-contenido { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+
+.promos-etiqueta {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.22);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.promos-hero h1 {
+    margin: 1rem 0 0.6rem;
+    font-size: clamp(2.4rem, 5vw, 3.5rem);
+    line-height: 1.05;
+    color: white;
+}
+
+.promos-hero p { font-size: 1.1rem; opacity: 0.94; }
+
+.hero-burbuja {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.13);
+    animation: flotar 7s ease-in-out infinite;
+}
+
+.hero-burbuja.b1 { width: 260px; height: 260px; top: -90px; left: -60px; }
+.hero-burbuja.b2 { width: 170px; height: 170px; bottom: -60px; right: 8%; animation-delay: -3s; }
+.hero-burbuja.b3 { width: 80px; height: 80px; top: 30%; right: 22%; animation-delay: -5s; }
+
+/* ---------- Pasos ---------- */
+.promos-pasos {
+    position: relative;
+    z-index: 2;
+    max-width: 1000px;
+    margin: -3.6rem auto 0;
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.promo-paso {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.2rem 1.3rem;
+    border-radius: 22px;
+    background: white;
+    box-shadow: var(--sombra-media);
+}
+
+.promo-paso-numero {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: var(--degradado-marca);
+    color: white;
+    font-family: var(--fuente-titulos);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.promo-paso strong { display: block; color: var(--tinta); font-size: 0.98rem; }
+.promo-paso small { color: var(--tinta-tenue); font-size: 0.82rem; }
+
+/* ---------- Sección de cupones ---------- */
+.promos-seccion {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 5% 5rem;
+}
+
+.promos-aviso-sesion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.6rem;
+    padding: 1rem 1.3rem;
+    border-radius: 18px;
+    background: #f1efff;
+    border: 1px solid #ddd6fe;
+    color: var(--tinta);
+    font-size: 0.92rem;
+}
+
+.promos-aviso-sesion[hidden] { display: none; }
+.promos-aviso-sesion .btn-primario { padding: 0.6rem 1.4rem; font-size: 0.9rem; }
+
+.promos-filtros { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+.promo-filtro {
+    padding: 0.55rem 1.2rem;
+    border: 1px solid #eee8f8;
+    border-radius: 999px;
+    background: white;
+    font-family: var(--fuente-textos);
+    font-weight: 600;
+    color: var(--tinta-tenue);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.promo-filtro:hover { border-color: var(--color-primario); color: var(--color-primario); }
+
+.promo-filtro.activo {
+    border-color: transparent;
+    background: var(--degradado-marca);
+    color: white;
+    box-shadow: 0 6px 16px rgba(200, 107, 250, 0.3);
+}
+
+.cupones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ---------- Cupón con forma de boleto ---------- */
+.cupon-card {
+    --tono: #ff6b9e;
+    position: relative;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    overflow: hidden;
+    border-radius: 24px;
+    background: white;
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cupon-card:hover { transform: translateY(-5px); box-shadow: var(--sombra-media); }
+
+.cupon-izquierda {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0.8rem;
+    text-align: center;
+    color: white;
+    background: linear-gradient(160deg, #ff6b9e, #ff8f6b 60%, #c86bfa);
+}
+
+/* Muescas del boleto y línea punteada */
+.cupon-izquierda::before,
+.cupon-izquierda::after {
+    content: "";
+    position: absolute;
+    right: -13px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #fdfbfe;
+    z-index: 1;
+}
+
+.cupon-izquierda::before { top: -13px; }
+.cupon-izquierda::after { bottom: -13px; }
+
+.cupon-derecha {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 1.4rem 1.5rem 1.4rem 1.8rem;
+    border-left: 2px dashed #f3d6e4;
+}
+
+.cupon-descuento {
+    font-family: var(--fuente-titulos);
+    font-size: 2.3rem;
+    font-weight: 700;
+    line-height: 1;
+    word-break: break-word;
+}
+
+.cupon-izquierda small { margin-top: 0.3rem; font-size: 0.78rem; opacity: 0.9; }
+
+.cupon-estado {
+    align-self: flex-start;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.cupon-derecha h3 { font-size: 1.25rem; line-height: 1.2; color: var(--tinta); }
+.cupon-descripcion { font-size: 0.88rem; color: var(--tinta-tenue); }
+
+.cupon-alcance {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: 14px;
+    background: #faf8ff;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--tinta);
+    transition: background 0.2s;
+}
+
+a.cupon-alcance:hover { background: var(--rosa-suave); }
+
+.cupon-alcance img,
+.cupon-alcance-icono {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    object-fit: cover;
+    display: grid;
+    place-items: center;
+    background: white;
+    font-size: 1.2rem;
+}
+
+.cupon-alcance small { display: block; font-size: 0.7rem; font-weight: 500; color: var(--tinta-tenue); }
+
+.cupon-vigencia { font-size: 0.8rem; color: #b45309; }
+
+.cupon-codigo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.35rem 0.35rem 0.9rem;
+    border-radius: 14px;
+    border: 2px dashed #ffc2d8;
+    background: var(--rosa-suave);
+}
+
+.cupon-codigo code {
+    flex: 1;
+    font-family: 'Courier New', monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #c2185b;
+    word-break: break-all;
+}
+
+.btn-copiar {
+    padding: 0.55rem 1.1rem;
+    border: none;
+    border-radius: 10px;
+    background: var(--degradado-marca);
+    color: white;
+    font-family: var(--fuente-textos);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, filter 0.2s;
+}
+
+.btn-copiar:hover:not(:disabled) { filter: brightness(1.08); }
+.btn-copiar:active:not(:disabled) { transform: scale(0.95); }
+.btn-copiar.copiado { background: linear-gradient(135deg, #22c55e, #16a34a); }
+.btn-copiar:disabled { background: #d9d5e6; cursor: not-allowed; }
+
+.cupon-accion {
+    align-self: flex-start;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--color-secundario);
+}
+
+a.cupon-accion:hover { color: var(--color-primario); }
+.cupon-accion.deshabilitada { color: #a39bbd; font-weight: 600; }
+
+/* ---------- Estados ---------- */
+.cupon-card.estado-en-carrito .cupon-estado { background: #e0f2fe; color: #0369a1; }
+.cupon-card.estado-proximamente .cupon-estado { background: #fef3c7; color: #b45309; }
+
+.cupon-card.estado-usado .cupon-izquierda { background: linear-gradient(160deg, #b8b3c9, #9d97b3); }
+.cupon-card.estado-usado .cupon-estado { background: #f1f2f6; color: #6b7085; }
+.cupon-card.estado-usado .cupon-codigo { border-color: #ddd8ea; background: #f7f6fb; }
+.cupon-card.estado-usado .cupon-codigo code { color: #9d97b3; text-decoration: line-through; }
+.cupon-card.estado-usado h3,
+.cupon-card.estado-usado .cupon-alcance { opacity: 0.6; }
+
+.cupon-sello {
+    position: absolute;
+    top: 50%;
+    right: 1.4rem;
+    padding: 0.4rem 0.9rem;
+    border: 3px solid rgba(225, 29, 72, 0.55);
+    border-radius: 10px;
+    color: rgba(225, 29, 72, 0.6);
+    font-family: var(--fuente-titulos);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transform: translateY(-50%) rotate(-14deg);
+    pointer-events: none;
+}
+
+/* ---------- Vacío ---------- */
+.promos-vacio {
+    grid-column: 1 / -1;
+    padding: 3.5rem 2rem;
+    border-radius: 28px;
+    text-align: center;
+    background: white;
+    box-shadow: var(--sombra-suave);
+}
+
+.promos-vacio > span { display: block; font-size: 3rem; margin-bottom: 0.5rem; }
+.promos-vacio h2 { color: var(--tinta); }
+.promos-vacio p { color: var(--tinta-tenue); margin: 0.4rem 0 1.4rem; }
+.promos-vacio.pequeno { padding: 2rem; }
+.promos-vacio.pequeno p { margin: 0; }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 980px) {
+    .cupones-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+    .promos-pasos { grid-template-columns: 1fr; max-width: 520px; }
+}
+
+@media (max-width: 520px) {
+    .cupon-card { grid-template-columns: 1fr; }
+    .cupon-izquierda { flex-direction: row; gap: 0.6rem; padding: 1rem; }
+    .cupon-izquierda::before,
+    .cupon-izquierda::after { display: none; }
+    .cupon-derecha { border-left: none; border-top: 2px dashed #f3d6e4; padding: 1.2rem; }
+    .cupon-descuento { font-size: 1.9rem; }
+    .cupon-sello { top: auto; bottom: 1rem; transform: rotate(-10deg); font-size: 1rem; }
+}

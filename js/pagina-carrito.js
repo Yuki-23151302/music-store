@@ -93,6 +93,8 @@ function pintarCarrito() {
 
     const articulos = contarArticulos();
     const ahorro = ahorroCarrito();
+    const cupon = typeof infoCuponCarrito === 'function' ? infoCuponCarrito() : null;
+    const descuentoCupon = cupon && cupon.valido ? cupon.descuento : 0;
 
     contenedor.innerHTML = '' +
         '<div class="carrito-barra">' +
@@ -125,8 +127,9 @@ function pintarCarrito() {
         '<div class="resumen-linea"><span>Artículos</span><span>' + articulos + '</span></div>' +
         '<div class="resumen-linea"><span>Subtotal</span><span>' + formatearPrecio(totalCarrito()) + '</span></div>' +
         (ahorro > 0 ? '<div class="resumen-linea resumen-ahorro"><span>🔥 Ahorro</span><span>-' + formatearPrecio(ahorro) + '</span></div>' : '') +
+        bloqueCuponCarrito(cupon) +
         '<div class="resumen-linea resumen-nota"><span>Envío</span><span>Se elige al pagar</span></div>' +
-        '<div class="resumen-linea resumen-total"><span>Total</span><strong>' + formatearPrecio(totalCarrito()) + '</strong></div>' +
+        '<div class="resumen-linea resumen-total"><span>Total</span><strong>' + formatearPrecio(totalCarrito() - descuentoCupon) + '</strong></div>' +
         '<div class="carrito-acciones">' +
         '<button type="button" class="btn-primario btn-pagar" id="btn-procesar-pago">Proceder al Pago</button>' +
         '<a href="catalogo.html" class="enlace-seguir">← Seguir comprando</a>' +
@@ -240,6 +243,85 @@ function conectarBotonesDelCarrito() {
     });
 
     document.getElementById('btn-procesar-pago').addEventListener('click', procesarPago);
+    conectarCuponCarrito();
+}
+
+/* ---------------------------------------------------------
+   CÓDIGO DE DESCUENTO EN EL RESUMEN
+   --------------------------------------------------------- */
+function bloqueCuponCarrito(cupon) {
+    if (typeof infoCuponCarrito !== 'function') return '';
+
+    // Sin código: campo para pegarlo
+    if (!cupon) {
+        return '' +
+            '<div class="resumen-cupon">' +
+            '<form class="cupon-formulario" id="form-cupon-carrito" novalidate>' +
+            '<input type="text" id="campo-cupon-carrito" placeholder="Código de descuento" autocomplete="off" aria-label="Código de descuento">' +
+            '<button type="submit">Aplicar</button>' +
+            '</form>' +
+            '<p class="cupon-mensaje" id="mensaje-cupon-carrito" role="status"></p>' +
+            '<a class="cupon-pista" href="promociones.html">🎟️ Ver códigos en Promociones</a>' +
+            '</div>';
+    }
+
+    // Código aplicado y válido: línea de descuento
+    if (cupon.valido) {
+        return '' +
+            '<div class="resumen-linea resumen-cupon-aplicado">' +
+            '<span>🎟️ <strong>' + escaparHTML(cupon.codigo) + '</strong> ' + textoDescuentoCupon(cupon.cupon) +
+            ' <button type="button" class="cupon-quitar-texto" id="btn-quitar-cupon">Quitar</button></span>' +
+            '<span>-' + formatearPrecio(cupon.descuento) + '</span>' +
+            '</div>';
+    }
+
+    // Código aplicado pero ya no sirve (vencido, usado, producto fuera del carrito...)
+    return '' +
+        '<div class="resumen-cupon-invalido">' +
+        '<span>⚠️ <strong>' + escaparHTML(cupon.codigo) + ':</strong> ' + escaparHTML(cupon.mensaje) + '</span>' +
+        '<button type="button" class="cupon-quitar-texto" id="btn-quitar-cupon">Quitar</button>' +
+        '</div>';
+}
+
+function conectarCuponCarrito() {
+    const formulario = document.getElementById('form-cupon-carrito');
+    if (formulario) {
+        formulario.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const campo = document.getElementById('campo-cupon-carrito');
+            const resultado = aplicarCuponAlCarrito(campo.value);
+            const enCarrito = resultado.ok && calcularDescuentoCupon(resultado.cupon, leerCarrito()) > 0;
+
+            if (!resultado.ok || !enCarrito) {
+                if (resultado.ok) quitarCuponDelCarrito();   // válido, pero su producto no está en el carrito
+                const mensaje = document.getElementById('mensaje-cupon-carrito');
+                mensaje.textContent = resultado.ok
+                    ? 'Este código aplica a "' + alcanceCupon(resultado.cupon) + '". Agrégalo a tu carrito para usarlo.'
+                    : resultado.mensaje;
+                mensaje.className = 'cupon-mensaje error';
+                campo.classList.add('error');
+                return;
+            }
+
+            pintarCarrito();
+            kookToast('Ahorras ' + formatearPrecio(calcularDescuentoCupon(resultado.cupon, leerCarrito())) + ' en tu compra', 'exito', 'Código ' + resultado.cupon.codigo + ' aplicado');
+        });
+
+        document.getElementById('campo-cupon-carrito').addEventListener('input', function () {
+            this.classList.remove('error');
+            document.getElementById('mensaje-cupon-carrito').textContent = '';
+        });
+    }
+
+    const quitar = document.getElementById('btn-quitar-cupon');
+    if (quitar) {
+        quitar.addEventListener('click', function () {
+            const codigo = codigoAplicado();
+            quitarCuponDelCarrito();
+            pintarCarrito();
+            kookToast('Se quitó el código ' + codigo, 'info');
+        });
+    }
 }
 
 /* Cambia la cantidad respetando el stock disponible */
@@ -425,6 +507,12 @@ function pintarHistorial() {
             articulos = '<li><span>' + escaparHTML(pedido.resumen) + '</span><span>' + formatearPrecio(pedido.total) + '</span></li>';
         }
 
+        // Código de descuento usado en el pedido
+        if (pedido.cupon) {
+            articulos += '<li class="pedido-linea-envio"><span>🎟️ Código ' + escaparHTML(pedido.cupon) + '</span>' +
+                '<span class="texto-descuento">-' + formatearPrecio(Number(pedido.descuentoCupon) || 0) + '</span></li>';
+        }
+
         // Línea de envío (solo en pedidos que la guardaron)
         if (pedido.envio) {
             articulos += '<li class="pedido-linea-envio"><span>' + escaparHTML(pedido.envio.nombre) + '</span>' +
@@ -593,7 +681,8 @@ document.addEventListener('DOMContentLoaded', function () {
             avisarCambiosDeEstado();
             revisarCancelaciones();
         }
-        if (e.key === claveCarrito() || e.key === 'kookstore_productos' || e.key === CLAVE_OFERTAS) {
+        if (e.key === claveCarrito() || e.key === 'kookstore_productos' || e.key === CLAVE_OFERTAS ||
+            (typeof CLAVE_CUPONES !== 'undefined' && (e.key === CLAVE_CUPONES || e.key === claveCuponCarrito()))) {
             pintarCarrito();
             actualizarContadorCarrito();
         }

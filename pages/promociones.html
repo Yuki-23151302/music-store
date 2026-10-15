@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Principal y Específico -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estilospromociones.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main>
+
+        <!-- HERO -->
+        <section class="promos-hero">
+            <span class="hero-burbuja b1"></span>
+            <span class="hero-burbuja b2"></span>
+            <span class="hero-burbuja b3"></span>
+            <div class="promos-hero-contenido" data-revelar>
+                <span class="promos-etiqueta">🎟️ CÓDIGOS DE DESCUENTO</span>
+                <h1>Promociones</h1>
+                <p>Copia tu código, pégalo en el producto o en tu carrito y ahorra en tu próxima compra.</p>
+            </div>
+        </section>
+
+        <!-- CÓMO FUNCIONA -->
+        <section class="promos-pasos" data-revelar>
+            <div class="promo-paso">
+                <span class="promo-paso-numero">1</span>
+                <div><strong>Copia el código</strong><small>Toca “Copiar” en el cupón que quieras.</small></div>
+            </div>
+            <div class="promo-paso">
+                <span class="promo-paso-numero">2</span>
+                <div><strong>Pégalo</strong><small>En el detalle del producto o en tu carrito.</small></div>
+            </div>
+            <div class="promo-paso">
+                <span class="promo-paso-numero">3</span>
+                <div><strong>Paga y ahorra</strong><small>Cada código se canjea una sola vez por cuenta.</small></div>
+            </div>
+        </section>
+
+        <section class="promos-seccion">
+            <!-- Aviso para quien no inició sesión -->
+            <div class="promos-aviso-sesion" id="aviso-sesion" hidden>
+                <span>🔐 Inicia sesión para canjear los códigos y llevar el control de los que ya usaste.</span>
+                <a href="login.html" class="btn-primario">Iniciar sesión</a>
+            </div>
+
+            <div class="promos-filtros" role="group" aria-label="Filtrar cupones">
+                <button type="button" class="promo-filtro activo" data-filtro="todos">Todos</button>
+                <button type="button" class="promo-filtro" data-filtro="disponible">Disponibles</button>
+                <button type="button" class="promo-filtro" data-filtro="usado">Ya usados</button>
+            </div>
+
+            <div class="cupones-grid" id="cupones-grid">
+                <!-- Se llena con js/pagina-promociones.js -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="promociones.html">Promociones</a></li>
+                    <li><a href="nuestra-empresa.html">Sobre Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="../index.html#faq">Preguntas Frecuentes</a></li>
+                    <li><a href="terminos.html">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/datos-productos.js"></script>
+    <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/datos-demo.js"></script>
+    <script src="../js/cupones.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/pagina-promociones.js"></script>
+</body>
+
+</html>

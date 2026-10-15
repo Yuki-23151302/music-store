@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Si un cliente compra en otra pestaña, el panel se actualiza solo
     window.addEventListener('storage', function (e) {
         if (!e.key) return;
-        if (e.key === 'kookstore_productos' || e.key.startsWith('kookstore_pedidos_') || e.key === 'kookstore_usuarios' || e.key === CLAVE_OFERTAS) {
+        if (e.key === 'kookstore_productos' || e.key.startsWith('kookstore_pedidos_') || e.key === 'kookstore_usuarios' || e.key === CLAVE_OFERTAS || e.key === CLAVE_CUPONES) {
             renderizarTodo();
         }
     });
@@ -112,6 +112,7 @@ function renderizarTodo() {
     renderizarPedidosAdmin();
     renderizarClientesAdmin();
     if (typeof renderizarOfertasAdmin === 'function') renderizarOfertasAdmin();
+    if (typeof renderizarCuponesAdmin === 'function') renderizarCuponesAdmin();
 }
 
 /* ---------------------------------------------------------
@@ -139,7 +140,7 @@ function inicializarNavegacionAdmin() {
     });
 
     const inicial = location.hash.replace('#', '');
-    if (['productos', 'pedidos', 'clientes', 'ofertas'].includes(inicial)) {
+    if (['productos', 'pedidos', 'clientes', 'ofertas', 'cupones'].includes(inicial)) {
         mostrarSeccion(inicial);
     }
 }
@@ -793,7 +794,8 @@ function renderizarPedidosAdmin() {
             '<td>' + escaparHTML(p.fecha) + '<br><span class="texto-tenue">' + escaparHTML(p.hora || '') + '</span></td>' +
             '<td><ul class="lista-articulos">' + articulos + '</ul></td>' +
             '<td class="celda-precio">' + formatearPrecioAdmin(p.total) +
-            (p.envio ? '<br><span class="texto-tenue">' + escaparHTML(p.envio.nombre) + '</span>' : '') + '</td>' +
+            (p.envio ? '<br><span class="texto-tenue">' + escaparHTML(p.envio.nombre) + '</span>' : '') +
+            (p.cupon ? '<br><span class="chip-cupon">🎟️ ' + escaparHTML(p.cupon) + ' -' + formatearPrecioAdmin(p.descuentoCupon) + '</span>' : '') + '</td>' +
             '<td>' +
             '<select class="select-estado estado-' + claseEstado(estado) + '" data-email="' + escaparHTML(p.emailCliente) + '" data-folio="' + escaparHTML(p.folio) + '" data-anterior="' + estado + '" aria-label="Estado del pedido ' + escaparHTML(p.folio) + '">' +
             opciones +
@@ -861,6 +863,10 @@ function cambiarEstadoPedido(emailCliente, folio, nuevoEstado) {
     // Inventario: al cancelar se reponen las piezas; si se reactiva, se vuelven a descontar
     if (!estabaCancelado && quedaCancelado) ajustarStock(pedido.articulos, +1);
     if (estabaCancelado && !quedaCancelado) ajustarStock(pedido.articulos, -1);
+
+    // Código de descuento: al cancelar se libera para que el cliente lo vuelva a usar
+    if (pedido.cupon && !estabaCancelado && quedaCancelado) liberarCupon(pedido.cupon, emailCliente, folio);
+    if (pedido.cupon && estabaCancelado && !quedaCancelado) canjearCupon(pedido.cupon, emailCliente, folio);
 
     renderizarTodo();
 

@@ -1112,6 +1112,119 @@
 .interruptor input:focus-visible + .interruptor-pista { outline: 2px solid var(--admin-rosa); outline-offset: 2px; }
 
 /* =========================================================
+   CUPONES (CÓDIGOS DE DESCUENTO)
+   ========================================================= */
+.chip-codigo {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1.5px dashed #ffb3cd;
+    background: var(--admin-rosa-suave);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #c2185b;
+    white-space: nowrap;
+}
+
+.chip-cupon {
+    display: inline-block;
+    margin-top: 3px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: var(--admin-morado-suave);
+    color: var(--admin-morado);
+    font-size: 0.72rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.campo-con-boton { display: flex; gap: 8px; }
+.campo-con-boton input { flex: 1; text-transform: uppercase; font-family: 'Courier New', monospace; font-weight: 700; letter-spacing: 0.06em; }
+
+.btn-secundario-admin {
+    flex-shrink: 0;
+    padding: 0 14px;
+    border: 1.5px solid var(--admin-borde);
+    border-radius: 10px;
+    background: white;
+    font-family: var(--fuente-textos);
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #5f6477;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secundario-admin:hover { border-color: var(--admin-morado); color: var(--admin-morado); background: var(--admin-morado-suave); }
+
+#cupon-rapidos { margin-top: 10px; }
+
+.cupon-vista-previa {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    overflow: hidden;
+    margin-top: 16px;
+    border-radius: 16px;
+    border: 1px solid #f3d6e4;
+    background: white;
+}
+
+.mini-cupon-izq {
+    display: grid;
+    place-items: center;
+    padding: 12px 6px;
+    background: linear-gradient(160deg, #ff6b9e, #ff8f6b 60%, #c86bfa);
+    color: white;
+    font-family: var(--fuente-titulos);
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-align: center;
+    word-break: break-word;
+}
+
+.mini-cupon-der {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 14px;
+    border-left: 2px dashed #f3d6e4;
+}
+
+.mini-cupon-der small { font-size: 0.7rem; color: var(--admin-tenue); }
+.mini-cupon-der strong { color: var(--admin-texto); font-size: 0.92rem; }
+.mini-cupon-der .texto-tenue { display: block; }
+
+.mini-cupon-der code {
+    align-self: flex-start;
+    margin-top: 4px;
+    padding: 3px 9px;
+    border-radius: 8px;
+    border: 1.5px dashed #ffb3cd;
+    background: var(--admin-rosa-suave);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #c2185b;
+}
+
+.lista-canjes { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+
+.lista-canjes li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #fafafd;
+    border: 1px solid var(--admin-borde);
+}
+
+.lista-canjes strong { font-size: 0.85rem; color: var(--admin-texto); word-break: break-all; }
+
+.avatar-cliente.mini { width: 32px; height: 32px; font-size: 0.7rem; }
+
+/* =========================================================
    RESPONSIVO
    ========================================================= */
 @media (max-width: 960px) {

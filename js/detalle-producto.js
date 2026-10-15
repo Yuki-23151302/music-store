@@ -163,6 +163,8 @@ function mostrarDetalle(producto, contenedor) {
 
         '<p class="detalle-subtotal">Subtotal: <strong id="texto-subtotal">' + formatearPrecio(info.precio) + '</strong></p>' +
 
+        '<div class="detalle-cupon" id="detalle-cupon"></div>' +
+
         '<button type="button" class="btn-primario detalle-btn-carrito" id="btn-agregar-carrito">' +
         'Añadir al Carrito</button>' +
 
@@ -213,7 +215,86 @@ function mostrarDetalle(producto, contenedor) {
         botonAgregar.textContent = (producto.tieneVariantes && !varianteElegida)
             ? 'Elige una opción'
             : (maximo <= 0 ? 'Sin stock disponible' : 'Añadir al Carrito');
-        textoSubtotal.textContent = formatearPrecio(info.precio * cantidad);
+        // Si hay un código aplicado para este producto, el subtotal lo refleja
+        const cupon = cuponParaEsteProducto();
+        const descuento = cupon ? calcularDescuentoCupon(cupon, [{ id: producto.id, precio: info.precio, cantidad: cantidad }]) : 0;
+        textoSubtotal.innerHTML = descuento > 0
+            ? '<span class="subtotal-antes">' + formatearPrecio(info.precio * cantidad) + '</span> ' +
+              formatearPrecio(info.precio * cantidad - descuento) + ' <span class="subtotal-cupon">con ' + escaparHTML(cupon.codigo) + '</span>'
+            : formatearPrecio(info.precio * cantidad);
+    }
+
+    /* Cupón aplicado al carrito que sirve para ESTE producto (o null) */
+    function cuponParaEsteProducto() {
+        if (typeof codigoAplicado !== 'function' || !codigoAplicado()) return null;
+        const resultado = validarCupon(codigoAplicado(), producto.id);
+        return resultado.ok ? resultado.cupon : null;
+    }
+
+    /* ---------- Código de descuento en el producto ---------- */
+    function pintarCuponDetalle() {
+        const zona = document.getElementById('detalle-cupon');
+        if (typeof validarCupon !== 'function') { zona.hidden = true; return; }
+
+        const aplicado = cuponParaEsteProducto();
+        if (aplicado) {
+            zona.innerHTML = '' +
+                '<div class="cupon-aplicado">' +
+                '<span class="cupon-aplicado-icono">🎟️</span>' +
+                '<div><strong>Código ' + escaparHTML(aplicado.codigo) + ' aplicado (' + textoDescuentoCupon(aplicado) + ')</strong>' +
+                '<small>El descuento se aplicará en tu carrito al pagar.</small></div>' +
+                '<button type="button" class="cupon-quitar" id="btn-quitar-cupon">Quitar</button>' +
+                '</div>';
+            document.getElementById('btn-quitar-cupon').addEventListener('click', function () {
+                quitarCuponDelCarrito();
+                kookToast('Se quitó el código ' + aplicado.codigo, 'info');
+                pintarCuponDetalle();
+                refrescarEstado();
+            });
+            return;
+        }
+
+        // ¿Hay algún código publicado que sirva para este producto y la cuenta no ha usado?
+        const disponible = leerCupones().some(c => estadoCupon(c) === 'activo' &&
+            (!c.productoId || c.productoId === producto.id) &&
+            !(haySesionCliente() && cuponUsadoPorCliente(c)));
+
+        zona.innerHTML = '' +
+            '<details class="cupon-desplegable"' + (disponible ? ' open' : '') + '>' +
+            '<summary>🎟️ ¿Tienes un código de descuento?</summary>' +
+            '<form class="cupon-formulario" id="form-cupon-detalle" novalidate>' +
+            '<input type="text" id="campo-cupon-detalle" placeholder="Pega aquí tu código" autocomplete="off" aria-label="Código de descuento">' +
+            '<button type="submit">Aplicar</button>' +
+            '</form>' +
+            '<p class="cupon-mensaje" id="mensaje-cupon-detalle" role="status"></p>' +
+            (disponible ? '<a class="cupon-pista" href="promociones.html">✨ Hay un código disponible para este producto. Ver promociones →</a>' : '') +
+            '</details>';
+
+        document.getElementById('form-cupon-detalle').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const campo = document.getElementById('campo-cupon-detalle');
+            const anterior = codigoAplicado();
+            const resultado = aplicarCuponAlCarrito(campo.value, producto.id);
+
+            if (!resultado.ok) {
+                const mensaje = document.getElementById('mensaje-cupon-detalle');
+                mensaje.textContent = resultado.mensaje;
+                mensaje.className = 'cupon-mensaje error';
+                campo.classList.add('error');
+                return;
+            }
+
+            kookToast(
+                (anterior && anterior !== resultado.cupon.codigo ? 'Reemplazó al código ' + anterior + '. ' : '') +
+                'Se descontará al pagar.', 'exito', 'Código ' + resultado.cupon.codigo + ' aplicado');
+            pintarCuponDetalle();
+            refrescarEstado();
+        });
+
+        document.getElementById('campo-cupon-detalle').addEventListener('input', function () {
+            this.classList.remove('error');
+            document.getElementById('mensaje-cupon-detalle').textContent = '';
+        });
     }
 
     // Selección de versión / personaje
@@ -271,6 +352,7 @@ function mostrarDetalle(producto, contenedor) {
         refrescarEstado();
     });
 
+    pintarCuponDetalle();
     refrescarEstado();
 }
 

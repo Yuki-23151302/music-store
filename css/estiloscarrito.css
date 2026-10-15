@@ -1063,3 +1063,87 @@ main.carrito-container {
 
 .carrito-precio-oferta { color: #e8366f; font-weight: 700; }
 .resumen-ahorro span:last-child { color: #16a34a; font-weight: 700; white-space: nowrap; }
+
+
+/* =========================================================
+   CÓDIGO DE DESCUENTO EN EL RESUMEN
+   ========================================================= */
+.resumen-cupon { margin: 0.6rem 0 0.4rem; }
+
+.resumen-cupon .cupon-formulario { display: flex; gap: 0.5rem; }
+
+.resumen-cupon .cupon-formulario input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.65rem 0.8rem;
+    border: 1.5px dashed #ffc2d8;
+    border-radius: 12px;
+    background: #fff8fb;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.resumen-cupon .cupon-formulario input::placeholder { font-family: var(--fuente-textos); font-weight: 400; letter-spacing: 0; text-transform: none; }
+.resumen-cupon .cupon-formulario input:focus { border-style: solid; border-color: var(--color-primario); background: white; }
+.resumen-cupon .cupon-formulario input.error { border-color: #e11d48; background: #fff7f8; }
+
+.resumen-cupon .cupon-formulario button {
+    padding: 0 1rem;
+    border: none;
+    border-radius: 12px;
+    background: var(--tinta);
+    color: white;
+    font-family: var(--fuente-textos);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.resumen-cupon .cupon-formulario button:hover { background: var(--color-secundario); }
+
+.resumen-cupon .cupon-mensaje { margin-top: 0.4rem; font-size: 0.8rem; }
+.resumen-cupon .cupon-mensaje:empty { display: none; }
+.resumen-cupon .cupon-mensaje.error { color: #be123c; }
+
+.resumen-cupon .cupon-pista { display: inline-block; margin-top: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--color-secundario); }
+.resumen-cupon .cupon-pista:hover { color: var(--color-primario); }
+
+.resumen-cupon-aplicado span:first-child { font-size: 0.88rem; }
+.resumen-cupon-aplicado strong { font-family: 'Courier New', monospace; color: #c2185b; }
+.resumen-cupon-aplicado span:last-child { color: #16a34a; font-weight: 700; white-space: nowrap; }
+
+.cupon-quitar-texto {
+    border: none;
+    background: none;
+    padding: 0;
+    margin-left: 0.3rem;
+    font-family: var(--fuente-textos);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #a39bbd;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.cupon-quitar-texto:hover { color: #e11d48; }
+
+.resumen-cupon-invalido {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin: 0.5rem 0;
+    padding: 0.7rem 0.8rem;
+    border-radius: 12px;
+    background: #fff8e6;
+    border: 1px solid #fde7a9;
+    font-size: 0.8rem;
+    color: #8a5a00;
+}
+
+.pedido-articulos li span.texto-descuento { color: #16a34a; }
