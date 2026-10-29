@@ -1,3 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidad | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Principal y Específico -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estiloscomunidad.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main>
+
+        <!-- ================= 1. ESCAPARATE DE MARKETING ================= -->
+
+        <!-- HERO / PRODUCTO DESTACADO -->
+        <section class="campana-hero">
+            <span class="hero-burbuja b1"></span>
+            <span class="hero-burbuja b2"></span>
+            <span class="hero-burbuja b3"></span>
+
+            <div class="campana-hero-grid">
+                <div class="campana-hero-texto" data-revelar>
+                    <span class="campana-etiqueta">🔥 LANZAMIENTO ESPECIAL · EDICIÓN LIMITADA</span>
+                    <h1>Ilumina el concierto con la nueva <span>Army Bomb Ver. 4</span></h1>
+                    <p>Llegó el lightstick oficial del Arirang World Tour. Llévatelo esta semana con
+                        <strong>15% de descuento</strong> y photocards exclusivas de regalo.</p>
+
+                    <div class="campana-precio">
+                        <span class="precio-antes">$1,120</span>
+                        <span class="precio-ahora">$950 <small>MXN</small></span>
+                    </div>
+
+                    <div class="campana-acciones">
+                        <a href="productos.html?id=lightstick-army-bomb" class="btn-primario btn-cta">Comprar ahora →</a>
+                        <a href="#resenas" class="btn-contorno">Ver reseñas</a>
+                    </div>
+
+                    <ul class="campana-beneficios">
+                        <li>🚚 Envío gratis a todo México</li>
+                        <li>✅ 100% producto oficial</li>
+                        <li>🎁 Photocards de regalo</li>
+                    </ul>
+                </div>
+
+                <div class="campana-hero-imagen" data-revelar style="--retraso: 0.15s">
+                    <span class="campana-sello">-15%</span>
+                    <img src="../assets/img/productos/lightsticks/armybombver4.jpg"
+                        alt="Lightstick oficial Army Bomb Versión 4 de BTS">
+                </div>
+            </div>
+        </section>
+
+        <!-- RESEÑAS / TESTIMONIOS -->
+        <section class="resenas-seccion" id="resenas">
+            <div class="resenas-encabezado" data-revelar>
+                <span class="campana-etiqueta etiqueta-suave">💜 LO QUE DICEN NUESTROS CLIENTES</span>
+                <h2>Fans felices en todo México</h2>
+                <p>Más de 2,000 pedidos entregados con amor (y bien protegidos).</p>
+            </div>
+
+            <div class="resenas-grid">
+                <article class="resena-tarjeta" data-revelar>
+                    <div class="resena-cabecera">
+                        <span class="avatar" style="--avatar: #ff6b9e">MG</span>
+                        <div>
+                            <strong>Mariana García</strong>
+                            <small>Guadalajara, Jal.</small>
+                        </div>
+                    </div>
+                    <div class="estrellas" aria-label="Calificación: 5 de 5 estrellas">★★★★★</div>
+                    <p>“Mi Army Bomb llegó en dos días, perfectamente empacada y con sus photocards. ¡La usé en
+                        el concierto y se conectó sin problema! Totalmente recomendada.”</p>
+                </article>
+
+                <article class="resena-tarjeta" data-revelar style="--retraso: 0.1s">
+                    <div class="resena-cabecera">
+                        <span class="avatar" style="--avatar: #6c5ce7">LR</span>
+                        <div>
+                            <strong>Luis Ramírez</strong>
+                            <small>CDMX</small>
+                        </div>
+                    </div>
+                    <div class="estrellas" aria-label="Calificación: 5 de 5 estrellas">★★★★★</div>
+                    <p>“Compré el álbum IN LIFE de Stray Kids y todo venía sellado y original. La atención por
+                        mensaje fue súper rápida. Ya es mi tienda de confianza.”</p>
+                </article>
+
+                <article class="resena-tarjeta" data-revelar style="--retraso: 0.2s">
+                    <div class="resena-cabecera">
+                        <span class="avatar" style="--avatar: #c86bfa">SF</span>
+                        <div>
+                            <strong>Sofía Fernández</strong>
+                            <small>Monterrey, N.L.</small>
+                        </div>
+                    </div> <div class="estrellas" aria-label="Calificación: 5 de 5 estrellas">★★★★★</div>
+                    <p>“Los peluches BT21 son preciosos y suavecitos. Se los regalé a mi hermana y lloró de
+                        emoción. ¡Gracias Kookstore por cuidar cada detalle!”</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ================= 2. COMUNIDAD / COMENTARIOS ================= -->
+        <section class="comunidad-seccion" id="comunidad">
+            <div class="resenas-encabezado" data-revelar>
+                <span class="campana-etiqueta etiqueta-suave">💬 COMUNIDAD KOOKSTORE</span>
+                <h2>Comparte con otros fans</h2>
+                <p>Cuéntanos qué compraste, a qué concierto vas o qué comeback esperas.</p>
+            </div>
+
+            <div class="comunidad-grid">
+                <!-- Formulario -->
+                <form class="comentario-form" id="form-comentario" data-revelar>
+                    <h3>Escribe un comentario</h3>
+
+                    <label for="comentario-nombre">Tu nombre <small>(opcional)</small></label>
+                    <input type="text" id="comentario-nombre" placeholder="Ej. Ana Army">
+
+                    <label for="comentario-texto">Comentario</label>
+                    <textarea id="comentario-texto" rows="5"
+                        placeholder="¿Qué te pareció tu compra?"></textarea>
+
+                    <button type="submit" class="btn-primario btn-publicar">Publicar</button>
+                </form>
+
+                <!-- Lista de comentarios -->
+                <div class="comentarios-panel" data-revelar style="--retraso: 0.1s">
+                    <div class="comentarios-titulo">
+                        <h3>Comentarios recientes</h3>
+                        <span class="comentarios-contador" id="contador-comentarios">0</span>
+                    </div>
+                    <ul class="comentarios-lista" id="lista-comentarios">
+                        <!-- Se llena con js/pagina-comunidad.js -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- PIE DE PÁGINA (FOOTER) -->
