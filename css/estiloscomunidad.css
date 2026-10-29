@@ -1,0 +1,279 @@
+/* =========================================================
+   KOOKSTORE.MX - COMUNIDAD (CAMPAÑA, RESEÑAS Y COMENTARIOS)
+   Usa las variables y utilidades de css/estilos.css
+   ========================================================= */
+
+/* ---------- Hero / Producto destacado ---------- */
+.campana-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 4.5rem 5%;
+    color: white;
+    background: linear-gradient(135deg, #2d2346 0%, #6c5ce7 55%, #c86bfa 100%);
+}
+
+.campana-hero-grid {
+    position: relative;
+    z-index: 1;
+    max-width: 1150px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 3rem;
+}
+
+.campana-etiqueta {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.campana-hero h1 {
+    margin: 1rem 0 0.8rem;
+    font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+    line-height: 1.05;
+    color: white;
+}
+
+.campana-hero h1 span {
+    background: linear-gradient(90deg, #ffd1e3, #ff6b9e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.campana-hero-texto > p { font-size: 1.08rem; opacity: 0.92; max-width: 520px; }
+
+.campana-precio { display: flex; align-items: baseline; gap: 0.9rem; margin: 1.4rem 0; }
+.precio-antes { text-decoration: line-through; opacity: 0.6; font-size: 1.1rem; }
+.precio-ahora { font-family: var(--fuente-titulos); font-size: 2.4rem; font-weight: 700; line-height: 1; }
+.precio-ahora small { font-size: 0.9rem; font-weight: 500; opacity: 0.8; }
+
+.campana-acciones { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+.btn-cta {
+    padding: 1rem 2.4rem;
+    font-size: 1.05rem;
+    background: linear-gradient(135deg, #ff6b9e 0%, #ff8f6b 100%);
+    box-shadow: 0 12px 30px rgba(255, 107, 158, 0.5);
+    animation: latido 2.4s ease-in-out infinite;
+}
+
+.btn-cta:hover {
+    background: linear-gradient(135deg, #ff6b9e 0%, #ff8f6b 100%);
+    transform: translateY(-2px);
+}
+
+@keyframes latido {
+    0%, 100% { box-shadow: 0 12px 30px rgba(255, 107, 158, 0.5); }
+    50% { box-shadow: 0 12px 42px rgba(255, 107, 158, 0.85); }
+}
+
+.campana-beneficios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.4rem;
+    margin-top: 1.6rem;
+    font-size: 0.88rem;
+    opacity: 0.9;
+}
+
+.campana-hero-imagen { position: relative; }
+
+.campana-hero-imagen img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 32px;
+    border: 6px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 30px 60px rgba(20, 10, 50, 0.4);
+    animation: flotar 7s ease-in-out infinite;
+}
+
+.campana-sello {
+    position: absolute;
+    z-index: 2;
+    top: -14px;
+    right: -14px;
+    width: 86px;
+    height: 86px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #ff6b9e;
+    font-family: var(--fuente-titulos);
+    font-size: 1.5rem;
+    font-weight: 700;
+    box-shadow: 0 10px 24px rgba(255, 107, 158, 0.5);
+    transform: rotate(12deg);
+}
+
+.hero-burbuja {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: flotar 7s ease-in-out infinite;
+}
+
+.hero-burbuja.b1 { width: 260px; height: 260px; top: -90px; left: -60px; }
+.hero-burbuja.b2 { width: 170px; height: 170px; bottom: -60px; right: 40%; animation-delay: -3s; }
+.hero-burbuja.b3 { width: 80px; height: 80px; top: 20%; right: 4%; animation-delay: -5s; }
+
+/* ---------- Encabezado compartido ---------- */
+.resenas-encabezado { text-align: center; max-width: 620px; margin: 0 auto 2.5rem; }
+.resenas-encabezado h2 { font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin: 0.8rem 0 0.3rem; color: var(--tinta); }
+.resenas-encabezado p { color: var(--tinta-tenue); }
+
+.etiqueta-suave { background: var(--morado-suave); color: var(--color-secundario); }
+
+/* ---------- Reseñas ---------- */
+.resenas-seccion { padding: 4.5rem 5%; background: var(--rosa-suave); }
+
+.resenas-grid {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.resena-tarjeta {
+    padding: 1.8rem;
+    border-radius: 24px;
+    background: white;
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.resena-tarjeta:hover { transform: translateY(-4px); box-shadow: var(--sombra-media); }
+
+.resena-cabecera { display: flex; align-items: center; gap: 0.9rem; }
+.resena-cabecera strong { display: block; color: var(--tinta); }
+.resena-cabecera small { color: var(--tinta-tenue); font-size: 0.8rem; }
+
+.avatar {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--avatar, var(--color-primario));
+    color: white;
+    font-family: var(--fuente-titulos);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+.avatar-chico { width: 42px; height: 42px; font-size: 0.95rem; }
+
+.estrellas { margin: 1rem 0 0.6rem; color: #ffb400; font-size: 1.2rem; letter-spacing: 0.12em; }
+
+.resena-tarjeta p { color: var(--tinta-tenue); font-size: 0.95rem; }
+
+/* ---------- Comunidad ---------- */
+.comunidad-seccion { padding: 4.5rem 5% 5rem; }
+
+.comunidad-grid {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: start;
+    gap: 2rem;
+}
+
+.comentario-form,
+.comentarios-panel {
+    padding: 1.8rem;
+    border-radius: 24px;
+    background: white;
+    box-shadow: var(--sombra-suave);
+}
+
+.comentario-form { position: sticky; top: 100px; display: flex; flex-direction: column; }
+.comentario-form h3, .comentarios-titulo h3 { color: var(--tinta); font-size: 1.3rem; }
+.comentario-form h3 { margin-bottom: 1rem; }
+
+.comentario-form label { margin: 0.6rem 0 0.35rem; font-size: 0.88rem; font-weight: 600; color: var(--tinta); }
+.comentario-form label small { font-weight: 400; color: var(--tinta-tenue); }
+
+.comentario-form input,
+.comentario-form textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--color-borde);
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.comentario-form textarea { resize: vertical; min-height: 120px; }
+
+.comentario-form input:focus,
+.comentario-form textarea:focus {
+    outline: none;
+    border-color: var(--color-secundario);
+    box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.12);
+}
+
+.btn-publicar { margin-top: 1.2rem; align-self: flex-start; font-family: inherit; font-size: 1rem; }
+
+.comentarios-titulo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+
+.comentarios-contador {
+    min-width: 34px;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    background: var(--morado-suave);
+    color: var(--color-secundario);
+    font-weight: 700;
+    text-align: center;
+}
+
+.comentario {
+    display: flex;
+    gap: 0.9rem;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--color-borde);
+}
+
+.comentario-cuerpo { flex: 1; min-width: 0; }
+.comentario-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.7rem; }
+.comentario-meta strong { color: var(--tinta); }
+.comentario-meta time { font-size: 0.78rem; color: var(--tinta-tenue); }
+.comentario p { margin-top: 0.25rem; font-size: 0.95rem; overflow-wrap: anywhere; white-space: pre-line; }
+
+.comentario-nuevo { animation: entrarComentario 0.5s ease-out; }
+
+@keyframes entrarComentario {
+    from { opacity: 0; transform: translateY(-12px); background: var(--rosa-suave); }
+    to { opacity: 1; transform: none; background: transparent; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+    .campana-hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .campana-hero-texto > p { margin: 0 auto; }
+    .campana-precio, .campana-acciones, .campana-beneficios { justify-content: center; }
+    .campana-hero-imagen { max-width: 380px; margin: 0 auto; }
+    .resenas-grid { grid-template-columns: 1fr 1fr; }
+    .comunidad-grid { grid-template-columns: 1fr; }
+    .comentario-form { position: static; }
+}
+
+@media (max-width: 640px) {
+    .campana-hero, .resenas-seccion, .comunidad-seccion { padding-top: 3rem; padding-bottom: 3rem; }
+    .resenas-grid { grid-template-columns: 1fr; }
+    .campana-sello { width: 70px; height: 70px; font-size: 1.2rem; right: -6px; }
+    .btn-publicar { align-self: stretch; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-cta, .campana-hero-imagen img, .comentario-nuevo { animation: none; }
+}
