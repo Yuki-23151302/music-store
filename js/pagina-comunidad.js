@@ -80,14 +80,8 @@ function publicarComentario(e) {
     const campoTexto = document.getElementById('comentario-texto');
     const mensaje = campoTexto.value.trim();
 
-    if (!mensaje) {
-        kookAlerta({
-            tipo: 'advertencia',
-            titulo: 'Tu comentario está vacío',
-            texto: 'Escribe algo antes de publicar.'
-        }).then(function () { campoTexto.focus(); });
-        return;
-    }
+    // Sin texto no se publica nada (sin alertas)
+    if (!mensaje) return;
 
     const comentario = {
         nombre: campoNombre.value.trim() || 'Anónimo',
