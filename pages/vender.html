@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publica tu producto | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Principal y Específico -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estilosvender.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="campana.html">Campaña</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="vender.html">Vender</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         PUBLICA TU PRODUCTO (MODELO C2C: DE FAN A FAN)
+         - Formulario: nombre, precio, descripción y foto (simulada)
+         - SIN validaciones: "Publicar" funciona aunque esté vacío
+         - Al publicar se muestra "Publicado (simulado)" y la
+           publicación aparece en la lista de la comunidad
+         Lógica en js/pagina-vender.js
+         ========================================================= -->
+    <main>
+
+        <!-- ENCABEZADO -->
+        <section class="vender-hero">
+            <span class="hero-burbuja b1"></span>
+            <span class="hero-burbuja b2"></span>
+            <div class="vender-hero-contenido" data-revelar>
+                <span class="vender-etiqueta">🤝 DE FAN A FAN · C2C</span>
+                <h1>Publica tu producto</h1>
+                <p>¿Tienes álbumes, photocards o lightsticks que ya no usas? Publícalos y véndelos a otros fans.</p>
+            </div>
+        </section>
+
+        <!-- CÓMO FUNCIONA -->
+        <section class="vender-pasos" data-revelar>
+            <div class="vender-paso"><span>1</span><div><strong>Publica</strong><small>Llena el formulario con los datos de tu artículo.</small></div></div>
+            <div class="vender-paso"><span>2</span><div><strong>Recibe ofertas</strong><small>Otros fans ven tu publicación en la comunidad.</small></div></div>
+            <div class="vender-paso"><span>3</span><div><strong>Acuerden la entrega</strong><small>Tú y el comprador se ponen de acuerdo.</small></div></div>
+        </section>
+
+        <!-- FORMULARIO + VISTA PREVIA -->
+        <section class="vender-seccion">
+            <div class="vender-grid">
+
+                <form class="vender-form" id="form-vender" novalidate data-revelar>
+                    <h2>Datos de tu producto</h2>
+
+                    <label for="vender-nombre">Nombre del producto</label>
+                    <input type="text" id="vender-nombre" placeholder="Ej. Photocard Jungkook - Golden">
+
+                    <label for="vender-precio">Precio (MXN)</label>
+                    <div class="campo-precio">
+                        <span>$</span>
+                        <input type="number" id="vender-precio" placeholder="250" min="0" step="0.01">
+                    </div>
+
+                    <label for="vender-descripcion">Descripción</label>
+                    <textarea id="vender-descripcion" rows="4"
+                        placeholder="Estado del artículo, qué incluye, si es oficial..."></textarea>
+
+                    <label for="vender-foto">Foto del producto <small>(simulada, no se sube a ningún servidor)</small></label>
+                    <label class="zona-foto" for="vender-foto" id="zona-foto">
+                        <img id="vender-foto-preview" alt="Vista previa de la foto" hidden>
+                        <span class="zona-foto-texto" id="zona-foto-texto">
+                            <span class="zona-foto-icono">📷</span>
+                            <strong>Elige o arrastra una foto</strong>
+                            <small>JPG o PNG desde tu computadora o celular</small>
+                        </span>
+                    </label>
+                    <input type="file" id="vender-foto" accept="image/*" class="input-foto-oculto">
+                    <button type="button" class="btn-quitar-foto" id="btn-quitar-foto" hidden>Quitar foto</button>
+
+                    <button type="submit" class="btn-primario btn-publicar-producto">Publicar</button>
+                </form>
+
+                <!-- Vista previa en vivo de la publicación -->
+                <aside class="vender-preview" data-revelar style="--retraso: 0.1s">
+                    <p class="vender-preview-titulo">👀 Así verán tu publicación</p>
+                    <article class="publicacion-card" id="tarjeta-preview"></article>
+                    <p class="vender-preview-nota">Kookstore no cobra comisión en las publicaciones de fan a fan (simulado).</p>
+                </aside>
+
+            </div>
+        </section>
+
+        <!-- PUBLICACIONES DE LA COMUNIDAD -->
+        <section class="publicaciones-seccion">
+            <div class="seccion-encabezado" data-revelar>
+                <span class="etiqueta-seccion">🛍️ Mercado de fans</span>
+                <h2>Publicaciones recientes</h2>
+                <p>Artículos que otros fans publicaron para vender.</p>
+            </div>
+            <div class="publicaciones-grid" id="lista-publicaciones">
+                <!-- Se llena con js/pagina-vender.js -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="promociones.html">Promociones</a></li>
+                    <li><a href="campana.html">Campaña</a></li>
+                    <li><a href="comunidad.html">Comunidad</a></li>
+                    <li><a href="vender.html">Publica tu producto</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="../index.html#faq">Preguntas Frecuentes</a></li>
+                    <li><a href="terminos.html">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/datos-productos.js"></script>
+    <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/pagina-vender.js"></script>
+</body>
+
+</html>

@@ -817,7 +817,7 @@ ul {
 .nav-principal a,
 .iconos-usuario a { white-space: nowrap; }
 
-/* Con 7 secciones en el menú: en pantallas medianas se compacta... */
+/* Con 8 secciones en el menú: en pantallas medianas se compacta... */
 @media (max-width: 1440px) {
     .header-principal { padding-left: 3%; padding-right: 3%; gap: 0.8rem; }
     .nav-principal ul { gap: 0.1rem; }
@@ -825,8 +825,8 @@ ul {
     .iconos-usuario { gap: 0.6rem; }
 }
 
-/* ...y el botón ☰ aparece desde 1200 px */
-@media (max-width: 1200px) {
+/* ...y el botón ☰ aparece desde 1260 px */
+@media (max-width: 1260px) {
     .header-principal { flex-wrap: wrap; gap: 0.6rem; padding: 0.7rem 5%; }
     .btn-menu { display: flex; order: 3; }
     .logo-container { order: 1; margin-right: auto; }
