@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaña Army Bomb Ver. 4 | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Principal y Específico -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estiloscampana.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="campana.html">Campaña</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         ESCAPARATE DE MARKETING (PÁGINA DE CAMPAÑA / LANDING)
+         1. Producto destacado + llamado a la acción
+         2. Beneficios
+         3. Qué incluye
+         4. Reseñas / testimonios (simulados)
+         5. Llamado a la acción final
+         El precio, la oferta y el stock se leen del catálogo real
+         (js/pagina-campana.js), así coinciden con el carrito.
+         ========================================================= -->
+    <main>
+
+        <!-- 1. PRODUCTO DESTACADO -->
+        <section class="campana-hero">
+            <span class="hero-burbuja b1"></span>
+            <span class="hero-burbuja b2"></span>
+            <span class="hero-burbuja b3"></span>
+
+            <div class="campana-hero-grid">
+                <div class="campana-hero-texto" data-revelar>
+                    <span class="campana-etiqueta">🔥 LANZAMIENTO · ARIRANG WORLD TOUR</span>
+                    <h1>Ilumina el concierto con la nueva <span>Army&nbsp;Bomb Ver.&nbsp;4</span></h1>
+                    <p>El lightstick oficial de BTS para la nueva gira ya está en Kookstore. Conéctalo a la app,
+                        sincronízalo con el escenario y vive el show como nunca.</p>
+
+                    <a href="#resenas" class="campana-calificacion">
+                        <span class="estrellas">★★★★★</span>
+                        <strong>4.9</strong> · <span id="total-resenas">128</span> reseñas
+                    </a>
+
+                    <!-- Precio real del catálogo (con oferta si el Admin creó una) -->
+                    <div class="campana-precio" id="campana-precio"></div>
+                    <p class="campana-cuenta" id="campana-cuenta" hidden></p>
+
+                    <div class="campana-acciones">
+                        <button type="button" class="btn-primario btn-cta" id="btn-comprar-ahora">Comprar ahora →</button>
+                        <a href="productos.html?id=lightstick-army-bomb" class="btn-contorno btn-contorno-claro" id="btn-ver-detalles">Ver detalles</a>
+                    </div>
+                    <p class="campana-stock" id="campana-stock"></p>
+                </div>
+
+                <div class="campana-hero-imagen" data-revelar style="--retraso: 0.15s">
+                    <span class="campana-sello" id="campana-sello" hidden></span>
+                    <img id="campana-imagen" src="../assets/img/productos/lightsticks/armybombver4.jpg"
+                        alt="Lightstick oficial Army Bomb Versión 4 de BTS">
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. BENEFICIOS -->
+        <section class="campana-beneficios" data-revelar>
+            <div class="beneficio"><span>✅</span><div><strong>100% oficial</strong><small>Directo de la agencia</small></div></div>
+            <div class="beneficio"><span>🚚</span><div><strong>Envíos a todo México</strong><small>Estándar o exprés</small></div></div>
+            <div class="beneficio"><span>📦</span><div><strong>Rastreo del pedido</strong><small>Desde tu cuenta</small></div></div>
+            <div class="beneficio"><span>🔒</span><div><strong>Compra segura</strong><small>Pago protegido</small></div></div>
+        </section>
+
+        <!-- 3. QUÉ INCLUYE -->
+        <section class="campana-incluye">
+            <div class="seccion-encabezado" data-revelar>
+                <span class="etiqueta-seccion">🎁 Edición MOS Special</span>
+                <h2>Todo lo que trae tu caja</h2>
+                <p>Cada Army Bomb Ver. 4 llega sellada y con todos sus accesorios oficiales.</p>
+            </div>
+            <div class="incluye-grid">
+                <article class="incluye-item" data-revelar><span>💡</span><h3>Lightstick Ver. 4</h3><p>Luz más brillante y modos de color nuevos.</p></article>
+                <article class="incluye-item" data-revelar style="--retraso: 0.08s"><span>👜</span><h3>Bolsa de tela</h3><p>Para llevarlo protegido a cada concierto.</p></article>
+                <article class="incluye-item" data-revelar style="--retraso: 0.16s"><span>🎀</span><h3>Correa oficial</h3><p>Sujétalo a tu muñeca y no lo pierdas.</p></article>
+                <article class="incluye-item" data-revelar style="--retraso: 0.24s"><span>🃏</span><h3>Photocards</h3><p>Fotos de los integrantes incluidas en la caja.</p></article>
+            </div>
+        </section>
+
+        <!-- 4. RESEÑAS / TESTIMONIOS (SIMULADOS) -->
+        <section class="resenas-seccion" id="resenas">
+            <div class="seccion-encabezado" data-revelar>
+                <span class="etiqueta-seccion">💜 Lo que dicen nuestros clientes</span>
+                <h2>Fans felices en todo México</h2>
+                <p>Opiniones de quienes ya iluminan sus conciertos con Kookstore.</p>
+            </div>
+
+            <div class="resenas-contenido">
+                <!-- Resumen de calificaciones -->
+                <aside class="resenas-resumen" data-revelar>
+                    <strong class="resumen-nota">4.9</strong>
+                    <span class="estrellas">★★★★★</span>
+                    <small>Basado en 128 reseñas</small>
+                    <ul class="resumen-barras">
+                        <li><span>5 ★</span><div class="barra"><i style="width: 92%"></i></div><span>92%</span></li>
+                        <li><span>4 ★</span><div class="barra"><i style="width: 6%"></i></div><span>6%</span></li>
+                        <li><span>3 ★</span><div class="barra"><i style="width: 2%"></i></div><span>2%</span></li>
+                        <li><span>2 ★</span><div class="barra"><i style="width: 0%"></i></div><span>0%</span></li>
+                        <li><span>1 ★</span><div class="barra"><i style="width: 0%"></i></div><span>0%</span></li>
+                    </ul>
+                </aside>
+
+                <!-- Testimonios -->
+                <div class="resenas-grid">
+                    <article class="resena-tarjeta" data-revelar>
+                        <div class="resena-cabecera">
+                            <span class="avatar" style="--avatar: #ff6b9e">MG</span>
+                            <div><strong>Mariana García</strong><small>Guadalajara, Jal.</small></div>
+                        </div>
+                        <div class="resena-fila"><span class="estrellas">★★★★★</span><span class="verificada">✓ Compra verificada</span></div>
+                        <p>“Mi Army Bomb llegó en dos días, perfectamente empacada y con sus photocards. La usé en el
+                            concierto y se conectó a la primera.”</p>
+                    </article>
+
+                    <article class="resena-tarjeta" data-revelar style="--retraso: 0.08s">
+                        <div class="resena-cabecera">
+                            <span class="avatar" style="--avatar: #6c5ce7">LR</span>
+                            <div><strong>Luis Ramírez</strong><small>CDMX</small></div>
+                        </div>
+                        <div class="resena-fila"><span class="estrellas">★★★★★</span><span class="verificada">✓ Compra verificada</span></div>
+                        <p>“La luz es mucho más brillante que la versión 3. Todo venía sellado y original; ya es mi
+                            tienda de confianza.”</p>
+                    </article>
+
+                    <article class="resena-tarjeta" data-revelar style="--retraso: 0.16s">
+                        <div class="resena-cabecera">
+                            <span class="avatar" style="--avatar: #c86bfa">SF</span>
+                            <div><strong>Sofía Fernández</strong><small>Monterrey, N.L.</small></div>
+                        </div>
+                        <div class="resena-fila"><span class="estrellas">★★★★★</span><span class="verificada">✓ Compra verificada</span></div>
+                        <p>“Se la regalé a mi hermana por su cumpleaños y lloró de emoción. Pude seguir el envío
+                            paso a paso desde mi cuenta.”</p>
+                    </article>
+
+                    <article class="resena-tarjeta" data-revelar style="--retraso: 0.24s">
+                        <div class="resena-cabecera">
+                            <span class="avatar" style="--avatar: #ff8f6b">AT</span>
+                            <div><strong>Andrea Torres</strong><small>Puebla, Pue.</small></div>
+                        </div>
+                        <div class="resena-fila"><span class="estrellas">★★★★☆</span><span class="verificada">✓ Compra verificada</span></div>
+                        <p>“Excelente calidad y la bolsa de tela es muy práctica. Le quito una estrella solo porque
+                            se agotó rápido y tuve que esperar el siguiente lote.”</p>
+                    </article>
+                </div>
+            </div>
+            <p class="resenas-nota">* Reseñas simuladas con fines académicos.</p>
+        </section>
+
+        <!-- 5. LLAMADO A LA ACCIÓN FINAL -->
+        <section class="campana-final">
+            <div class="campana-final-tarjeta" data-revelar>
+                <div>
+                    <h2>No te quedes sin la tuya</h2>
+                    <p>Las piezas de este lanzamiento son limitadas. Asegura tu Army Bomb Ver. 4 hoy.</p>
+                </div>
+                <button type="button" class="btn-blanco" id="btn-comprar-final">Comprar ahora →</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="promociones.html">Promociones</a></li>
+                    <li><a href="campana.html">Campaña</a></li>
+                    <li><a href="comunidad.html">Comunidad</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="../index.html#faq">Preguntas Frecuentes</a></li>
+                    <li><a href="terminos.html">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/datos-productos.js"></script>
+    <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/pagina-campana.js"></script>
+</body>
+
+</html>
