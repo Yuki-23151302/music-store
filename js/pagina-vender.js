@@ -8,14 +8,14 @@
    - La foto es simulada: solo se muestra en el navegador,
      no se sube a ningún servidor.
    - Al publicar aparece "Publicado (simulado)" y la publicación
-     se agrega al inicio de "Publicaciones recientes".
-   - Las publicaciones se guardan en el navegador
-     (kookstore_publicaciones_c2c) para que sigan al recargar.
+     se agrega a "Mis publicaciones" (pages/mis-publicaciones.html)
+     y al inicio de "Publicaciones recientes".
+   - Los datos son compartidos con "Mis publicaciones" a través
+     de js/publicaciones-c2c.js.
 
-   Necesita: notificaciones.js, sesion.js y carrito.js
+   Necesita: notificaciones.js, sesion.js, carrito.js y
+   publicaciones-c2c.js
    ========================================================= */
-
-const CLAVE_PUBLICACIONES = 'kookstore_publicaciones_c2c';
 
 /* Publicaciones de ejemplo (simuladas) */
 const PUBLICACIONES_EJEMPLO = [
@@ -46,42 +46,14 @@ const PUBLICACIONES_EJEMPLO = [
 ];
 
 /* ---------------------------------------------------------
-   DATOS
-   --------------------------------------------------------- */
-function leerPublicaciones() {
-    try {
-        return JSON.parse(localStorage.getItem(CLAVE_PUBLICACIONES)) || [];
-    } catch (e) {
-        return [];
-    }
-}
-
-function guardarPublicaciones(lista) {
-    try {
-        localStorage.setItem(CLAVE_PUBLICACIONES, JSON.stringify(lista));
-    } catch (e) {
-        // Si la foto es muy pesada y no cabe, se guarda sin foto
-        lista[0].foto = '';
-        localStorage.setItem(CLAVE_PUBLICACIONES, JSON.stringify(lista));
-    }
-}
-
-/* Nombre de quien publica: su cuenta, o "Fan anónimo" */
-function nombreVendedor() {
-    const usuario = typeof usuarioActivo === 'function' ? usuarioActivo() : null;
-    return usuario && usuario.nombre ? usuario.nombre : 'Fan anónimo';
-}
-
-/* ---------------------------------------------------------
    TARJETA DE PUBLICACIÓN (lista y vista previa)
    Los campos vacíos muestran un texto de relleno.
    --------------------------------------------------------- */
 function htmlPublicacion(pub, esPreview) {
-    const nombre = (pub.nombre || '').trim() || 'Producto sin nombre';
-    const precio = Number(pub.precio);
-    const textoPrecio = pub.precio === '' || isNaN(precio) ? 'Precio a convenir' : formatearPrecio(Math.max(0, precio));
-    const descripcion = (pub.descripcion || '').trim() || 'Sin descripción.';
-    const foto = pub.foto || '../assets/img/logo.png';
+    const nombre = nombrePublicacion(pub);
+    const textoPrecio = precioPublicacion(pub);
+    const descripcion = descripcionPublicacion(pub);
+    const foto = fotoPublicacion(pub);
     const fecha = esPreview
         ? 'Ahora'
         : new Date(pub.fecha).toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
@@ -102,7 +74,16 @@ function htmlPublicacion(pub, esPreview) {
         '</div>';
 }
 
+/* Franja "Tienes N publicaciones · Ver mis publicaciones" */
+function pintarResumenMisPublicaciones() {
+    const total = misPublicaciones().length;
+    document.getElementById('total-mis-publicaciones').textContent = total;
+    document.getElementById('texto-mis-publicaciones').textContent =
+        total === 1 ? 'publicación activa' : 'publicaciones activas';
+}
+
 function pintarPublicaciones() {
+    pintarResumenMisPublicaciones();
     const lista = document.getElementById('lista-publicaciones');
     lista.innerHTML = leerPublicaciones().concat(PUBLICACIONES_EJEMPLO)
         .map(pub => '<article class="publicacion-card">' + htmlPublicacion(pub, false) + '</article>')
@@ -116,6 +97,8 @@ let fotoSeleccionada = '';
 
 function datosFormulario() {
     return {
+        id: generarIdPublicacion(),
+        dueno: clienteActual(),
         nombre: document.getElementById('vender-nombre').value,
         precio: document.getElementById('vender-precio').value,
         descripcion: document.getElementById('vender-descripcion').value,
@@ -129,22 +112,9 @@ function actualizarVistaPrevia() {
     document.getElementById('tarjeta-preview').innerHTML = htmlPublicacion(datosFormulario(), true);
 }
 
-/* Foto simulada: se reduce a máx. 600 px y solo se muestra en el navegador */
+/* Foto simulada: se reduce y solo se muestra en el navegador */
 function cargarFoto(archivo) {
-    const lector = new FileReader();
-    lector.onload = function (evento) {
-        const img = new Image();
-        img.onload = function () {
-            const escala = Math.min(1, 600 / Math.max(img.width, img.height));
-            const lienzo = document.createElement('canvas');
-            lienzo.width = Math.round(img.width * escala);
-            lienzo.height = Math.round(img.height * escala);
-            lienzo.getContext('2d').drawImage(img, 0, 0, lienzo.width, lienzo.height);
-            mostrarFoto(lienzo.toDataURL('image/jpeg', 0.8));
-        };
-        img.src = evento.target.result;
-    };
-    lector.readAsDataURL(archivo);
+    reducirFoto(archivo, mostrarFoto);
 }
 
 function mostrarFoto(ruta) {
@@ -173,15 +143,20 @@ function publicarProducto(e) {
     const primera = document.querySelector('#lista-publicaciones .publicacion-card');
     if (primera) primera.classList.add('publicacion-nueva');
 
-    // Mensaje de confirmación
-    kookAlerta({
+    // Mensaje de confirmación: se puede ir directo a "Mis publicaciones"
+    kookConfirmar({
         tipo: 'exito',
         titulo: 'Publicado (simulado)',
-        texto: 'Tu producto ya aparece en las publicaciones recientes de la comunidad.',
-        detalle: ((publicacion.nombre || '').trim() || 'Producto sin nombre'),
-        textoBoton: 'Ver mi publicación'
-    }).then(function () {
-        if (primera) primera.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        texto: 'Tu producto ya aparece en "Mis publicaciones" y en las publicaciones recientes de la comunidad.',
+        detalle: nombrePublicacion(publicacion),
+        textoConfirmar: 'Ver mis publicaciones',
+        textoCancelar: 'Publicar otro'
+    }).then(function (irAMisPublicaciones) {
+        if (irAMisPublicaciones) {
+            location.href = 'mis-publicaciones.html?nueva=' + encodeURIComponent(publicacion.id);
+        } else if (primera) {
+            primera.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     });
 
     // Se limpia el formulario para publicar otro

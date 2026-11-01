@@ -341,3 +341,37 @@
 @media (prefers-reduced-motion: reduce) {
     .publicacion-nueva { animation: none; }
 }
+
+
+/* ---------- Acceso a "Mis publicaciones" ---------- */
+.vender-mis-publicaciones {
+    max-width: 1100px;
+    margin: 0 auto 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    padding: 0.9rem 1.2rem;
+    border-radius: 18px;
+    background: white;
+    border: 1px solid #d9f5ec;
+    box-shadow: var(--sombra-suave);
+    font-size: 0.95rem;
+    color: var(--tinta);
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.vender-mis-publicaciones:hover { transform: translateY(-2px); border-color: #00b894; }
+
+.vender-mis-icono {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #effbf7;
+    font-size: 1.2rem;
+}
+
+.vender-mis-publicaciones strong { color: #00a07f; font-family: var(--fuente-titulos); font-size: 1.15rem; }
+.vender-mis-enlace { margin-left: auto; font-weight: 700; color: #00a07f; }

@@ -73,6 +73,13 @@
 
         <!-- FORMULARIO + VISTA PREVIA -->
         <section class="vender-seccion">
+            <!-- Acceso a "Mis publicaciones" (el número cambia al publicar) -->
+            <a href="mis-publicaciones.html" class="vender-mis-publicaciones" data-revelar>
+                <span class="vender-mis-icono">📦</span>
+                <span>Tienes <strong id="total-mis-publicaciones">0</strong> <span id="texto-mis-publicaciones">publicaciones activas</span></span>
+                <span class="vender-mis-enlace">Ver mis publicaciones →</span>
+            </a>
+
             <div class="vender-grid">
 
                 <form class="vender-form" id="form-vender" novalidate data-revelar>
@@ -145,6 +152,7 @@
                     <li><a href="campana.html">Campaña</a></li>
                     <li><a href="comunidad.html">Comunidad</a></li>
                     <li><a href="vender.html">Publica tu producto</a></li>
+                    <li><a href="mis-publicaciones.html">Mis publicaciones</a></li>
                 </ul>
             </div>
             <div class="footer-legal">
@@ -167,6 +175,7 @@
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
     <script src="../js/ui.js"></script>
+    <script src="../js/publicaciones-c2c.js"></script>
     <script src="../js/pagina-vender.js"></script>
 </body>
 

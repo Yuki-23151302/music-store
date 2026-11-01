@@ -123,6 +123,7 @@ function pintarPerfil(usuario) {
         '<a href="catalogo.html"><span>🛍️</span>Ir al catálogo</a>' +
         '<a href="carrito.html"><span>🛒</span>Mi carrito</a>' +
         '<a href="carrito.html#historial"><span>📦</span>Rastrear pedidos</a>' +
+        '<a href="mis-publicaciones.html"><span>🤝</span>Mis publicaciones</a>' +
         '</nav>' +
 
         '</div>' +

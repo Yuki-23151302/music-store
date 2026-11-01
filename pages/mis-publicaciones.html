@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis publicaciones | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Principal y Específico -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estilosmispublicaciones.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="campana.html">Campaña</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="vender.html">Vender</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         MIS PUBLICACIONES (MODELO C2C)
+         - Lista de productos que el usuario publicó en
+           "Publica tu producto" (pages/vender.html)
+         - Cada elemento tiene "Editar" y "Eliminar" (simulados)
+         Lógica en js/pagina-mis-publicaciones.js
+         ========================================================= -->
+    <main>
+
+        <!-- ENCABEZADO -->
+        <section class="mispub-hero">
+            <span class="hero-burbuja b1"></span>
+            <span class="hero-burbuja b2"></span>
+            <div class="mispub-hero-contenido" data-revelar>
+                <nav class="mispub-migas" aria-label="Ruta de navegación">
+                    <a href="vender.html">Vender</a><span>›</span><strong>Mis publicaciones</strong>
+                </nav>
+                <h1>Mis publicaciones</h1>
+                <p id="mispub-subtitulo">Administra los productos que publicaste para vender a otros fans.</p>
+            </div>
+        </section>
+
+        <!-- RESUMEN -->
+        <section class="mispub-resumen" data-revelar>
+            <div class="mispub-dato"><span>📦</span><div><strong id="dato-total">0</strong><small>Publicaciones</small></div></div>
+            <div class="mispub-dato"><span>💰</span><div><strong id="dato-valor">$0.00</strong><small>Valor total publicado</small></div></div>
+            <div class="mispub-dato"><span>🕒</span><div><strong id="dato-ultima">—</strong><small>Última publicación</small></div></div>
+            <a href="vender.html" class="btn-primario mispub-nuevo">+ Publicar otro</a>
+        </section>
+
+        <!-- LISTA -->
+        <section class="mispub-seccion">
+            <div class="mispub-lista" id="lista-mis-publicaciones">
+                <!-- Se llena con js/pagina-mis-publicaciones.js -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="comunidad.html">Comunidad</a></li>
+                    <li><a href="vender.html">Publica tu producto</a></li>
+                    <li><a href="mis-publicaciones.html">Mis publicaciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="../index.html#faq">Preguntas Frecuentes</a></li>
+                    <li><a href="terminos.html">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/datos-productos.js"></script>
+    <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/publicaciones-c2c.js"></script>
+    <script src="../js/pagina-mis-publicaciones.js"></script>
+</body>
+
+</html>
