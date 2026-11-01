@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subasta en vivo | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Principal y Específico -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estilossubasta.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="campana.html">Campaña</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="vender.html">Vender</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         SUBASTA SIMULADA (MODELO C2C)
+         - Información del producto que se subasta
+         - Temporizador de cuenta regresiva (simulado)
+         - Historial de ofertas previas (simulado) y formulario
+           para ofertar (simulado, sin cobros reales)
+         Lógica en js/pagina-subasta.js
+         ========================================================= -->
+    <main>
+
+        <!-- ENCABEZADO -->
+        <section class="subasta-hero">
+            <span class="hero-burbuja b1"></span>
+            <span class="hero-burbuja b2"></span>
+            <div class="subasta-hero-contenido" data-revelar>
+                <nav class="subasta-migas" aria-label="Ruta de navegación">
+                    <a href="vender.html">Vender</a><span>›</span><strong>Subasta</strong>
+                </nav>
+                <h1>Subasta en vivo</h1>
+                <p>Artículos únicos de fan a fan. Haz tu oferta antes de que termine el tiempo.</p>
+                <span class="subasta-chip" id="subasta-chip"><span class="punto-vivo"></span>EN VIVO · Simulada</span>
+            </div>
+        </section>
+
+        <section class="subasta-seccion">
+            <div class="subasta-grid">
+
+                <!-- GALERÍA -->
+                <div class="subasta-galeria" data-revelar>
+                    <div class="subasta-imagen">
+                        <img src="../assets/img/productos/albums/albumlyabts.jpg"
+                            alt="Love Yourself: Answer edición firmada" id="subasta-imagen">
+                        <span class="subasta-lote">Lote #024</span>
+                        <span class="subasta-sello">✍️ Edición firmada</span>
+                    </div>
+                    <div class="subasta-miniaturas">
+                        <span class="activa">💿 CD + Photobook</span>
+                        <span>🖊️ Firma de los 7 miembros</span>
+                        <span>📜 Certificado</span>
+                    </div>
+                </div>
+
+                <!-- PANEL: TEMPORIZADOR + OFERTA -->
+                <aside class="subasta-panel" id="subasta-panel" data-revelar style="--retraso: 0.1s">
+
+                    <div class="subasta-reloj" id="subasta-reloj">
+                        <p class="reloj-titulo" id="reloj-titulo">⏳ La subasta termina en</p>
+                        <div class="reloj-cajas" role="timer" aria-live="off">
+                            <div class="reloj-caja" id="caja-dias" hidden><strong id="reloj-dias">00</strong><small>días</small></div>
+                            <div class="reloj-caja"><strong id="reloj-horas">00</strong><small>horas</small></div>
+                            <span class="reloj-separador">:</span>
+                            <div class="reloj-caja"><strong id="reloj-minutos">00</strong><small>min</small></div>
+                            <span class="reloj-separador">:</span>
+                            <div class="reloj-caja"><strong id="reloj-segundos">00</strong><small>seg</small></div>
+                        </div>
+                        <div class="reloj-barra"><span id="reloj-progreso"></span></div>
+                        <p class="reloj-fin" id="reloj-fin">Cierra hoy</p>
+                    </div>
+
+                    <div class="subasta-precio">
+                        <div>
+                            <small id="texto-oferta-actual">Oferta actual</small>
+                            <strong id="oferta-actual">$0</strong>
+                        </div>
+                        <div class="subasta-precio-datos">
+                            <span><b id="total-ofertas">0</b> ofertas</span>
+                            <span><b id="total-postores">0</b> postores</span>
+                        </div>
+                    </div>
+                    <p class="subasta-lider" id="subasta-lider"></p>
+
+                    <!-- Formulario para ofertar (simulado, sin validaciones) -->
+                    <form class="subasta-form" id="form-oferta" novalidate>
+                        <label for="monto-oferta">Tu oferta (MXN) <small id="texto-minimo">Mínimo $0</small></label>
+                        <div class="campo-oferta">
+                            <span>$</span>
+                            <input type="number" id="monto-oferta" min="0" step="50" placeholder="0">
+                        </div>
+                        <div class="subasta-rapidas">
+                            <button type="button" data-sumar="50">+$50</button>
+                            <button type="button" data-sumar="100">+$100</button>
+                            <button type="button" data-sumar="250">+$250</button>
+                        </div>
+                        <button type="submit" class="btn-ofertar" id="btn-ofertar">🔨 Ofertar ahora</button>
+                    </form>
+
+                    <ul class="subasta-notas">
+                        <li>💡 Si nadie te supera cuando el reloj llegue a cero, ganas el artículo.</li>
+                        <li>⏱️ Una oferta en los últimos 2 minutos extiende la subasta 2 minutos.</li>
+                        <li>🔒 Simulación: no se hace ningún cargo.</li>
+                    </ul>
+
+                    <!-- Controles para la demostración -->
+                    <div class="subasta-demo">
+                        <span>Simulación:</span>
+                        <button type="button" id="btn-adelantar">⏩ Ir al último minuto</button>
+                        <button type="button" id="btn-reiniciar">↺ Reiniciar subasta</button>
+                    </div>
+                </aside>
+
+                <!-- INFORMACIÓN DEL PRODUCTO -->
+                <article class="subasta-info" data-revelar>
+                    <span class="subasta-grupo">BTS · ÁLBUM DE COLECCIÓN</span>
+                    <h2>Love Yourself: Answer — Edición firmada</h2>
+                    <p class="subasta-descripcion">
+                        Álbum recopilatorio de BTS en su versión S con las firmas de los siete miembros en el
+                        photobook. Se conservó en su caja original, lejos de la luz y la humedad. Incluye el CD,
+                        el photobook, el mini libro de notas, una photocard de Jungkook y el póster plegado.
+                    </p>
+                    <dl class="subasta-ficha">
+                        <div><dt>Estado</dt><dd>Como nuevo (9.5 / 10)</dd></div>
+                        <div><dt>Precio de salida</dt><dd id="precio-salida">$0</dd></div>
+                        <div><dt>Incremento mínimo</dt><dd id="incremento-minimo">$0</dd></div>
+                        <div><dt>Autenticidad</dt><dd>Certificado incluido</dd></div>
+                        <div><dt>Envío</dt><dd>Gratis a todo México</dd></div>
+                        <div><dt>Inició</dt><dd id="fecha-inicio">—</dd></div>
+                    </dl>
+                    <div class="subasta-vendedor">
+                        <span class="avatar-vendedor">AM</span>
+                        <div>
+                            <strong>ARMY_Monterrey</strong>
+                            <small>⭐ 4.9 · 38 ventas de fan a fan</small>
+                        </div>
+                        <span class="vendedor-verificado">✔ Verificado</span>
+                    </div>
+                </article>
+
+                <!-- HISTORIAL DE OFERTAS -->
+                <section class="subasta-historial" data-revelar>
+                    <div class="historial-encabezado">
+                        <h2>Historial de ofertas</h2>
+                        <span id="historial-resumen">0 ofertas</span>
+                    </div>
+                    <ol class="historial-lista" id="historial-lista">
+                        <!-- Se llena con js/pagina-subasta.js -->
+                    </ol>
+                </section>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="comunidad.html">Comunidad</a></li>
+                    <li><a href="vender.html">Publica tu producto</a></li>
+                    <li><a href="mis-publicaciones.html">Mis publicaciones</a></li>
+                    <li><a href="subasta.html">Subasta en vivo</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="../index.html#faq">Preguntas Frecuentes</a></li>
+                    <li><a href="terminos.html">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/datos-productos.js"></script>
+    <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/pagina-subasta.js"></script>
+</body>
+
+</html>

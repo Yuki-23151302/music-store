@@ -375,3 +375,11 @@
 
 .vender-mis-publicaciones strong { color: #00a07f; font-family: var(--fuente-titulos); font-size: 1.15rem; }
 .vender-mis-enlace { margin-left: auto; font-weight: 700; color: #00a07f; }
+
+/* Acceso a la subasta simulada */
+.vender-subasta { border-color: #ffe0ec; }
+.vender-subasta:hover { border-color: #ff6b9e; }
+.vender-subasta .vender-mis-icono { background: #fff0f6; }
+.vender-subasta strong, .vender-subasta .vender-mis-enlace { color: #e05586; }
+.vender-subasta strong { font-family: var(--fuente-textos); font-size: 0.95rem; }
+.vender-mis-publicaciones + .vender-subasta { margin-top: -0.6rem; }
