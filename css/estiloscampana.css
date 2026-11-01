@@ -1,0 +1,392 @@
+/* =========================================================
+   KOOKSTORE.MX - CAMPAÑA (ESCAPARATE DE MARKETING)
+   Producto destacado, beneficios, reseñas y llamado a la acción.
+   Usa las variables y utilidades de css/estilos.css
+   ========================================================= */
+
+/* ---------- 1. Hero / Producto destacado ---------- */
+.campana-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 4.5rem 5% 6.5rem;
+    color: white;
+    background: linear-gradient(135deg, #2d2346 0%, #6c5ce7 55%, #c86bfa 100%);
+}
+
+.campana-hero-grid {
+    position: relative;
+    z-index: 1;
+    max-width: 1150px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 3rem;
+}
+
+.campana-etiqueta {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.campana-hero h1 {
+    margin: 1rem 0 0.8rem;
+    font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+    line-height: 1.05;
+    color: white;
+}
+
+.campana-hero h1 span {
+    background: linear-gradient(90deg, #ffd1e3, #ff6b9e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.campana-hero-texto > p { font-size: 1.08rem; opacity: 0.92; max-width: 520px; }
+
+.campana-calificacion {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.95;
+}
+
+.campana-calificacion:hover { text-decoration: underline; }
+.campana-calificacion .estrellas { margin: 0; font-size: 1rem; }
+
+.campana-precio {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.9rem;
+    margin: 1.2rem 0 0.4rem;
+}
+
+.precio-antes { text-decoration: line-through; opacity: 0.6; font-size: 1.1rem; }
+.precio-ahora { font-family: var(--fuente-titulos); font-size: 2.6rem; font-weight: 700; line-height: 1; }
+.precio-ahora small { font-size: 0.9rem; font-weight: 500; opacity: 0.8; }
+
+.precio-ahorro {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: #22c55e;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.campana-cuenta {
+    display: inline-block;
+    margin: 0.3rem 0 0.5rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.14);
+    font-size: 0.88rem;
+}
+
+.campana-cuenta[hidden] { display: none; }
+
+.campana-cuenta strong { font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+
+.campana-acciones { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem; }
+
+.btn-cta {
+    padding: 1rem 2.4rem;
+    font-family: var(--fuente-textos);
+    font-size: 1.05rem;
+    background: linear-gradient(135deg, #ff6b9e 0%, #ff8f6b 100%);
+    box-shadow: 0 12px 30px rgba(255, 107, 158, 0.5);
+    animation: latido 2.4s ease-in-out infinite;
+}
+
+.btn-cta:hover { background: linear-gradient(135deg, #ff6b9e 0%, #ff8f6b 100%); transform: translateY(-2px); }
+.btn-cta:disabled { background: #9d97b3; box-shadow: none; animation: none; cursor: not-allowed; transform: none; }
+
+@keyframes latido {
+    0%, 100% { box-shadow: 0 12px 30px rgba(255, 107, 158, 0.5); }
+    50% { box-shadow: 0 12px 42px rgba(255, 107, 158, 0.85); }
+}
+
+.btn-contorno-claro {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.55);
+    color: white;
+}
+
+.btn-contorno-claro:hover { border-color: white; background: rgba(255, 255, 255, 0.1); }
+
+.campana-stock { margin-top: 0.9rem; font-size: 0.9rem; opacity: 0.92; }
+
+.campana-hero-imagen { position: relative; }
+
+.campana-hero-imagen img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 32px;
+    border: 6px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 30px 60px rgba(20, 10, 50, 0.4);
+    animation: flotar 7s ease-in-out infinite;
+}
+
+.campana-sello {
+    position: absolute;
+    z-index: 2;
+    top: -14px;
+    right: -14px;
+    width: 86px;
+    height: 86px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #ff6b9e;
+    font-family: var(--fuente-titulos);
+    font-size: 1.5rem;
+    font-weight: 700;
+    box-shadow: 0 10px 24px rgba(255, 107, 158, 0.5);
+    transform: rotate(12deg);
+}
+
+.campana-sello[hidden] { display: none; }
+
+.hero-burbuja {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: flotar 7s ease-in-out infinite;
+}
+
+.hero-burbuja.b1 { width: 260px; height: 260px; top: -90px; left: -60px; }
+.hero-burbuja.b2 { width: 170px; height: 170px; bottom: -60px; right: 40%; animation-delay: -3s; }
+.hero-burbuja.b3 { width: 80px; height: 80px; top: 20%; right: 4%; animation-delay: -5s; }
+
+/* ---------- 2. Beneficios (franja flotante) ---------- */
+.campana-beneficios {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: -3.2rem auto 0;
+    padding: 1.3rem 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    border-radius: 24px;
+    background: white;
+    box-shadow: var(--sombra-media);
+}
+
+.beneficio { display: flex; align-items: center; gap: 0.7rem; }
+
+.beneficio > span {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: var(--rosa-suave);
+    font-size: 1.2rem;
+}
+
+.beneficio strong { display: block; font-size: 0.9rem; color: var(--tinta); }
+.beneficio small { font-size: 0.78rem; color: var(--tinta-tenue); }
+
+/* ---------- 3. Qué incluye ---------- */
+.campana-incluye { padding: 5rem 5% 4rem; }
+
+.incluye-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+}
+
+.incluye-item {
+    padding: 1.6rem 1.3rem;
+    border-radius: 22px;
+    text-align: center;
+    background: white;
+    border: 1px solid #f0ebf8;
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.3s;
+}
+
+.incluye-item:hover { transform: translateY(-5px); }
+
+.incluye-item > span {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 0.8rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff0f6, #f1efff);
+    font-size: 1.6rem;
+}
+
+.incluye-item h3 { font-size: 1.1rem; color: var(--tinta); margin-bottom: 0.2rem; }
+.incluye-item p { font-size: 0.86rem; color: var(--tinta-tenue); }
+
+/* ---------- 4. Reseñas / testimonios ---------- */
+.resenas-seccion { padding: 4.5rem 5%; background: linear-gradient(180deg, #fdf7fb, #f7f5ff); }
+
+.resenas-contenido {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.resenas-resumen {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.8rem 1.5rem;
+    border-radius: 24px;
+    background: white;
+    box-shadow: var(--sombra-suave);
+    text-align: center;
+}
+
+.resumen-nota {
+    font-family: var(--fuente-titulos);
+    font-size: 3.4rem;
+    line-height: 1;
+    color: var(--tinta);
+}
+
+.resenas-resumen .estrellas { margin: 0.3rem 0; }
+.resenas-resumen small { color: var(--tinta-tenue); font-size: 0.82rem; }
+
+.resumen-barras { width: 100%; margin-top: 1.2rem; display: flex; flex-direction: column; gap: 0.45rem; }
+
+.resumen-barras li {
+    display: grid;
+    grid-template-columns: 34px 1fr 36px;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--tinta-tenue);
+}
+
+.barra { height: 8px; border-radius: 8px; background: #efe9fa; overflow: hidden; }
+.barra i { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, #ffb400, #ff8f6b); }
+
+.resenas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+
+.resena-tarjeta {
+    padding: 1.6rem;
+    border-radius: 24px;
+    background: white;
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.resena-tarjeta:hover { transform: translateY(-4px); box-shadow: var(--sombra-media); }
+
+.resena-cabecera { display: flex; align-items: center; gap: 0.9rem; }
+.resena-cabecera strong { display: block; color: var(--tinta); }
+.resena-cabecera small { color: var(--tinta-tenue); font-size: 0.8rem; }
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--avatar, var(--color-primario));
+    color: white;
+    font-family: var(--fuente-titulos);
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.resena-fila { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem 0.8rem; margin: 0.9rem 0 0.5rem; }
+
+.estrellas { color: #ffb400; font-size: 1.15rem; letter-spacing: 0.1em; }
+
+.verificada {
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.resena-tarjeta p { color: var(--tinta-tenue); font-size: 0.93rem; }
+
+.resenas-nota { max-width: 1150px; margin: 1.2rem auto 0; font-size: 0.75rem; color: var(--tinta-tenue); text-align: right; }
+
+/* ---------- 5. Llamado a la acción final ---------- */
+.campana-final { padding: 4rem 5% 5rem; }
+
+.campana-final-tarjeta {
+    position: relative;
+    overflow: hidden;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border-radius: 32px;
+    background: linear-gradient(135deg, #ff6b9e 0%, #ff8f6b 45%, #c86bfa 100%);
+    color: white;
+}
+
+.campana-final-tarjeta::after {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -60px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.campana-final-tarjeta > * { position: relative; z-index: 1; }
+.campana-final-tarjeta h2 { color: white; font-size: clamp(1.8rem, 3.2vw, 2.4rem); }
+.campana-final-tarjeta p { opacity: 0.92; }
+.campana-final-tarjeta .btn-blanco { border: none; font-family: var(--fuente-textos); font-size: 1rem; cursor: pointer; }
+.campana-final-tarjeta .btn-blanco:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+    .campana-hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .campana-hero-texto > p { margin: 0 auto; }
+    .campana-precio, .campana-acciones { justify-content: center; }
+    .campana-hero-imagen { max-width: 380px; margin: 0 auto; }
+    .campana-beneficios { grid-template-columns: repeat(2, 1fr); margin-left: 4%; margin-right: 4%; }
+    .incluye-grid { grid-template-columns: repeat(2, 1fr); }
+    .resenas-contenido { grid-template-columns: 1fr; }
+    .resenas-resumen { position: static; }
+    .campana-final-tarjeta { text-align: center; justify-content: center; padding: 2.5rem 1.8rem; }
+}
+
+@media (max-width: 640px) {
+    .campana-hero { padding-top: 3rem; }
+    .campana-beneficios, .incluye-grid, .resenas-grid { grid-template-columns: 1fr; }
+    .campana-sello { width: 70px; height: 70px; font-size: 1.2rem; right: -6px; }
+    .resenas-nota { text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btn-cta, .campana-hero-imagen img { animation: none; }
+}
