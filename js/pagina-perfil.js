@@ -123,7 +123,9 @@ function pintarPerfil(usuario) {
         '<a href="catalogo.html"><span>🛍️</span>Ir al catálogo</a>' +
         '<a href="carrito.html"><span>🛒</span>Mi carrito</a>' +
         '<a href="carrito.html#historial"><span>📦</span>Rastrear pedidos</a>' +
+        '<a href="vender.html"><span>📤</span>Publicar producto</a>' +
         '<a href="mis-publicaciones.html"><span>🤝</span>Mis publicaciones</a>' +
+        '<a href="subasta.html"><span>🔨</span>Subasta en vivo</a>' +
         '</nav>' +
 
         '</div>' +

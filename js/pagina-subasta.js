@@ -72,6 +72,7 @@ function leerSubasta() {
 
 function guardarSubasta(datos) {
     localStorage.setItem(CLAVE_SUBASTA, JSON.stringify(datos || subasta));
+    if (typeof pintarInsigniasC2C === 'function') pintarInsigniasC2C();
 }
 
 /* Ofertas de la más alta a la más baja */

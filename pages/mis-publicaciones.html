@@ -52,6 +52,29 @@
          ========================================================= -->
     <main>
 
+        <!-- SUBMENÚ DEL MERCADO DE FANS (C2C)
+             Es el mismo en Publicar producto, Mis publicaciones y
+             Subasta. js/navegacion-c2c.js marca la pestaña actual
+             y llena los contadores. -->
+        <nav class="c2c-subnav" aria-label="Mercado de fans">
+            <div class="c2c-subnav-contenido">
+                <span class="c2c-subnav-titulo">🛍️ Mercado de fans</span>
+                <div class="c2c-subnav-enlaces">
+                    <a href="vender.html" data-c2c="vender.html">
+                        <span class="c2c-icono">📤</span>Publicar producto
+                    </a>
+                    <a href="mis-publicaciones.html" data-c2c="mis-publicaciones.html">
+                        <span class="c2c-icono">📦</span>Mis publicaciones
+                        <span class="c2c-insignia" data-c2c-total>0</span>
+                    </a>
+                    <a href="subasta.html" data-c2c="subasta.html">
+                        <span class="c2c-icono">🔨</span>Subasta en vivo
+                        <span class="c2c-insignia vivo" data-c2c-subasta>En vivo</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
         <!-- ENCABEZADO -->
         <section class="mispub-hero">
             <span class="hero-burbuja b1"></span>
@@ -119,6 +142,7 @@
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
     <script src="../js/ui.js"></script>
+    <script src="../js/navegacion-c2c.js"></script>
     <script src="../js/publicaciones-c2c.js"></script>
     <script src="../js/pagina-mis-publicaciones.js"></script>
 </body>

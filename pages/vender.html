@@ -53,6 +53,29 @@
          ========================================================= -->
     <main>
 
+        <!-- SUBMENÚ DEL MERCADO DE FANS (C2C)
+             Es el mismo en Publicar producto, Mis publicaciones y
+             Subasta. js/navegacion-c2c.js marca la pestaña actual
+             y llena los contadores. -->
+        <nav class="c2c-subnav" aria-label="Mercado de fans">
+            <div class="c2c-subnav-contenido">
+                <span class="c2c-subnav-titulo">🛍️ Mercado de fans</span>
+                <div class="c2c-subnav-enlaces">
+                    <a href="vender.html" data-c2c="vender.html">
+                        <span class="c2c-icono">📤</span>Publicar producto
+                    </a>
+                    <a href="mis-publicaciones.html" data-c2c="mis-publicaciones.html">
+                        <span class="c2c-icono">📦</span>Mis publicaciones
+                        <span class="c2c-insignia" data-c2c-total>0</span>
+                    </a>
+                    <a href="subasta.html" data-c2c="subasta.html">
+                        <span class="c2c-icono">🔨</span>Subasta en vivo
+                        <span class="c2c-insignia vivo" data-c2c-subasta>En vivo</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
         <!-- ENCABEZADO -->
         <section class="vender-hero">
             <span class="hero-burbuja b1"></span>
@@ -78,13 +101,6 @@
                 <span class="vender-mis-icono">📦</span>
                 <span>Tienes <strong id="total-mis-publicaciones">0</strong> <span id="texto-mis-publicaciones">publicaciones activas</span></span>
                 <span class="vender-mis-enlace">Ver mis publicaciones →</span>
-            </a>
-
-            <!-- Acceso a la subasta simulada -->
-            <a href="subasta.html" class="vender-mis-publicaciones vender-subasta" data-revelar>
-                <span class="vender-mis-icono">🔨</span>
-                <span><strong>Subasta en vivo:</strong> Love Yourself: Answer firmado</span>
-                <span class="vender-mis-enlace">Ir a la subasta →</span>
             </a>
 
             <div class="vender-grid">
@@ -155,12 +171,10 @@
                 <h4>Enlaces Rápidos</h4>
                 <ul>
                     <li><a href="catalogo.html">Catálogo</a></li>
-                    <li><a href="promociones.html">Promociones</a></li>
-                    <li><a href="campana.html">Campaña</a></li>
                     <li><a href="comunidad.html">Comunidad</a></li>
                     <li><a href="vender.html">Publica tu producto</a></li>
-                    <li><a href="subasta.html">Subasta en vivo</a></li>
                     <li><a href="mis-publicaciones.html">Mis publicaciones</a></li>
+                    <li><a href="subasta.html">Subasta en vivo</a></li>
                 </ul>
             </div>
             <div class="footer-legal">
@@ -183,6 +197,7 @@
     <script src="../js/carrito.js"></script>
     <script src="../js/datos-demo.js"></script>
     <script src="../js/ui.js"></script>
+    <script src="../js/navegacion-c2c.js"></script>
     <script src="../js/publicaciones-c2c.js"></script>
     <script src="../js/pagina-vender.js"></script>
 </body>

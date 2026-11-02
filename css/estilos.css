@@ -1559,3 +1559,108 @@ ul {
 
 .texto-legal a { color: var(--color-primario); font-weight: 600; }
 .texto-legal a:hover { text-decoration: underline; }
+
+/* =========================================================
+   SUBMENÚ "MERCADO DE FANS" (C2C)
+   Publicar producto · Mis publicaciones · Subasta en vivo
+   (lógica en js/navegacion-c2c.js)
+   ========================================================= */
+.c2c-subnav {
+    background: white;
+    border-bottom: 1px solid #f0ebf8;
+    box-shadow: 0 6px 18px rgba(108, 92, 231, 0.06);
+}
+
+.c2c-subnav-contenido {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 0.65rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.c2c-subnav-titulo {
+    font-family: var(--fuente-titulos);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--tinta);
+    white-space: nowrap;
+}
+
+.c2c-subnav-enlaces {
+    display: flex;
+    gap: 0.45rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.c2c-subnav-enlaces::-webkit-scrollbar { display: none; }
+
+.c2c-subnav-enlaces a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.5rem 0.95rem;
+    border-radius: 999px;
+    border: 1.5px solid #eee8f8;
+    background: #faf8ff;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--tinta);
+    white-space: nowrap;
+    transition: border-color 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.c2c-subnav-enlaces a:hover { border-color: #c9bff5; background: #f1efff; transform: translateY(-1px); }
+
+.c2c-subnav-enlaces a.activo {
+    border-color: transparent;
+    background: var(--degradado-marca);
+    color: white;
+    box-shadow: 0 6px 16px rgba(255, 107, 158, 0.25);
+}
+
+.c2c-icono { font-size: 1rem; line-height: 1; }
+
+.c2c-insignia {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 22px;
+    padding: 0.08rem 0.5rem;
+    border-radius: 999px;
+    background: #ece8fb;
+    color: #6c5ce7;
+    font-size: 0.72rem;
+    font-weight: 700;
+    justify-content: center;
+}
+
+.c2c-insignia.vivo { background: #ffe4ea; color: #e11d48; }
+.c2c-insignia.vivo::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+.c2c-subnav-enlaces a.activo .c2c-insignia { background: rgba(255, 255, 255, 0.25); color: white; }
+
+/* En celular: tres pestañas compactas, siempre visibles */
+@media (max-width: 760px) {
+    .c2c-subnav-contenido { flex-direction: column; align-items: stretch; gap: 0.45rem; padding: 0.6rem 4%; }
+    .c2c-subnav-titulo { font-size: 0.92rem; text-align: center; }
+    .c2c-subnav-enlaces { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; }
+
+    .c2c-subnav-enlaces a {
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.2rem;
+        padding: 0.5rem 0.25rem;
+        border-radius: 14px;
+        font-size: 0.74rem;
+        line-height: 1.2;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .c2c-icono { font-size: 1.15rem; }
+    .c2c-insignia { font-size: 0.66rem; padding: 0.05rem 0.45rem; }
+}

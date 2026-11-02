@@ -54,6 +54,7 @@ function guardarPublicaciones(lista) {
         if (conFoto) conFoto.foto = '';
         localStorage.setItem(CLAVE_PUBLICACIONES, JSON.stringify(lista));
     }
+    if (typeof pintarInsigniasC2C === 'function') pintarInsigniasC2C();
 }
 
 /* Solo las publicaciones de quien tiene la sesión (o del invitado) */

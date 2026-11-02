@@ -210,3 +210,42 @@
 
 /* Comentario publicado sin texto */
 .comentario p.comentario-vacio { font-style: italic; color: var(--tinta-tenue); }
+
+/* ---------- Acceso al Mercado de fans (C2C) ---------- */
+.comunidad-mercado {
+    max-width: 1150px;
+    margin: 1.8rem auto 0;
+    padding: 1.3rem 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #f1efff, #fff0f6);
+    box-shadow: var(--sombra-suave);
+}
+
+.comunidad-mercado h3 { font-size: 1.15rem; color: var(--tinta); }
+.comunidad-mercado p { margin-top: 0.15rem; font-size: 0.88rem; color: var(--tinta-tenue); }
+
+.comunidad-mercado-enlaces { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.comunidad-mercado-enlaces a {
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    background: white;
+    border: 1.5px solid #eee8f8;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--tinta);
+    transition: border-color 0.2s, transform 0.2s, color 0.2s;
+}
+
+.comunidad-mercado-enlaces a:hover { border-color: #6c5ce7; color: #6c5ce7; transform: translateY(-2px); }
+
+@media (max-width: 640px) {
+    .comunidad-mercado { padding: 1.2rem; }
+    .comunidad-mercado-enlaces { width: 100%; flex-direction: column; }
+    .comunidad-mercado-enlaces a { text-align: center; }
+}

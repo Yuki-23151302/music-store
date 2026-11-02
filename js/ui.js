@@ -21,7 +21,13 @@ function iniciarEncabezado() {
     alDesplazar();
 
     // Enlace activo según el archivo actual (index.html, catalogo.html, ...)
-    const archivo = location.pathname.split('/').pop() || 'index.html';
+    // Las subpáginas de una sección marcan el enlace de su sección
+    const SECCION_PADRE = {
+        'mis-publicaciones.html': 'vender.html',
+        'subasta.html': 'vender.html'
+    };
+    const actual = location.pathname.split('/').pop() || 'index.html';
+    const archivo = SECCION_PADRE[actual] || actual;
     header.querySelectorAll('.nav-principal a').forEach(function (enlace) {
         enlace.removeAttribute('style');
         const destino = enlace.getAttribute('href').split('/').pop().split('#')[0];
