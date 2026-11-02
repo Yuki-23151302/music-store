@@ -5,9 +5,11 @@
      guarda en localStorage, así no se reinicia al recargar.
    - Historial de ofertas previas (simulado) con la oferta más
      alta resaltada.
-   - "Ofertar ahora" agrega tu oferta al historial. Sin
-     validaciones: si el monto está vacío o es menor al mínimo,
-     se usa el mínimo.
+   - Campo "Hacer oferta" + botón "Ofertar". SIN validaciones:
+     funciona con o sin texto, muestra "Oferta registrada
+     (simulada)" y la oferta aparece al instante en la lista.
+     Si el texto está vacío, no es un número o es menor al
+     mínimo, se registra el mínimo para que quede arriba.
    - Cada cierto tiempo otro fan (simulado) puede superarte.
    - Una oferta en los últimos 2 minutos extiende la subasta.
 
@@ -189,7 +191,7 @@ function pintarPanel() {
     document.getElementById('total-ofertas').textContent = subasta.ofertas.length;
     document.getElementById('total-postores').textContent = postores;
     document.getElementById('texto-minimo').textContent = 'Mínimo ' + pesos(montoMinimo());
-    document.getElementById('monto-oferta').placeholder = montoMinimo();
+    document.getElementById('monto-oferta').placeholder = 'Escribe tu oferta, ej. ' + montoMinimo();
 
     const lider = document.getElementById('subasta-lider');
     lider.className = 'subasta-lider';
@@ -208,10 +210,7 @@ function pintarPanel() {
         lider.textContent = 'Va ganando ' + alta.nombre;
     }
 
-    // Al terminar se bloquea el formulario
-    document.getElementById('form-oferta').classList.toggle('bloqueado', terminada);
-    document.querySelectorAll('#form-oferta input, #form-oferta button').forEach(el => { el.disabled = terminada; });
-    document.getElementById('btn-ofertar').textContent = terminada ? 'Subasta cerrada' : '🔨 Ofertar ahora';
+    // "Ofertar" nunca se bloquea (sin validaciones), ni al terminar
     document.getElementById('btn-adelantar').disabled = terminada;
 
     const chip = document.getElementById('subasta-chip');
@@ -281,10 +280,12 @@ function registrarOferta(nombre, monto, tuya) {
     const oferta = { nombre: nombre, monto: monto, fecha: new Date().toISOString(), tuya: tuya };
     subasta.ofertas.push(oferta);
 
-    // Antisniping: en los últimos 2 minutos la subasta se extiende
+    // Antisniping: en los últimos 2 minutos (o ya cerrada) la subasta
+    // se extiende 2 minutos
     let extendida = false;
     if (tiempoRestante() < EXTENSION_FINAL) {
         subasta.fin = new Date(Date.now() + EXTENSION_FINAL).toISOString();
+        subasta.avisoFinal = false;
         extendida = true;
     }
 
@@ -293,32 +294,54 @@ function registrarOferta(nombre, monto, tuya) {
     return extendida;
 }
 
+/* Convierte lo escrito en el campo a número ("$2,500" -> 2500).
+   Si no hay un número devuelve 0. */
+function montoEscrito(texto) {
+    const numero = Number(String(texto).replace(/[^0-9.]/g, ''));
+    return isFinite(numero) ? numero : 0;
+}
+
+/* Botón "Ofertar": SIN validaciones, funciona con o sin texto */
 function ofertar(e) {
     e.preventDefault();
-    if (subastaTerminada()) return;
 
     const campo = document.getElementById('monto-oferta');
-    const escrito = Number(campo.value);
+    const escrito = montoEscrito(campo.value);
     const minimo = montoMinimo();
-    const ajustada = !(escrito >= minimo);
+    const ajustada = escrito < minimo;
     const monto = ajustada ? minimo : escrito;
+    const estabaCerrada = subastaTerminada();
 
     const extendida = registrarOferta(miNombre(), monto, true);
     campo.value = '';
+    mostrarOfertaNueva();
 
     kookToast(
-        (ajustada ? 'Se registró el mínimo de ' : 'Ofertaste ') + pesos(monto) + '. Vas ganando.' +
-        (extendida ? ' La subasta se extendió 2 minutos.' : ''),
+        (ajustada ? 'Se registró el mínimo de ' : 'Ofertaste ') + pesos(monto) + '. Ya aparece en la lista de ofertas.' +
+        (estabaCerrada ? ' La subasta se reabrió 2 minutos.' : extendida ? ' La subasta se extendió 2 minutos.' : ''),
         'exito',
-        'Oferta registrada (simulado)'
+        'Oferta registrada (simulada)'
     );
     programarRival(6000 + Math.random() * 6000);
+}
+
+/* Lleva la vista a la oferta recién agregada en el historial */
+function mostrarOfertaNueva() {
+    const lista = document.getElementById('historial-lista');
+    lista.scrollTop = 0;
+    const nueva = lista.querySelector('.historial-item.nueva');
+    if (!nueva) return;
+    const caja = nueva.getBoundingClientRect();
+    if (caja.top < 80 || caja.top > window.innerHeight * 0.65) {
+        nueva.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 }
 
 /* Botones +$50 / +$100 / +$250 sobre la oferta actual */
 function sumarRapido(cantidad) {
     const campo = document.getElementById('monto-oferta');
-    const base = Number(campo.value) >= montoMinimo() ? Number(campo.value) : montoActual();
+    const escrito = montoEscrito(campo.value);
+    const base = escrito >= montoMinimo() ? escrito : montoActual();
     campo.value = base + cantidad;
     campo.focus();
 }

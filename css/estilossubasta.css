@@ -289,6 +289,8 @@
 
 .campo-oferta span { padding-left: 1rem; font-weight: 700; color: var(--tinta-tenue); }
 
+.campo-oferta input::placeholder { font-family: var(--fuente-textos); font-size: 0.95rem; color: #b1a9c9; }
+
 .campo-oferta input {
     flex: 1;
     min-width: 0;
@@ -316,7 +318,7 @@
     transition: all 0.2s;
 }
 
-.subasta-rapidas button:hover:not(:disabled) { border-color: #6c5ce7; background: #f1efff; }
+.subasta-rapidas button:hover { border-color: #6c5ce7; background: #f1efff; }
 
 .btn-ofertar {
     width: 100%;
@@ -333,11 +335,8 @@
     transition: transform 0.2s, filter 0.2s;
 }
 
-.btn-ofertar:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.05); }
+.btn-ofertar:hover { transform: translateY(-2px); filter: brightness(1.05); }
 
-.subasta-form.bloqueado { opacity: 0.6; }
-.subasta-form button:disabled, .subasta-form input:disabled { cursor: not-allowed; }
-.subasta-form.bloqueado .btn-ofertar { background: #b8b3cc; box-shadow: none; }
 
 .subasta-notas {
     margin-top: 1rem;

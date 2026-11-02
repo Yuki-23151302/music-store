@@ -114,19 +114,21 @@
                     </div>
                     <p class="subasta-lider" id="subasta-lider"></p>
 
-                    <!-- Formulario para ofertar (simulado, sin validaciones) -->
+                    <!-- Hacer oferta (simulado, SIN validaciones):
+                         "Ofertar" funciona con o sin texto en el campo -->
                     <form class="subasta-form" id="form-oferta" novalidate>
-                        <label for="monto-oferta">Tu oferta (MXN) <small id="texto-minimo">Mínimo $0</small></label>
+                        <label for="monto-oferta">Hacer oferta <small id="texto-minimo">Mínimo $0</small></label>
                         <div class="campo-oferta">
                             <span>$</span>
-                            <input type="number" id="monto-oferta" min="0" step="50" placeholder="0">
+                            <input type="text" id="monto-oferta" inputmode="decimal" autocomplete="off"
+                                placeholder="Escribe tu oferta">
                         </div>
                         <div class="subasta-rapidas">
                             <button type="button" data-sumar="50">+$50</button>
                             <button type="button" data-sumar="100">+$100</button>
                             <button type="button" data-sumar="250">+$250</button>
                         </div>
-                        <button type="submit" class="btn-ofertar" id="btn-ofertar">🔨 Ofertar ahora</button>
+                        <button type="submit" class="btn-ofertar" id="btn-ofertar">🔨 Ofertar</button>
                     </form>
 
                     <ul class="subasta-notas">
