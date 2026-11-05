@@ -10,40 +10,15 @@
    - Al publicar aparece "Publicado (simulado)" y la publicación
      se agrega a "Mis publicaciones" (pages/mis-publicaciones.html)
      y al inicio de "Publicaciones recientes".
+   - Cada tarjeta de "Publicaciones recientes" se puede cliquear
+     (completa o con "Ver detalles") y abre su detalle en
+     pages/publicacion.html?id=ID, igual que el catálogo.
    - Los datos son compartidos con "Mis publicaciones" a través
      de js/publicaciones-c2c.js.
 
    Necesita: notificaciones.js, sesion.js, carrito.js y
    publicaciones-c2c.js
    ========================================================= */
-
-/* Publicaciones de ejemplo (simuladas) */
-const PUBLICACIONES_EJEMPLO = [
-    {
-        nombre: 'Photocard Jimin - Map of the Soul',
-        precio: 180,
-        descripcion: 'Original, en perfecto estado. Siempre guardada en funda.',
-        foto: '../assets/img/productos/albums/albumlyabts.jpg',
-        vendedor: 'Karla Army',
-        fecha: new Date(2026, 9, 30, 18, 20).toISOString()
-    },
-    {
-        nombre: 'Peluche SKZOO Leebit',
-        precio: 250,
-        descripcion: 'Con etiqueta, solo se exhibió en repisa.',
-        foto: '../assets/img/productos/peluches/skzoomini.jpg',
-        vendedor: 'Diego STAY',
-        fecha: new Date(2026, 9, 29, 12, 5).toISOString()
-    },
-    {
-        nombre: 'Lightstick Candy Bong Z',
-        precio: 1100,
-        descripcion: 'Funciona perfecto, incluye caja y correa.',
-        foto: '../assets/img/productos/lightsticks/candybong.jpg',
-        vendedor: 'Fer Once',
-        fecha: new Date(2026, 9, 27, 20, 40).toISOString()
-    }
-];
 
 /* ---------------------------------------------------------
    TARJETA DE PUBLICACIÓN (lista y vista previa)
@@ -71,6 +46,8 @@ function htmlPublicacion(pub, esPreview) {
         '<span class="publicacion-vendedor">👤 ' + escaparHTML(pub.vendedor || 'Fan anónimo') + '</span>' +
         '<span>' + fecha + '</span>' +
         '</div>' +
+        // La vista previa del formulario no lleva enlace
+        (esPreview ? '' : '<a href="' + urlPublicacion(pub) + '" class="publicacion-ver">Ver detalles →</a>') +
         '</div>';
 }
 
@@ -85,9 +62,26 @@ function pintarResumenMisPublicaciones() {
 function pintarPublicaciones() {
     pintarResumenMisPublicaciones();
     const lista = document.getElementById('lista-publicaciones');
-    lista.innerHTML = leerPublicaciones().concat(PUBLICACIONES_EJEMPLO)
-        .map(pub => '<article class="publicacion-card">' + htmlPublicacion(pub, false) + '</article>')
+    lista.innerHTML = todasLasPublicaciones()
+        .map(pub => '' +
+            '<article class="publicacion-card publicacion-clic" data-url="' + urlPublicacion(pub) + '"' +
+            ' tabindex="0" role="link" aria-label="Ver detalles de ' + escaparHTML(nombrePublicacion(pub)) + '">' +
+            htmlPublicacion(pub, false) +
+            '</article>')
         .join('');
+}
+
+/* Abre el detalle al hacer clic en cualquier parte de la tarjeta
+   (o con Enter/Espacio si se llegó con el teclado) */
+function abrirDetalleDesdeTarjeta(e) {
+    const tarjeta = e.target.closest('.publicacion-clic');
+    if (!tarjeta) return;
+    if (e.type === 'keydown') {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+    }
+    if (e.target.closest('a')) return;   // el enlace "Ver detalles" ya navega solo
+    location.href = tarjeta.dataset.url;
 }
 
 /* ---------------------------------------------------------
@@ -167,6 +161,11 @@ function publicarProducto(e) {
 document.addEventListener('DOMContentLoaded', function () {
     pintarPublicaciones();
     actualizarVistaPrevia();
+
+    // Tarjetas de "Publicaciones recientes" -> detalle
+    const lista = document.getElementById('lista-publicaciones');
+    lista.addEventListener('click', abrirDetalleDesdeTarjeta);
+    lista.addEventListener('keydown', abrirDetalleDesdeTarjeta);
 
     const formulario = document.getElementById('form-vender');
     formulario.addEventListener('submit', publicarProducto);

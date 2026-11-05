@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la publicación | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <!-- Mismos estilos que la ficha del catálogo (etiquetas, ficha y relacionados) -->
+    <link rel="stylesheet" href="../css/estiloscatalogo.css">
+    <link rel="stylesheet" href="../css/estilosdetalle.css">
+    <!-- Detalles propios de una publicación de fan a fan -->
+    <link rel="stylesheet" href="../css/estilospublicacion.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="campana.html">Campaña</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="vender.html">Vender</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         DETALLE DE UNA PUBLICACIÓN (MODELO C2C)
+         Se abre desde las tarjetas de "Publicaciones recientes"
+         (pages/vender.html) y desde "Mis publicaciones":
+             publicacion.html?id=ID_DE_LA_PUBLICACION
+         Lógica en js/pagina-publicacion.js
+         ========================================================= -->
+    <main>
+
+        <!-- SUBMENÚ DEL MERCADO DE FANS (C2C) -->
+        <nav class="c2c-subnav" aria-label="Mercado de fans">
+            <div class="c2c-subnav-contenido">
+                <span class="c2c-subnav-titulo">🛍️ Mercado de fans</span>
+                <div class="c2c-subnav-enlaces">
+                    <a href="vender.html" data-c2c="vender.html">
+                        <span class="c2c-icono">📤</span>Publicar producto
+                    </a>
+                    <a href="mis-publicaciones.html" data-c2c="mis-publicaciones.html">
+                        <span class="c2c-icono">📦</span>Mis publicaciones
+                        <span class="c2c-insignia" data-c2c-total>0</span>
+                    </a>
+                    <a href="subasta.html" data-c2c="subasta.html">
+                        <span class="c2c-icono">🔨</span>Subasta en vivo
+                        <span class="c2c-insignia vivo" data-c2c-subasta>En vivo</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="detalle-main">
+
+            <!-- REGRESO A LAS PUBLICACIONES -->
+            <div class="detalle-migas">
+                <a href="vender.html#lista-publicaciones">&larr; Volver a publicaciones</a>
+            </div>
+
+            <!-- AQUÍ SE DIBUJA LA PUBLICACIÓN ELEGIDA -->
+            <div id="detalle-publicacion"></div>
+
+            <!-- MÁS PUBLICACIONES DE FANS -->
+            <section class="relacionados" id="seccion-relacionados" hidden>
+                <div class="carrusel-cabecera">
+                    <div class="seccion-encabezado">
+                        <span class="etiqueta-seccion">🛍️ Mercado de fans</span>
+                        <h2>Más publicaciones de fans</h2>
+                        <p>Otros artículos que la comunidad está vendiendo.</p>
+                    </div>
+                    <div class="carrusel-controles">
+                        <button type="button" class="carrusel-flecha" data-direccion="-1" aria-label="Anteriores">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <button type="button" class="carrusel-flecha" data-direccion="1" aria-label="Siguientes">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="carrusel" id="carrusel-relacionados" data-autoplay="no" tabindex="0" aria-roledescription="carrusel" aria-label="Más publicaciones de fans">
+                    <div class="carrusel-pista" id="pista-relacionados"></div>
+                    <div class="carrusel-puntos"></div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="comunidad.html">Comunidad</a></li>
+                    <li><a href="vender.html">Publica tu producto</a></li>
+                    <li><a href="mis-publicaciones.html">Mis publicaciones</a></li>
+                    <li><a href="subasta.html">Subasta en vivo</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="../index.html#faq">Preguntas Frecuentes</a></li>
+                    <li><a href="terminos.html">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/datos-productos.js"></script>
+    <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/navegacion-c2c.js"></script>
+    <script src="../js/publicaciones-c2c.js"></script>
+    <script src="../js/pagina-publicacion.js"></script>
+</body>
+
+</html>

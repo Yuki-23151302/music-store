@@ -52,8 +52,10 @@ function iniciarSubmenuC2C() {
     const menu = document.querySelector('.c2c-subnav');
     if (!menu) return;
 
-    // Pestaña activa según el archivo actual
-    const archivo = location.pathname.split('/').pop();
+    // Pestaña activa según el archivo actual (el detalle de una
+    // publicación cuenta como "Publicar producto")
+    const actual = location.pathname.split('/').pop();
+    const archivo = actual === 'publicacion.html' ? 'vender.html' : actual;
     menu.querySelectorAll('[data-c2c]').forEach(function (enlace) {
         const activo = enlace.dataset.c2c === archivo;
         enlace.classList.toggle('activo', activo);

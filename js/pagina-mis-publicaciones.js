@@ -41,13 +41,13 @@ function htmlElementoVista(pub) {
         : '';
 
     return '' +
-        '<div class="mispub-foto' + (pub.foto ? '' : ' sin-foto') + '">' +
+        '<a href="' + urlPublicacion(pub) + '" class="mispub-foto' + (pub.foto ? '' : ' sin-foto') + '" title="Ver publicación">' +
         '<img src="' + escaparHTML(fotoPublicacion(pub)) + '" alt="' + escaparHTML(nombrePublicacion(pub)) + '"' +
         ' onerror="this.onerror=null; this.src=\'../assets/img/logo.png\'">' +
-        '</div>' +
+        '</a>' +
         '<div class="mispub-info">' +
         '<div class="mispub-fila">' +
-        '<h3>' + escaparHTML(nombrePublicacion(pub)) + '</h3>' +
+        '<h3><a href="' + urlPublicacion(pub) + '" class="mispub-titulo">' + escaparHTML(nombrePublicacion(pub)) + '</a></h3>' +
         '<span class="mispub-estado">● Activa</span>' +
         '</div>' +
         '<p class="mispub-precio">' + precioPublicacion(pub) + '</p>' +

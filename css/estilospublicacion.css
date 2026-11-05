@@ -1,0 +1,96 @@
+/* =========================================================
+   KOOKSTORE.MX - DETALLE DE UNA PUBLICACIÓN (C2C)
+   La base es la ficha del catálogo (css/estilosdetalle.css);
+   aquí solo va lo propio de una publicación de fan a fan.
+   ========================================================= */
+
+/* El submenú C2C ocupa todo el ancho; la ficha va centrada */
+.detalle-main { padding-top: 2rem; }
+
+/* ---------- Foto ---------- */
+.pub-imagen {
+    position: relative;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #effbf7, #f1efff);
+}
+
+.pub-imagen img { height: 100%; }
+.pub-imagen.sin-foto img { object-fit: contain; padding: 22%; opacity: 0.55; }
+
+.pub-sello {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    color: #00a07f;
+    font-size: 0.78rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Información ---------- */
+.pub-etiqueta { color: #00a07f; }
+.pub-detalle h1 { overflow-wrap: anywhere; }
+.pub-precio { color: #00a07f; }
+
+.pub-ficha {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin: 0 0 1.2rem;
+}
+
+.pub-ficha div { padding: 0.65rem 0.85rem; border-radius: 12px; background: #f7f5fd; }
+.pub-ficha dt { font-size: 0.72rem; color: var(--tinta-tenue); }
+.pub-ficha dd { margin: 0.1rem 0 0; font-size: 0.88rem; font-weight: 600; color: var(--tinta); }
+.pub-disponible { color: #15803d; }
+
+.pub-vendedor {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    border: 1px solid #f0ebf8;
+}
+
+.pub-avatar {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00b894, #6c5ce7);
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.pub-vendedor strong { display: block; color: var(--tinta); }
+.pub-vendedor small { font-size: 0.8rem; color: var(--tinta-tenue); }
+
+/* ---------- Acciones ---------- */
+.pub-btn { display: block; margin-bottom: 0.6rem; }
+
+.pub-aviso-dueno {
+    margin-bottom: 0.7rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 12px;
+    background: #f1efff;
+    color: #6c5ce7;
+    font-size: 0.86rem;
+    font-weight: 600;
+}
+
+.pub-nota { margin-bottom: 1rem; font-size: 0.78rem; text-align: center; color: var(--tinta-tenue); }
+
+/* ---------- Carrusel de más publicaciones ---------- */
+.pub-slide-sin-foto img { object-fit: contain; padding: 18%; opacity: 0.55; }
+
+@media (max-width: 560px) {
+    .pub-ficha { grid-template-columns: 1fr; }
+}

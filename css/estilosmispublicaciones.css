@@ -121,6 +121,11 @@
 
 .mispub-info { min-width: 0; }
 
+/* El título y la foto abren el detalle de la publicación */
+a.mispub-foto { display: block; }
+.mispub-titulo { color: inherit; transition: color 0.2s; }
+.mispub-titulo:hover { color: #6c5ce7; text-decoration: underline; }
+
 .mispub-fila { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
 .mispub-info h3 { font-size: 1.2rem; line-height: 1.25; color: var(--tinta); overflow-wrap: anywhere; }
 

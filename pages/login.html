@@ -159,7 +159,12 @@
                     fusionarCarritoInvitado();
                 }
                 
-                window.location.href = 'perfil.html';
+                // Si llegó desde otra página (ej. "Dejar mi reseña" en Campaña)
+                // regresa ahí; solo se aceptan páginas de la propia tienda
+                const volver = new URLSearchParams(location.search).get('volver');
+                window.location.href = volver && /^[a-z0-9-]+\.html([?#][\w=&#-]*)?$/i.test(volver)
+                    ? volver
+                    : 'perfil.html';
             }
         });
     </script>

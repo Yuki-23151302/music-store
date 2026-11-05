@@ -24,7 +24,8 @@ function iniciarEncabezado() {
     // Las subpáginas de una sección marcan el enlace de su sección
     const SECCION_PADRE = {
         'mis-publicaciones.html': 'vender.html',
-        'subasta.html': 'vender.html'
+        'subasta.html': 'vender.html',
+        'publicacion.html': 'vender.html'
     };
     const actual = location.pathname.split('/').pop() || 'index.html';
     const archivo = SECCION_PADRE[actual] || actual;

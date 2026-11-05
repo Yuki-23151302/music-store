@@ -69,8 +69,8 @@
                         sincronízalo con el escenario y vive el show como nunca.</p>
 
                     <a href="#resenas" class="campana-calificacion">
-                        <span class="estrellas">★★★★★</span>
-                        <strong>4.9</strong> · <span id="total-resenas">128</span> reseñas
+                        <span class="estrellas" id="hero-estrellas">★★★★★</span>
+                        <strong id="hero-nota">4.9</strong> · <span id="total-resenas">128</span> reseñas
                     </a>
 
                     <!-- Precio real del catálogo (con oferta si el Admin creó una) -->
@@ -115,7 +115,12 @@
             </div>
         </section>
 
-        <!-- 4. RESEÑAS / TESTIMONIOS (SIMULADOS) -->
+        <!-- 4. RESEÑAS / TESTIMONIOS
+             - Las tarjetas de abajo son reseñas simuladas.
+             - "Dejar mi reseña" abre un formulario (solo con sesión
+               iniciada). La reseña se guarda en localStorage y el
+               promedio, el total y las barras se recalculan.
+             Lógica en js/resenas-campana.js -->
         <section class="resenas-seccion" id="resenas">
             <div class="seccion-encabezado" data-revelar>
                 <span class="etiqueta-seccion">💜 Lo que dicen nuestros clientes</span>
@@ -126,20 +131,23 @@
             <div class="resenas-contenido">
                 <!-- Resumen de calificaciones -->
                 <aside class="resenas-resumen" data-revelar>
-                    <strong class="resumen-nota">4.9</strong>
-                    <span class="estrellas">★★★★★</span>
-                    <small>Basado en 128 reseñas</small>
-                    <ul class="resumen-barras">
+                    <strong class="resumen-nota" id="resumen-nota">4.9</strong>
+                    <span class="estrellas" id="resumen-estrellas">★★★★★</span>
+                    <small>Basado en <span id="resumen-total">128</span> reseñas</small>
+                    <ul class="resumen-barras" id="resumen-barras">
                         <li><span>5 ★</span><div class="barra"><i style="width: 92%"></i></div><span>92%</span></li>
                         <li><span>4 ★</span><div class="barra"><i style="width: 6%"></i></div><span>6%</span></li>
                         <li><span>3 ★</span><div class="barra"><i style="width: 2%"></i></div><span>2%</span></li>
                         <li><span>2 ★</span><div class="barra"><i style="width: 0%"></i></div><span>0%</span></li>
                         <li><span>1 ★</span><div class="barra"><i style="width: 0%"></i></div><span>0%</span></li>
                     </ul>
+                    <button type="button" class="btn-primario btn-dejar-resena" id="btn-dejar-resena">✍️ Dejar mi reseña</button>
+                    <small class="resena-ayuda" id="resena-ayuda">Comparte tu experiencia con otros fans.</small>
                 </aside>
 
                 <!-- Testimonios -->
-                <div class="resenas-grid">
+                <!-- Las reseñas de los usuarios se agregan al inicio -->
+                <div class="resenas-grid" id="resenas-grid">
                     <article class="resena-tarjeta" data-revelar>
                         <div class="resena-cabecera">
                             <span class="avatar" style="--avatar: #ff6b9e">MG</span>
@@ -183,6 +191,51 @@
             </div>
             <p class="resenas-nota">* Reseñas simuladas con fines académicos.</p>
         </section>
+
+        <!-- FORMULARIO "DEJAR MI RESEÑA" (ventana emergente) -->
+        <div class="resena-modal-fondo" id="modal-resena" hidden>
+            <div class="resena-modal" role="dialog" aria-modal="true" aria-labelledby="titulo-modal-resena">
+                <button type="button" class="resena-modal-cerrar" data-cerrar-resena aria-label="Cerrar">&times;</button>
+
+                <span class="etiqueta-seccion">✍️ Tu opinión cuenta</span>
+                <h3 id="titulo-modal-resena">Dejar mi reseña</h3>
+                <p class="resena-modal-producto">Army Bomb Ver. 4 · Arirang World Tour</p>
+
+                <!-- Sin validaciones: basta con las estrellas (vienen en 5) -->
+                <form id="form-resena" novalidate>
+                    <div class="resena-autor">
+                        <span class="avatar" id="resena-autor-avatar">KS</span>
+                        <div>
+                            <small>Publicarás como</small>
+                            <strong id="resena-autor-nombre">Fan Kookstore</strong>
+                            <span id="resena-autor-ciudad">México</span>
+                        </div>
+                    </div>
+
+                    <fieldset class="selector-estrellas">
+                        <legend>Tu calificación</legend>
+                        <div class="estrellas-botones" id="estrellas-botones" role="radiogroup" aria-label="Calificación de 1 a 5 estrellas">
+                            <button type="button" role="radio" data-valor="1" aria-label="1 estrella">★</button>
+                            <button type="button" role="radio" data-valor="2" aria-label="2 estrellas">★</button>
+                            <button type="button" role="radio" data-valor="3" aria-label="3 estrellas">★</button>
+                            <button type="button" role="radio" data-valor="4" aria-label="4 estrellas">★</button>
+                            <button type="button" role="radio" data-valor="5" aria-label="5 estrellas">★</button>
+                        </div>
+                        <span class="estrellas-texto" id="texto-calificacion">Excelente</span>
+                    </fieldset>
+
+                    <label for="resena-texto">Tu opinión <small>(opcional)</small></label>
+                    <textarea id="resena-texto" rows="4" maxlength="400"
+                        placeholder="¿Qué te pareció tu Army Bomb? ¿Cómo llegó tu pedido?"></textarea>
+                    <span class="resena-contador"><span id="resena-letras">0</span>/400</span>
+
+                    <div class="resena-modal-acciones">
+                        <button type="button" class="btn-resena-cancelar" data-cerrar-resena>Cancelar</button>
+                        <button type="submit" class="btn-primario btn-resena-publicar">Publicar reseña</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <!-- 5. LLAMADO A LA ACCIÓN FINAL -->
         <section class="campana-final">
@@ -237,6 +290,7 @@
     <script src="../js/datos-demo.js"></script>
     <script src="../js/ui.js"></script>
     <script src="../js/pagina-campana.js"></script>
+    <script src="../js/resenas-campana.js"></script>
 </body>
 
 </html>

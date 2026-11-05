@@ -375,3 +375,26 @@
 
 .vender-mis-publicaciones strong { color: #00a07f; font-family: var(--fuente-titulos); font-size: 1.15rem; }
 .vender-mis-enlace { margin-left: auto; font-weight: 700; color: #00a07f; }
+
+/* ---------- Tarjetas clicables (abren el detalle) ---------- */
+.publicacion-clic { cursor: pointer; outline: none; }
+.publicacion-clic:focus-visible { box-shadow: 0 0 0 3px #6c5ce7, var(--sombra-media); }
+.publicacion-clic .publicacion-foto img { transition: transform 0.4s; }
+.publicacion-clic:hover .publicacion-foto img { transform: scale(1.05); }
+.publicacion-clic .publicacion-foto { overflow: hidden; }
+.publicacion-clic:hover h3 { color: #6c5ce7; }
+
+.publicacion-ver {
+    margin-top: 0.85rem;
+    padding: 0.55rem 1rem;
+    border-radius: 12px;
+    border: 1.5px solid #d9f5ec;
+    background: #effbf7;
+    color: #00a07f;
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-align: center;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.publicacion-clic:hover .publicacion-ver { background: #00b894; border-color: #00b894; color: white; }
