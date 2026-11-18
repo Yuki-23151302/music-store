@@ -51,16 +51,21 @@
                 <h1>Finalizar compra</h1>
                 <p>Completa tus datos para recibir tus productos. <span class="etiqueta-segura">🔒 Pago seguro</span></p>
             </div>
-            <ol class="checkout-pasos" aria-label="Pasos de la compra">
+            <!-- Pasos del checkout (js/pagina-checkout.js los marca) -->
+            <ol class="checkout-pasos" id="checkout-pasos" aria-label="Pasos de la compra">
                 <li class="hecho"><span>✓</span>Carrito</li>
-                <li class="activo"><span>2</span>Pago</li>
-                <li><span>3</span>Confirmación</li>
+                <li class="activo" data-paso="1"><span>1</span>Envío</li>
+                <li data-paso="2"><span>2</span>Pago</li>
+                <li data-paso="3"><span>3</span>Confirmar</li>
             </ol>
         </section>
 
-        <div class="checkout-grid">
-            <!-- Formulario de Datos sin validaciones -->
-            <form id="form-pago" class="checkout-formularios" onsubmit="procesarPago(event)" novalidate>
+        <div class="checkout-grid" id="checkout-grid">
+            <!-- Formulario de Datos sin validaciones, dividido en 3 pasos -->
+            <form id="form-pago" class="checkout-formularios" novalidate>
+
+                <!-- =================== PASO 1: ENVÍO =================== -->
+                <div class="checkout-paso activo" data-paso="1">
 
                 <!-- 1. DIRECCIÓN -->
                 <section class="checkout-seccion" data-revelar>
@@ -125,8 +130,17 @@
                     </div>
                 </section>
 
+                <div class="paso-acciones">
+                    <a href="carrito.html" class="btn-paso-atras">← Volver al carrito</a>
+                    <button type="button" class="btn-paso-siguiente" data-ir-paso="2">Continuar al pago →</button>
+                </div>
+                </div>
+
+                <!-- =================== PASO 2: PAGO =================== -->
+                <div class="checkout-paso" data-paso="2" hidden>
+
                 <!-- 3. PAGO -->
-                <section class="checkout-seccion" data-revelar style="--retraso: 0.16s">
+                <section class="checkout-seccion">
                     <header class="seccion-cabecera">
                         <span class="seccion-numero">3</span>
                         <div>
@@ -135,6 +149,27 @@
                         </div>
                     </header>
 
+                    <!-- Elegir método: tarjeta, transferencia o e-wallet -->
+                    <div class="metodos-pago" role="radiogroup" aria-label="Método de pago">
+                        <label class="metodo-pago">
+                            <input type="radio" name="metodo-pago" value="tarjeta" checked>
+                            <span class="metodo-icono">💳</span>
+                            <span class="metodo-texto"><strong>Tarjeta</strong><small>Crédito o débito</small></span>
+                        </label>
+                        <label class="metodo-pago">
+                            <input type="radio" name="metodo-pago" value="transferencia">
+                            <span class="metodo-icono">🏦</span>
+                            <span class="metodo-texto"><strong>Transferencia</strong><small>SPEI / depósito</small></span>
+                        </label>
+                        <label class="metodo-pago">
+                            <input type="radio" name="metodo-pago" value="ewallet">
+                            <span class="metodo-icono">👛</span>
+                            <span class="metodo-texto"><strong>KookWallet</strong><small>Saldo en tu cuenta</small></span>
+                        </label>
+                    </div>
+
+                    <!-- Método: TARJETA -->
+                    <div class="metodo-panel" data-metodo="tarjeta">
                     <div class="pago-contenido">
                         <!-- Tarjeta visual que se llena mientras se escribe -->
                         <div class="tarjeta-visual" aria-hidden="true">
@@ -172,9 +207,82 @@
                     </div>
 
                     <p class="aviso-simulado">ℹ️ Esta tienda es una demostración: no ingreses datos reales de tarjeta.</p>
+                    </div>
+
+                    <!-- Método: TRANSFERENCIA (datos bancarios de muestra) -->
+                    <div class="metodo-panel" data-metodo="transferencia" hidden>
+                        <div class="transferencia-caja">
+                            <p class="transferencia-intro">Haz una transferencia SPEI o un depósito con estos datos:</p>
+                            <dl class="datos-banco">
+                                <div><dt>Banco</dt><dd>KookBank México</dd></div>
+                                <div><dt>Beneficiario</dt><dd>Kookstore.mx S.A. de C.V.</dd></div>
+                                <div><dt>Cuenta</dt><dd>0123 4567 89</dd></div>
+                                <div>
+                                    <dt>CLABE</dt>
+                                    <dd><span id="dato-clabe">012 180 00123456789 4</span>
+                                        <button type="button" class="btn-copiar" data-copiar="dato-clabe">Copiar</button></dd>
+                                </div>
+                                <div>
+                                    <dt>Referencia</dt>
+                                    <dd><span id="dato-referencia">KS-000000</span>
+                                        <button type="button" class="btn-copiar" data-copiar="dato-referencia">Copiar</button></dd>
+                                </div>
+                                <div class="dato-monto"><dt>Monto a transferir</dt><dd id="dato-monto-transferencia">$0.00 MXN</dd></div>
+                            </dl>
+                        </div>
+                        <p class="aviso-simulado">ℹ️ Datos bancarios de muestra. Al presionar "Pagar" se simula que la transferencia ya se recibió.</p>
+                    </div>
+
+                    <!-- Método: E-WALLET (saldo simulado) -->
+                    <div class="metodo-panel" data-metodo="ewallet" hidden>
+                        <div class="wallet-tarjeta">
+                            <div class="wallet-fila">
+                                <span class="wallet-marca">👛 KookWallet</span>
+                                <span class="wallet-titular" id="wallet-titular">Invitado</span>
+                            </div>
+                            <small>Saldo disponible</small>
+                            <strong id="wallet-saldo">$0.00 MXN</strong>
+                        </div>
+                        <ul class="wallet-desglose">
+                            <li><span>Saldo disponible</span><span id="wallet-saldo-linea">$0.00</span></li>
+                            <li><span>Total a pagar</span><span id="wallet-total">-$0.00</span></li>
+                            <li class="wallet-restante"><span>Saldo después del pago</span><strong id="wallet-restante">$0.00</strong></li>
+                        </ul>
+                        <div class="wallet-aviso" id="wallet-aviso" hidden>
+                            <span>⚠️ Tu saldo no alcanza para este pedido.</span>
+                            <button type="button" class="btn-copiar" id="btn-recargar-wallet">+ Recargar $2,000 (simulado)</button>
+                        </div>
+                        <p class="aviso-simulado">ℹ️ Saldo simulado: no es dinero real.</p>
+                    </div>
                 </section>
 
-                <button type="submit" style="display:none;"></button>
+                <div class="paso-acciones">
+                    <button type="button" class="btn-paso-atras" data-ir-paso="1">← Cambiar envío</button>
+                    <button type="button" class="btn-paso-siguiente" data-ir-paso="3">Revisar pedido →</button>
+                </div>
+                </div>
+
+                <!-- =========== PASO 3: CONFIRMACIÓN PREVIA =========== -->
+                <div class="checkout-paso" data-paso="3" hidden>
+                    <section class="checkout-seccion">
+                        <header class="seccion-cabecera">
+                            <span class="seccion-numero">4</span>
+                            <div>
+                                <h2>Revisa y confirma</h2>
+                                <p>Verifica que todo esté bien antes de pagar.</p>
+                            </div>
+                        </header>
+                        <!-- Se llena con js/pagina-checkout.js -->
+                        <div class="revision-datos" id="revision-datos"></div>
+                        <h3 class="revision-subtitulo">Productos</h3>
+                        <div class="revision-productos" id="revision-productos"></div>
+                    </section>
+
+                    <div class="paso-acciones">
+                        <button type="button" class="btn-paso-atras" data-ir-paso="2">← Cambiar pago</button>
+                        <button type="submit" class="btn-paso-siguiente btn-paso-pagar" id="btn-pagar-paso">Pagar</button>
+                    </div>
+                </div>
             </form>
 
             <!-- Resumen del Pedido -->
@@ -199,10 +307,10 @@
                     <span>He leído y acepto los <a href="terminos.html" target="_blank" rel="noopener">Términos y Condiciones</a>, la <a href="terminos.html#devoluciones" target="_blank" rel="noopener">política de devoluciones</a> y el <a href="terminos.html#privacidad" target="_blank" rel="noopener">Aviso de Privacidad</a>.</span>
                 </label>
 
-                <button type="button" class="btn-pagar-final"
-                    onclick="document.getElementById('form-pago').requestSubmit()">
+                <!-- En los pasos 1 y 2 avanza; en el paso 3 paga -->
+                <button type="button" class="btn-pagar-final" id="btn-pagar-final">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
-                    <span>Confirmar y pagar</span>
+                    <span>Continuar al pago</span>
                 </button>
 
                 <ul class="resumen-garantias">
@@ -212,6 +320,9 @@
                 </ul>
             </aside>
         </div>
+
+        <!-- CONFIRMACIÓN DE COMPRA: "PAGO APROBADO" (se llena al pagar) -->
+        <section class="checkout-confirmacion" id="checkout-confirmacion" hidden></section>
     </main>
 
     <!-- PIE DE PÁGINA -->
@@ -227,23 +338,6 @@
         </div>
     </footer>
 
-    <!-- MODAL DE ÉXITO -->
-    <div class="kook-modal-overlay" id="modal-exito" style="display: none;">
-        <div class="kook-modal-box">
-            <div class="exito-icono">
-                <svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24" fill="none"/><path fill="none" d="M15 27l7 7 15-15"/></svg>
-            </div>
-            <span class="exito-confeti" aria-hidden="true">🎉</span>
-            <h2>¡Pago exitoso!</h2>
-            <p>Tu pedido fue confirmado y ya lo estamos preparando. Te enviamos los detalles a tu correo electrónico.</p>
-            <div class="exito-folio">Pedido <strong id="folio-modal-exito">#KS-2026-000</strong></div>
-            <div class="kook-modal-botones">
-                <button type="button" class="btn-primario" onclick="finalizarCompra()">Ver mi pedido</button>
-                <a href="catalogo.html" class="btn-contorno">Seguir comprando</a>
-            </div>
-        </div>
-    </div>
-
     <!-- JAVASCRIPT -->
     <script src="../js/notificaciones.js"></script>
     <script src="../js/datos-productos.js"></script>
@@ -252,179 +346,7 @@
     <script src="../js/datos-demo.js"></script>
     <script src="../js/cupones.js"></script>
     <script src="../js/ui.js"></script>
-    <script>
-        let carritoCheckout = [];
-
-        document.addEventListener('DOMContentLoaded', () => {
-            sincronizarPreciosCarrito();   // cobra el precio con las ofertas vigentes
-            carritoCheckout = leerCarrito();
-
-            if (carritoCheckout.length === 0) {
-                window.location.href = 'carrito.html';
-                return;
-            }
-
-            // Si hay sesión, se adelanta el nombre del cliente
-            const usuario = usuarioActivo();
-            if (usuario && usuario.nombre) {
-                document.getElementById('envio-nombre').value = usuario.nombre;
-            }
-
-            conectarTarjetaVisual();
-            actualizarResumen();
-
-            document.getElementById('acepto-terminos').addEventListener('change', function () {
-                document.getElementById('casilla-terminos').classList.remove('requerida');
-            });
-        });
-
-        /* La tarjeta de la izquierda refleja lo que se escribe (sin validar) */
-        function conectarTarjetaVisual() {
-            const numero = document.getElementById('pago-numero');
-            const titular = document.getElementById('pago-titular');
-            const vence = document.getElementById('pago-vence');
-            const cvv = document.getElementById('pago-cvv');
-
-            numero.addEventListener('input', function () {
-                const digitos = this.value.replace(/\D/g, '').slice(0, 16);
-                this.value = digitos.replace(/(.{4})/g, '$1 ').trim();
-                const relleno = (digitos + '•'.repeat(16 - digitos.length)).replace(/(.{4})/g, '$1 ').trim();
-                document.getElementById('vista-numero').textContent = relleno;
-            });
-
-            titular.addEventListener('input', function () {
-                document.getElementById('vista-titular').textContent = this.value.trim().toUpperCase() || 'TU NOMBRE';
-            });
-
-            vence.addEventListener('input', function () {
-                const digitos = this.value.replace(/\D/g, '').slice(0, 4);
-                this.value = digitos.length > 2 ? digitos.slice(0, 2) + '/' + digitos.slice(2) : digitos;
-                document.getElementById('vista-vence').textContent = this.value || 'MM/AA';
-            });
-
-            cvv.addEventListener('input', function () {
-                this.value = this.value.replace(/\D/g, '').slice(0, 4);
-            });
-        }
-
-        function actualizarResumen() {
-            const contenedorItems = document.getElementById('checkout-items');
-            const contenedorDesglose = document.getElementById('checkout-desglose');
-            const contenedorTotal = document.getElementById('checkout-total');
-
-            contenedorItems.innerHTML = carritoCheckout.map(item => `
-                <div class="resumen-item">
-                    <div class="resumen-item-foto">
-                        <img src="${resolverImagen(item.imagen)}" alt="" onerror="this.onerror=null; this.src='../assets/img/logo.png'">
-                        <span class="resumen-item-cantidad">${item.cantidad}</span>
-                    </div>
-                    <div class="resumen-item-info">
-                        <strong>${escaparHTML(item.nombre)}</strong>
-                        <small>${item.opcion ? escaparHTML(item.opcion) : escaparHTML(item.grupo || '')}</small>
-                    </div>
-                    <span class="resumen-item-precio">${formatearPrecio(item.precio * item.cantidad)}</span>
-                </div>
-            `).join('');
-
-            const envioSeleccionado = document.querySelector('input[name="envio"]:checked');
-            const costoEnvio = parseFloat(envioSeleccionado.value);
-            const nombreEnvio = envioSeleccionado.getAttribute('data-nombre');
-            const totalProductos = totalCarrito();
-            const cupon = infoCuponCarrito();
-            const descuentoCupon = cupon && cupon.valido ? cupon.descuento : 0;
-
-            let lineaCupon = '';
-            if (cupon && cupon.valido) {
-                lineaCupon = `<div class="resumen-linea linea-cupon"><span>🎟️ Código <strong>${escaparHTML(cupon.codigo)}</strong> (${textoDescuentoCupon(cupon.cupon)})</span><span class="texto-gratis">-${formatearPrecio(descuentoCupon)}</span></div>`;
-            } else if (cupon) {
-                lineaCupon = `<div class="aviso-cupon">⚠️ El código ${escaparHTML(cupon.codigo)} no se aplicará: ${escaparHTML(cupon.mensaje)}</div>`;
-            }
-
-            contenedorDesglose.innerHTML = `
-                <div class="resumen-linea"><span>Subtotal (${contarArticulos()} artículos)</span><span>${formatearPrecio(totalProductos)}</span></div>
-                ${ahorroCarrito() > 0 ? `<div class="resumen-linea"><span>🔥 Ahorro en ofertas</span><span class="texto-gratis">-${formatearPrecio(ahorroCarrito())}</span></div>` : ''}
-                ${lineaCupon}
-                <div class="resumen-linea"><span>${nombreEnvio}</span><span class="${costoEnvio === 0 ? 'texto-gratis' : ''}">${costoEnvio === 0 ? 'Gratis' : formatearPrecio(costoEnvio)}</span></div>
-            `;
-
-            contenedorTotal.innerHTML = `
-                <span>Total a pagar</span>
-                <strong>${formatearPrecio(totalProductos - descuentoCupon + costoEnvio)}</strong>
-            `;
-        }
-
-        function procesarPago(event) {
-            event.preventDefault();
-
-            // Igual que en las tiendas reales: sin aceptar los términos no se cobra
-            const casilla = document.getElementById('casilla-terminos');
-            if (!document.getElementById('acepto-terminos').checked) {
-                casilla.classList.remove('requerida');
-                void casilla.offsetWidth;            // reinicia la animación
-                casilla.classList.add('requerida');
-                casilla.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                kookToast('Acepta los Términos y Condiciones para confirmar tu compra.', 'aviso', 'Falta un paso');
-                return;
-            }
-
-            const btn = document.querySelector('.btn-pagar-final');
-            btn.classList.add('procesando');
-            btn.querySelector('span').textContent = 'Procesando pago...';
-
-            // Último chequeo de inventario antes de cobrar
-            const sinStock = leerCarrito().filter(item => {
-                const producto = obtenerProductoPorId(item.id);
-                return !producto || item.cantidad > stockDisponible(producto, producto.tieneVariantes ? item.opcion : undefined);
-            });
-            if (sinStock.length > 0) {
-                kookAlerta({
-                    tipo: 'aviso',
-                    titulo: 'Stock insuficiente',
-                    texto: 'Mientras comprabas se agotaron algunas piezas. Ajusta tu carrito para continuar.',
-                    detalle: sinStock.map(i => i.nombre + (i.opcion ? ' (' + i.opcion + ')' : '')).join(', '),
-                    textoBoton: 'Volver al carrito'
-                }).then(() => { window.location.href = 'carrito.html'; });
-                return;
-            }
-
-            const radioEnvio = document.querySelector('input[name="envio"]:checked');
-            const envio = {
-                nombre: radioEnvio.getAttribute('data-nombre'),
-                costo: parseFloat(radioEnvio.value)
-            };
-
-            // Código de descuento: se vuelve a revisar justo antes de cobrar
-            const cupon = infoCuponCarrito();
-            const extras = { terminosAceptados: new Date().toLocaleString('es-MX') };
-            if (cupon && cupon.valido) {
-                extras.cupon = cupon.codigo;
-                extras.descuentoCupon = cupon.descuento;
-            }
-
-            setTimeout(() => {
-                const nuevoPedido = registrarPedido(envio, extras);
-
-                // El código queda canjeado para esta cuenta (una sola vez)
-                if (nuevoPedido && extras.cupon) {
-                    canjearCupon(extras.cupon, clienteActual(), nuevoPedido.folio);
-                }
-                quitarCuponDelCarrito();
-
-                if (nuevoPedido && nuevoPedido.folio) {
-                    document.getElementById('folio-modal-exito').textContent = '#' + nuevoPedido.folio;
-                }
-                document.querySelectorAll('.checkout-pasos li').forEach(li => { li.className = 'hecho'; li.querySelector('span').textContent = '✓'; });
-                document.getElementById('modal-exito').style.display = 'flex';
-                btn.classList.remove('procesando');
-                btn.classList.add('aprobado');
-                btn.querySelector('span').textContent = '¡Pago aprobado!';
-            }, 2000);
-        }
-
-        function finalizarCompra() {
-            window.location.href = 'carrito.html#historial';
-        }
-    </script>
+    <script src="../js/pagina-checkout.js"></script>
 </body>
 
 </html>

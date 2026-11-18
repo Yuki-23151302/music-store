@@ -741,9 +741,11 @@
     .carrito-layout .carrito-resumen { max-width: none; }
 }
 
-/* El historial conserva un ancho cómodo de lectura */
+/* El historial conserva un ancho cómodo de lectura y va centrado */
 #panel-historial {
     max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -1147,3 +1149,18 @@ main.carrito-container {
 }
 
 .pedido-articulos li span.texto-descuento { color: #16a34a; }
+
+/* Botón "Ver detalle": abre el comprobante del pedido */
+.btn-ver-detalle {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1.5px solid #f0ebf8;
+    background: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--tinta);
+    white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.btn-ver-detalle:hover { border-color: var(--color-primario); color: var(--color-primario); transform: translateY(-1px); }

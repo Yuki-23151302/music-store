@@ -221,7 +221,8 @@ function pintarPedidosUsuario(pedidos) {
             '</div>' +
             '<p class="perfil-pedido-resumen">' + escaparHTML(resumen) + '</p>' +
             '<div class="perfil-pedido-fila">' +
-            '<span class="perfil-pedido-fecha">' + escaparHTML(pedido.fecha) + '</span>' +
+            '<span class="perfil-pedido-fecha">' + escaparHTML(pedido.fecha) +
+            ' · <a href="comprobante.html?folio=' + encodeURIComponent(pedido.folio) + '" class="perfil-pedido-detalle">🧾 Ver detalle</a></span>' +
             '<strong class="perfil-pedido-total">' + formatearPrecio(Number(pedido.total) || 0) + '</strong>' +
             '</div>' +
             '<div class="perfil-avance"><span style="width: ' + (AVANCE_ESTADO[estado] || 25) + '%"></span></div>' +

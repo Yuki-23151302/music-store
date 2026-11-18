@@ -419,3 +419,7 @@
     .perfil-stat { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding: 0.9rem; }
     .perfil-stat strong { font-size: 1.1rem; }
 }
+
+/* Enlace al comprobante de cada pedido */
+.perfil-pedido-detalle { font-weight: 600; color: var(--color-secundario); }
+.perfil-pedido-detalle:hover { color: var(--color-primario); text-decoration: underline; }

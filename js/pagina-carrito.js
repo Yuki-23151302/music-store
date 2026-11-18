@@ -4,7 +4,7 @@
    Dibuja las dos pestañas de carrito.html:
 
      1) Carrito             -> productos por pagar
-     2) Historial de compras -> pedidos YA realizados por el
+     2) Mis compras         -> pedidos YA realizados por el
         usuario que tiene la sesión iniciada.
 
    Incluye:
@@ -14,6 +14,7 @@
      - Cantidad con botones − / + limitada al stock disponible.
      - Resumen con subtotal, número de artículos y total.
      - Rastreo del pedido: Pagado → En preparación → En camino → Entregado.
+     - "Ver detalle" abre el comprobante (comprobante.html?folio=...).
      - Si el Admin cancela un pedido, aparece un aviso de reembolso
        (también en vivo si la página está abierta en otra pestaña).
    ========================================================= */
@@ -544,6 +545,8 @@ function pintarHistorial() {
             '<div class="pedido-derecha pedido-header-derecha">' +
             '<span class="badge-estado ' + claseEstado(estado) + '">' + (cancelado ? 'Pedido cancelado' : estado) + '</span>' +
             '<div class="pedido-total">' + formatearPrecio(pedido.total) + '</div>' +
+            // Abre el comprobante del pedido (no despliega el rastreo)
+            '<a href="comprobante.html?folio=' + encodeURIComponent(pedido.folio) + '" class="btn-ver-detalle" onclick="event.stopPropagation()">🧾 Ver detalle</a>' +
             '<button type="button" class="btn-toggle-rastreo">Rastreo <span class="flecha-icon">▼</span></button>' +
             '</div>' +
             '</div>' +

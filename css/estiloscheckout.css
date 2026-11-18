@@ -621,3 +621,341 @@
     font-size: 0.8rem;
     color: #8a5a00;
 }
+
+/* =========================================================
+   CHECKOUT EN 3 PASOS (js/pagina-checkout.js)
+   ========================================================= */
+.checkout-paso[hidden],
+.metodo-panel[hidden],
+.wallet-aviso[hidden],
+.checkout-grid[hidden],
+.checkout-confirmacion[hidden],
+.enlace-volver[hidden] { display: none !important; }
+
+.checkout-paso.activo { animation: entrarPaso 0.35s ease; }
+
+@keyframes entrarPaso {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+}
+
+/* Los pasos ya hechos del encabezado se pueden cliquear para regresar */
+.checkout-pasos li.hecho[data-paso] { cursor: pointer; }
+.checkout-pasos li.hecho[data-paso]:hover { background: #f0fdf4; }
+
+/* Botones al final de cada paso */
+.paso-acciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.4rem;
+}
+
+.btn-paso-atras {
+    padding: 0.75rem 1.2rem;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    font-family: var(--fuente-textos);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--tinta-tenue);
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+}
+
+.btn-paso-atras:hover { background: white; color: var(--color-primario); }
+
+.btn-paso-siguiente {
+    padding: 0.85rem 1.6rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--degradado-marca);
+    color: white;
+    font-family: var(--fuente-textos);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(255, 107, 158, 0.28);
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.btn-paso-siguiente:hover { transform: translateY(-2px); filter: brightness(1.05); }
+.btn-paso-pagar { background: linear-gradient(135deg, #22c55e, #16a34a); box-shadow: 0 10px 22px rgba(34, 197, 94, 0.28); }
+.btn-paso-siguiente:disabled { opacity: 0.7; pointer-events: none; }
+
+/* ---------- Paso 2: métodos de pago ---------- */
+.metodos-pago {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+    margin-bottom: 1.4rem;
+}
+
+.metodo-pago {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 0.9rem;
+    border-radius: 18px;
+    border: 2px solid #eee8f8;
+    background: #fcfbff;
+    cursor: pointer;
+    transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+
+.metodo-pago:hover { border-color: #ffc2d8; }
+.metodo-pago input { position: absolute; opacity: 0; pointer-events: none; }
+
+.metodo-icono {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: white;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(76, 52, 140, 0.08);
+}
+
+.metodo-texto { display: flex; flex-direction: column; min-width: 0; }
+.metodo-texto strong { font-size: 0.9rem; color: var(--tinta); }
+.metodo-texto small { font-size: 0.74rem; color: var(--tinta-tenue); }
+
+.metodo-pago:has(input:checked) {
+    border-color: var(--color-primario);
+    background: var(--rosa-suave);
+    box-shadow: 0 8px 20px rgba(255, 107, 158, 0.15);
+}
+
+.metodo-pago:has(input:focus-visible) { outline: 3px solid rgba(255, 107, 158, 0.35); outline-offset: 2px; }
+
+.metodo-panel { animation: entrarPaso 0.3s ease; }
+
+/* Transferencia */
+.transferencia-caja {
+    padding: 1.3rem;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f1efff, #fff0f6);
+}
+
+.transferencia-intro { margin-bottom: 0.9rem; font-size: 0.9rem; font-weight: 600; color: var(--tinta); }
+
+.datos-banco { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0; }
+
+.datos-banco div { padding: 0.7rem 0.9rem; border-radius: 14px; background: white; }
+.datos-banco dt { font-size: 0.72rem; color: var(--tinta-tenue); }
+.datos-banco dd { margin: 0.15rem 0 0; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-weight: 700; color: var(--tinta); }
+.datos-banco dd span { font-family: "Courier New", monospace; font-size: 0.95rem; }
+.datos-banco .dato-monto { grid-column: 1 / -1; background: var(--tinta); }
+.datos-banco .dato-monto dt { color: rgba(255, 255, 255, 0.7); }
+.datos-banco .dato-monto dd { font-size: 1.3rem; color: white; font-family: var(--fuente-titulos); }
+
+.btn-copiar {
+    padding: 0.2rem 0.7rem;
+    border: 1.5px solid #e6e0f3;
+    border-radius: 999px;
+    background: #faf8ff;
+    font-family: var(--fuente-textos);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-secundario);
+    cursor: pointer;
+}
+
+.btn-copiar:hover { border-color: var(--color-secundario); }
+
+/* KookWallet */
+.wallet-tarjeta {
+    position: relative;
+    overflow: hidden;
+    padding: 1.3rem 1.4rem;
+    border-radius: 22px;
+    color: white;
+    background: linear-gradient(135deg, #00b894, #6c5ce7);
+    box-shadow: 0 16px 30px rgba(108, 92, 231, 0.25);
+}
+
+.wallet-tarjeta::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: -70px;
+    right: -50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.wallet-fila { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.wallet-marca { font-family: var(--fuente-titulos); font-weight: 700; font-size: 1.1rem; }
+.wallet-titular { font-size: 0.8rem; opacity: 0.85; }
+.wallet-tarjeta small { display: block; font-size: 0.75rem; opacity: 0.8; }
+.wallet-tarjeta strong { font-family: var(--fuente-titulos); font-size: 2rem; line-height: 1.1; }
+
+.wallet-desglose { margin: 1rem 0 0; padding: 0; list-style: none; }
+
+.wallet-desglose li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed #eee8f8;
+    font-size: 0.9rem;
+    color: var(--tinta-tenue);
+}
+
+.wallet-desglose .wallet-restante { border-bottom: none; color: var(--tinta); font-weight: 600; }
+.wallet-desglose .wallet-restante strong { color: #16a34a; }
+.wallet-desglose .wallet-restante strong.negativo { color: #e11d48; }
+
+.wallet-aviso {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+    padding: 0.7rem 1rem;
+    border-radius: 14px;
+    background: #fff1f2;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #be123c;
+}
+
+/* ---------- Paso 3: revisión ---------- */
+.revision-datos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 1.3rem; }
+
+.revision-tarjeta { padding: 0.95rem 1rem; border-radius: 18px; background: #faf8ff; border: 1px solid #f0ebf8; min-width: 0; }
+
+.revision-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--tinta-tenue);
+}
+
+.revision-editar {
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: var(--fuente-textos);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--color-primario);
+    cursor: pointer;
+}
+
+.revision-editar:hover { text-decoration: underline; }
+.revision-tarjeta p { font-size: 0.85rem; color: var(--tinta-tenue); overflow-wrap: anywhere; }
+.revision-tarjeta p strong { color: var(--tinta); }
+
+.revision-subtitulo { margin-bottom: 0.6rem; font-size: 1rem; color: var(--tinta); }
+
+.revision-productos { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.revision-producto {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem;
+    border-radius: 16px;
+    border: 1px solid #f0ebf8;
+    text-align: left;
+}
+
+.revision-producto img { width: 52px; height: 52px; flex-shrink: 0; border-radius: 12px; object-fit: cover; background: #f6f3fc; }
+.revision-producto div { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.revision-producto strong { font-size: 0.9rem; color: var(--tinta); }
+.revision-producto small { font-size: 0.78rem; color: var(--tinta-tenue); }
+.revision-producto > span { font-weight: 700; color: var(--tinta); white-space: nowrap; }
+
+/* ---------- Pantalla "¡Pago aprobado!" ---------- */
+.checkout-confirmacion { display: flex; justify-content: center; }
+
+.confirmacion-tarjeta {
+    width: 100%;
+    max-width: 720px;
+    padding: 2.6rem 2.2rem 2.2rem;
+    border-radius: 30px;
+    background: white;
+    box-shadow: var(--sombra-media);
+    text-align: center;
+    animation: aparecerModal 0.45s cubic-bezier(.2, .9, .3, 1.25);
+}
+
+.confirmacion-sello {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.confirmacion-tarjeta h2 { margin: 0.5rem 0 0.3rem; font-size: 2.2rem; color: var(--tinta); }
+.confirmacion-texto { color: var(--tinta-tenue); }
+
+.confirmacion-datos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.7rem;
+    margin-bottom: 1.6rem;
+    text-align: left;
+}
+
+.confirmacion-datos div { padding: 0.85rem; border-radius: 16px; background: #faf8ff; min-width: 0; }
+.confirmacion-datos span { font-size: 1.2rem; }
+.confirmacion-datos small { display: block; margin-top: 0.25rem; font-size: 0.72rem; color: var(--tinta-tenue); }
+.confirmacion-datos strong { display: block; font-size: 0.82rem; line-height: 1.35; color: var(--tinta); overflow-wrap: anywhere; }
+
+.confirmacion-tarjeta .revision-subtitulo { text-align: left; }
+
+.confirmacion-totales { margin: 1rem 0 1.6rem; padding-top: 0.6rem; border-top: 1px dashed #e6e0f3; }
+
+.confirmacion-totales div {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+    color: var(--tinta-tenue);
+}
+
+.confirmacion-totales .confirmacion-total { margin-top: 0.3rem; padding-top: 0.7rem; border-top: 1px solid #f0ebf8; color: var(--tinta); font-weight: 700; }
+.confirmacion-totales .confirmacion-total strong { font-family: var(--fuente-titulos); font-size: 1.6rem; color: var(--color-primario); }
+
+.confirmacion-botones { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.7rem; }
+.confirmacion-botones a { padding: 0.9rem 1.6rem; font-family: var(--fuente-textos); font-size: 0.95rem; }
+.confirmacion-seguir { display: inline-block; margin-top: 1rem; font-size: 0.9rem; font-weight: 600; color: var(--tinta-tenue); }
+.confirmacion-seguir:hover { color: var(--color-primario); }
+
+/* ---------- Responsivo de los pasos ---------- */
+@media (max-width: 960px) {
+    .revision-datos { grid-template-columns: 1fr; }
+    .confirmacion-datos { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+    .metodos-pago { grid-template-columns: 1fr; }
+    .datos-banco { grid-template-columns: 1fr; }
+    .paso-acciones { flex-direction: column-reverse; align-items: stretch; }
+    .paso-acciones > * { text-align: center; }
+    .confirmacion-tarjeta { padding: 2rem 1.2rem 1.6rem; }
+    .confirmacion-tarjeta h2 { font-size: 1.8rem; }
+    .confirmacion-datos { grid-template-columns: 1fr; }
+    .confirmacion-botones a { width: 100%; justify-content: center; }
+}
+
+/* Con 4 pasos, en pantallas angostas la barra de pasos baja de línea */
+@media (max-width: 520px) {
+    .checkout-pasos { flex-wrap: wrap; justify-content: center; border-radius: 22px; }
+}

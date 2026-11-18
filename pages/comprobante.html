@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprobante de compra | Kookstore.mx</title>
+    <!-- Fuentes de Google -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Principal y Específico -->
+    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estiloscomprobante.css">
+    <link rel="stylesheet" href="../css/notificaciones.css">
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+
+    <!-- CABECERA (HEADER) -->
+    <header class="header-principal">
+        <div class="logo-container">
+            <a href="../index.html">
+                <img src="../assets/img/logo.png" alt="Logo Kookstore" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav-principal">
+            <ul>
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="promociones.html">Promociones</a></li>
+                <li><a href="campana.html">Campaña</a></li>
+                <li><a href="nuestra-empresa.html">Nuestra Empresa</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="comunidad.html">Comunidad</a></li>
+                <li><a href="vender.html">Vender</a></li>
+            </ul>
+        </nav>
+        <div class="iconos-usuario">
+            <a href="login.html" class="btn-login">Mi Cuenta</a>
+            <a href="carrito.html" class="btn-carrito">Carrito (0)</a>
+        </div>
+    </header>
+
+    <!-- =========================================================
+         COMPROBANTE / TICKET DE UN PEDIDO
+         Se abre desde la pantalla "¡Pago aprobado!" del checkout
+         y desde "Ver detalle" en Mis compras:
+             comprobante.html?folio=KS-2026-1234
+         "Descargar PDF" abre la ventana de impresión del
+         navegador para guardarlo como PDF.
+         Lógica en js/pagina-comprobante.js
+         ========================================================= -->
+    <main class="comprobante-main">
+
+        <!-- Barra de acciones (no sale en el PDF) -->
+        <div class="comprobante-barra no-imprimir">
+            <nav class="comprobante-migas" aria-label="Ruta de navegación">
+                <a href="carrito.html#historial">← Mis compras</a>
+                <span>›</span>
+                <strong id="migas-folio">Comprobante</strong>
+            </nav>
+            <button type="button" class="btn-primario btn-descargar-pdf" id="btn-descargar-pdf">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><polyline points="7 10 12 15 17 10"/><path d="M5 21h14"/></svg>
+                Descargar PDF
+            </button>
+        </div>
+
+        <!-- Aquí se dibuja el ticket del pedido -->
+        <article class="ticket" id="ticket"></article>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer class="footer-principal">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>Kookstore.mx</h3>
+                <p>Tu tienda confiable de K-pop en México.</p>
+            </div>
+            <div class="footer-enlaces">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="carrito.html#historial">Mis compras</a></li>
+                    <li><a href="perfil.html">Mi perfil</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h4>Ayuda</h4>
+                <ul>
+                    <li><a href="../index.html#faq">Preguntas Frecuentes</a></li>
+                    <li><a href="terminos.html">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2026 Kookstore.mx</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT (el orden importa) -->
+    <script src="../js/notificaciones.js"></script>
+    <script src="../js/datos-productos.js"></script>
+    <script src="../js/sesion.js"></script>
+    <script src="../js/carrito.js"></script>
+    <script src="../js/datos-demo.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/pagina-comprobante.js"></script>
+</body>
+
+</html>
