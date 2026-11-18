@@ -8,6 +8,9 @@
                KookWallet (saldo simulado)
      Paso 3 -> Confirmación previa: revisión de todo + "Pagar"
 
+   Para avanzar y pagar hay un solo botón: el del resumen
+   lateral ("Continuar al pago" -> "Revisar pedido" -> "Pagar").
+
    Al pagar se registra el pedido (carrito.js), se muestra la
    pantalla "¡Pago aprobado!" con el número de pedido y el
    resumen, y desde ahí se abre el comprobante
@@ -141,7 +144,6 @@ function actualizarBotonResumen() {
     if (!boton.classList.contains('procesando') && !boton.classList.contains('aprobado')) {
         boton.querySelector('span').textContent = texto;
     }
-    document.getElementById('btn-pagar-paso').textContent = 'Pagar ' + formatearPrecio(totalAPagar());
 }
 
 /* ---------------------------------------------------------
@@ -401,11 +403,8 @@ function procesarPago(event) {
     }
 
     const btn = document.getElementById('btn-pagar-final');
-    const btnPaso = document.getElementById('btn-pagar-paso');
     btn.classList.add('procesando');
     btn.querySelector('span').textContent = 'Procesando pago...';
-    btnPaso.disabled = true;
-    btnPaso.textContent = 'Procesando pago...';
 
     // Último chequeo de inventario antes de cobrar
     const sinStock = leerCarrito().filter(item => {
